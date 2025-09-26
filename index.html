@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Pyodide Encode/Decode 테스트</title>
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+</head>
+<body>
+  <h1>Pyodide Encode/Decode 테스트 🚀</h1>
+
+  <textarea id="inputText" rows="4" cols="50" placeholder="여기에 텍스트를 입력하세요"></textarea><br>
+  <button onclick="runEncode()">인코딩 실행</button>
+  <button onclick="runDecode()">디코딩 실행</button>
+
+  <p><b>결과:</b></p>
+  <pre id="output"></pre>
+
+  <script>
+    let pyodide;
+
+    async function initPyodide() {
+      pyodide = await loadPyodide();
+
+      const pythonCode = `
+
+# -------------------- 기본 자모 테이블 --------------------
+CHOSUNG = ['ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ']
+JUNGSUNG = ['ㅏ','ㅐ','ㅑ','ㅒ','ㅓ','ㅔ','ㅕ','ㅖ','ㅗ','ㅘ','ㅙ','ㅚ','ㅛ','ㅜ','ㅝ','ㅞ','ㅟ','ㅠ','ㅡ','ㅢ','ㅣ']
+JONGSUNG = ['','ㄱ','ㄲ','ㄳ','ㄴ','ㄵ','ㄶ','ㄷ','ㄹ','ㄺ','ㄻ','ㄼ','ㄽ','ㄾ','ㄿ','ㅀ','ㅁ','ㅂ','ㅄ','ㅅ','ㅆ','ㅇ','ㅈ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ']
+
+# -------------------- 분리 함수 --------------------
+def split_syllable_char(ch):
+    code = ord(ch) - 0xAC00
+    if code < 0 or code > 11171:
+        return ch, '', ''
+    cho = code // (21*28)
+    jung = (code % (21*28)) // 28
+    jong = code % 28
+    return CHOSUNG[cho], JUNGSUNG[jung], JONGSUNG[jong]
+
+# -------------------- 매핑 테이블 --------------------
+mapping = {
+    'ㄱ': 'gos', 'ㄲ': 'gosgos', 'ㄴ': 'nuk', 'ㄷ': 'di', 'ㄸ': 'didi', 'ㄹ': 'ray',
+    'ㅁ': 'mi', 'ㅂ': 'by', 'ㅃ': 'byby', 'ㅅ': 'xi', 'ㅆ': 'xixi', 'ㅇ': 'a',
+    'ㅈ': 'jo', 'ㅉ': 'jojo', 'ㅊ': 'cho', 'ㅋ': 'kay', 'ㅌ': 'twi', 'ㅍ': 'choa', 'ㅎ': 'hwo',
+    'ㅏ': 'i', 'ㅑ': 'ya', 'ㅓ': 'au', 'ㅕ': 'you', 'ㅗ': 'o', 'ㅛ': 'yo',
+    'ㅜ': 'wo', 'ㅠ': 'yu', 'ㅡ': 'ul', 'ㅣ': 'il', 'ㅢ': 'ui'
+}
+
+jong_mapping = {
+    'ㄳ': 'gosxi', 'ㄵ': 'nukjo', 'ㄶ': 'nukhwo',
+    'ㄺ': 'raygos', 'ㄻ': 'raymi', 'ㄼ': 'rayby',
+    'ㄽ': 'rayxi', 'ㄾ': 'raytwi', 'ㄿ': 'raychoa',
+    'ㅀ': 'rayhwo', 'ㅄ': 'byxi'
+}
+
+josa_mapping = {
+    "은": "royo", "는": "royo",
+    "을": "kayo", "를": "kayo",
+    "이": "liyo", "가": "liyo"
+}
+
+# -------------------- Encoder --------------------
+def encode(text: str) -> str:
+    result = []
+    for ch in text:
+        if ch in josa_mapping:
+            result.append(josa_mapping[ch])
+            continue
+        c, v, f = split_syllable_char(ch)
+        parts = []
+        if c in mapping:
+            parts.append(mapping[c])
+        if f:
+            if f in mapping:
+                parts.append(mapping[f])
+            elif f in jong_mapping:
+                parts.append(jong_mapping[f])
+        if v in mapping:
+            parts.append(mapping[v])
+        if parts:
+            result.append("".join(parts))
+        else:
+            result.append(ch)
+    return " ".join(result)
+
+# -------------------- Decoder 준비 --------------------
+rev_initial = {v: k for k, v in mapping.items() if k in CHOSUNG}
+rev_vowel   = {v: k for k, v in mapping.items() if k in JUNGSUNG}
+rev_jong_single = {v: k for k, v in mapping.items() if k in JONGSUNG and k != ''}
+rev_jong_complex = {v: k for k, v in jong_mapping.items()}
+rev_josa = {v: k for k, v in josa_mapping.items()}
+
+# 토큰 사전
+all_units = list(rev_initial.keys()) + list(rev_vowel.keys()) + list(rev_jong_single.keys()) \
+            + list(rev_jong_complex.keys()) + list(rev_josa.keys())
+all_units = sorted(all_units, key=lambda x: -len(x))
+
+def segment_token(token: str):
+    res = []
+    i = 0
+    while i < len(token):
+        matched = False
+        for u in all_units:
+            if token.startswith(u, i):
+                res.append(u)
+                i += len(u)
+                matched = True
+                break
+        if not matched:
+            res.append(token[i])  # 실패시 그대로
+            i += 1
+    return res
+
+def compose_syllable(cho, jung, jong):
+    try:
+        cho_idx = CHOSUNG.index(cho)
+        jung_idx = JUNGSUNG.index(jung)
+        jong_idx = JONGSUNG.index(jong)
+    except ValueError:
+        return None
+    code = 0xAC00 + (cho_idx * 21 + jung_idx) * 28 + jong_idx
+    return chr(code)
+
+def decode_segments(segments):
+    out = []
+    i = 0
+    while i < len(segments):
+        seg = segments[i]
+
+        # 조사
+        if seg in rev_josa:
+            out.append(rev_josa[seg])
+            i += 1
+            continue
+
+        # 초성 + (종성?) + 중성
+        if seg in rev_initial:
+            cho = rev_initial[seg]
+            jong = ''
+            jung = ''
+            if i+1 < len(segments) and segments[i+1] in rev_vowel:
+                jung = rev_vowel[segments[i+1]]
+                i += 2
+            elif i+2 < len(segments) and segments[i+2] in rev_vowel and segments[i+1] in rev_jong_single:
+                jong = rev_jong_single[segments[i+1]]
+                jung = rev_vowel[segments[i+2]]
+                i += 3
+            else:
+                i += 1
+            if jung != '':
+                syll = compose_syllable(cho, jung, jong)
+                if syll: out.append(syll)
+            else:
+                out.append(cho)
+            continue
+
+        # 모음 단독
+        if seg in rev_vowel:
+            out.append(rev_vowel[seg])
+            i += 1
+            continue
+
+        out.append(f"[?{seg}]")
+        i += 1
+    return "".join(out)
+
+def decode(text: str) -> str:
+    tokens = text.split()
+    out = []
+    for t in tokens:
+        segs = segment_token(t)
+        decoded = decode_segments(segs)
+        out.append(decoded)
+        
+    return "".join(out)
+
+`;
+      await pyodide.runPythonAsync(pythonCode);
+      console.log("Pyodide 초기화 완료!");
+    }
+
+    async function runEncode() {
+      const text = document.getElementById("inputText").value;
+      try {
+        pyodide.globals.set("js_text", text); // JS → Python 전달
+        let result = await pyodide.runPythonAsync("encode(js_text)");
+        document.getElementById("output").textContent = result;
+      } catch (err) {
+        console.error(err);
+        document.getElementById("output").textContent = "에러 발생: " + err;
+      }
+    }
+
+    async function runDecode() {
+      const text = document.getElementById("inputText").value;
+      try {
+        pyodide.globals.set("js_text", text); // JS → Python 전달
+        let result = await pyodide.runPythonAsync("decode(js_text)");
+        document.getElementById("output").textContent = result;
+      } catch (err) {
+        console.error(err);
+        document.getElementById("output").textContent = "에러 발생: " + err;
+      }
+    }
+
+    initPyodide();
+  </script>
+</body>
+</html>
