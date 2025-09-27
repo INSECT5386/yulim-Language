@@ -82,11 +82,11 @@ sipioster : 책
 밥/끼니 :podamio
 돈 : volaster
 
-부모
+부모 : haskumaio
 
-아이
+아이 : dynatumaio
 
-형제/자매
+형제/자매 : 
 
 선생님
 
