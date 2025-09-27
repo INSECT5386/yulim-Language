@@ -18,12 +18,12 @@ es : -이다
 부정 : Nuki(누키, 글로벌 부정)
 부정 : -n(로컬 부정)
 
+의문 : Whispi
+
 과거 : pai(페이)
 미래 : fu(퓨)
 
 어휘 초안 /
-
-
 
 humaio : 사람
 famiot : 가족
@@ -97,6 +97,7 @@ humaio-joi pai-fitao : 사람이 죽었다
 humaio-joi fu-fitao : 사람이 죽을 것이다.
 
 Nuki humaio-joi pai-fitao :  사람이 죽지 않았다
+Whispi humaio-joi pai-fitao :  사람이 죽지 않았습니까?
 
 (Nuki가 맨 앞에 붙으면 전체를 부정한다)
 (단어-n 이라면 해당 단어만 부정한다)
