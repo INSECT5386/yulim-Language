@@ -112,25 +112,25 @@ sipioster : 책
 
 만들다 : hwoist
 
-주다
+주다 : givok
 
-받다
+받다 : kivog
 
-걷다
+걷다 : vadin
 
-도시
+도시 : crathios
 
-나라
+나라 : hethiros
 
 마을 : thious
 
-집안/방
+집안/방 : linius
 
 길거리 : volados
 
-가게/상점
+가게/상점 : anuthio
 
-병원
+병원 : 
 
 지금
 
@@ -142,15 +142,15 @@ sipioster : 책
 
 절대/전혀
 
-곧
+곧 : croniso
 
-오래
+오래 : cronis
 
-빠르게
+빠르게 : litier
 
-기쁘다
+기쁘다 : injok
 
-슬프다
+슬프다 : dejok
 
 화나다
 
