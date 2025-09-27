@@ -172,13 +172,13 @@ sipioster : 책
 
 적다 : roig
 
-좋다 : 
+좋다 : krit
 
-나쁘다 : 
+나쁘다 : teris
 
-멀다 : 
+멀다 : volun
 
-가깝다 : 
+가깝다 : vogiro
 
 자신의 고향식으로 말해도 다른 사용자와 호환되는 언어
 한국인 화자: Humaio-joi pifi-otika lokus. (SOV)
