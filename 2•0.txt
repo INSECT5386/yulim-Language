@@ -1,4 +1,4 @@
-Nukil 2.0 초안
+Nukil 2.1 초안
 
 
 음운 -> 문법 -> 어휘 
@@ -82,6 +82,105 @@ sipioster : 책
 밥/끼니 :podamio
 돈 : volaster
 
+부모
+
+아이
+
+형제/자매
+
+선생님
+
+학생
+
+친구들(복수 강조)
+
+연인
+
+먹다
+
+마시다
+
+자다
+
+일하다
+
+배우다
+
+놀다
+
+기다리다
+
+만들다
+
+주다
+
+받다
+
+걷다
+
+도시
+
+나라
+
+마을
+
+집안/방
+
+길거리
+
+가게/상점
+
+병원
+
+지금
+
+항상
+
+자주
+
+가끔
+
+절대/전혀
+
+곧
+
+오래
+
+빠르게
+
+기쁘다
+
+슬프다
+
+화나다
+
+아프다
+
+배고프다
+
+피곤하다
+
+재미있다
+
+지루하다
+
+무섭다
+
+크다
+
+작다
+
+많다
+
+적다
+
+좋다
+
+나쁘다
+
+멀다
+
+가깝다
 
 자신의 고향식으로 말해도 다른 사용자와 호환되는 언어
 한국인 화자: Humaio-joi pifi-otika lokus. (SOV)
@@ -112,3 +211,22 @@ Relio, framiot! → 안녕, 친구야!
 Nuki tio-otika jowet joious-siyon. → 너희들은 집에 가지 않았다.
 
 Delio, gio-joi futroyot lokus. → 잘 가, 우리는 내일 보자.
+
+Whispi tio-joi futroyot jowet sipioius-siyon? → “너는 내일 학교에 가니?”
+
+Nuki gio-joi volaster-otika sipioster lokus. → “우리는 돈으로 책을 보지 않는다.”
+
+Whispi Nuki gio-joi fu-jowet sipioius-siyon?
+→ “우리가 내일 학교에 안 가겠지?”
+
+Nukil
+
+humaio-joi fu-jowet sipioius-siyon.
+
+한국어
+
+사람이 학교에 갈 것이다.
+
+영어
+
+The person will go to school.
