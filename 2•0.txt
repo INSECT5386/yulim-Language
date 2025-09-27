@@ -82,17 +82,17 @@ sipioster : 책
 밥/끼니 :podamio
 돈 : volaster
 
-부모 : haskumaio
+부모 : haskumio
 
-아이 : dynatumaio
+아이 : dynatumio
 
-형제/자매 : 
+형제/자매 : pedumio
 
-선생님
+선생님 : sipiomio
 
-학생
+학생 : dysipio
 
-친구들(복수 강조)
+친구들(복수 강조) : redumio
 
 연인
 
