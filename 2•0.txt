@@ -76,6 +76,7 @@ sipioster : 책
 
 고마워 : gride
 미안해 : sorid
+즐겁다 : injo
 
 학교 : sipioius
 시장 : padaius
@@ -105,7 +106,7 @@ sipioster : 책
 
 배우다 : sipiolig
 
-놀다 : 
+놀다 : injoes
 
 기다리다 : cronites
 
