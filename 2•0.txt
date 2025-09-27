@@ -164,13 +164,13 @@ sipioster : 책
 
 무섭다 : sciacy
 
-크다
+크다 : luong
 
-작다
+작다 : girog
 
-많다
+많다 : lungo
 
-적다
+적다 : 
 
 좋다
 
