@@ -93,25 +93,23 @@ sipioster : 책
 
 학생 : dysipio
 
-친구들(복수 강조) : redumio
+연인 : louxiot
 
-연인
+먹다 : podes
 
-먹다
+마시다 : muwates
 
-마시다
+자다 : notroies
 
-자다
+일하다 : 
 
-일하다
+배우다 : sipiolig
 
-배우다
+놀다 : 
 
-놀다
+기다리다 : cronites
 
-기다리다
-
-만들다
+만들다 : hwoist
 
 주다
 
@@ -123,11 +121,11 @@ sipioster : 책
 
 나라
 
-마을
+마을 : thious
 
 집안/방
 
-길거리
+길거리 : volados
 
 가게/상점
 
