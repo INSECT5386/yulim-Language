@@ -102,7 +102,7 @@ sipioster : 책
 
 자다 : notroies
 
-일하다 : 
+일하다 : woliki
 
 배우다 : sipiolig
 
@@ -130,17 +130,17 @@ sipioster : 책
 
 가게/상점 : anuthio
 
-병원 : 
+병원 : hositio
 
-지금
+지금 : rigrono
 
-항상
+항상 : alcrono
 
-자주
+자주 : oilcrono
 
-가끔
+가끔 : ultcrono
 
-절대/전혀
+절대/전혀 : niver
 
 곧 : croniso
 
@@ -152,19 +152,19 @@ sipioster : 책
 
 슬프다 : dejok
 
-화나다
+화나다 : michil
 
-아프다
+아프다 : hait
 
-배고프다
+배고프다 : bipohun
 
-피곤하다
+피곤하다 / 힘들다 : 
 
-재미있다
+재미있다 : 
 
-지루하다
+지루하다 / 재미없다 :
 
-무섭다
+무섭다 : sciacy
 
 크다
 
@@ -178,9 +178,9 @@ sipioster : 책
 
 나쁘다
 
-멀다
+멀다 : 
 
-가깝다
+가깝다 : 
 
 자신의 고향식으로 말해도 다른 사용자와 호환되는 언어
 한국인 화자: Humaio-joi pifi-otika lokus. (SOV)
