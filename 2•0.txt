@@ -1,0 +1,109 @@
+Nukil 2.0 초안
+
+
+음운 -> 문법 -> 어휘 
+
+p t k
+m n
+s h
+I r w y
+j(y로 읽기!)
+
+es : -이다
+
+주어 : -joi(조이)
+목적어 : -otika(오티카)
+소유 : -milny(밀니)
+방향 : -siyon(시욘)
+부정 : Nuki(누키, 글로벌 부정)
+부정 : -n(로컬 부정)
+
+과거 : pai(페이)
+미래 : fu(퓨)
+
+어휘 초안 /
+
+
+
+humaio : 사람
+famiot : 가족
+framiot: 친구
+mio : 나
+tio : 너
+gio : 우리
+thio : 그들
+joius : 집
+paius : 고향
+pifi: 불
+muwat: 물
+hask: 하늘
+dynat : 흙 / 땅
+bawin : 바람
+solus : 태양
+molus : 달
+
+siros: 말하다
+jowet: 가다
+lokus: 보다
+litao : 살다
+fitao : 죽다
+
+louxi : 사랑
+sciac : 공포
+sipio : 지혜
+cronit : 시간
+hwon : 새롭다
+
+huhaio : 손 / 발
+okai : 눈
+poda : 음식
+volad : 길
+tister : 도구/기술/예술
+sipioster : 책
+
+인사(만날 때) : relio
+인사(헤어질때) : delio
+
+낮 : dayot
+밤 : notroy
+
+오늘 : troyot
+내일 : futroyot
+어제 : paitroyot
+
+고마워 : gride
+미안해 : sorid
+
+학교 : sipioius
+시장 : padaius
+
+밥/끼니 :podamio
+돈 : volaster
+
+
+자신의 고향식으로 말해도 다른 사용자와 호환되는 언어
+한국인 화자: Humaio-joi pifi-otika lokus. (SOV)
+
+영어 화자: Humaio-joi lokus pifi-otika. (SVO)
+
+몽골어 화자: Pifi-otika Humaio-joi lokus. (OVS)
+
+라틴어 감성 화자: Lokus humaio-joi pifi-otika. (VSO)
+
+→ 전부 똑같이 “사람이 불을 본다.”
+
+humaio-joi fitao : 사람이 죽다
+humaio-joi pai-fitao : 사람이 죽었다
+humaio-joi fu-fitao : 사람이 죽을 것이다.
+
+Nuki humaio-joi pai-fitao :  사람이 죽지 않았다
+
+(Nuki가 맨 앞에 붙으면 전체를 부정한다)
+(단어-n 이라면 해당 단어만 부정한다)
+
+응용 /
+Relio, framiot! → 안녕, 친구야!
+
+Nuki tio-otika jowet joious-siyon. → 너희들은 집에 가지 않았다.
+
+Delio, gio-joi futroyot lokus. → 잘 가, 우리는 내일 보자.
