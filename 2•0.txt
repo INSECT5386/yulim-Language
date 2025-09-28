@@ -1,13 +1,4 @@
-Nukil 2.1 초안
-
-
-음운 -> 문법 -> 어휘 
-
-p t k
-m n
-s h
-I r w y
-j(y로 읽기!)
+Nukil 2.2 초안
 
 es : -이다
 
@@ -44,160 +35,97 @@ dynat : 흙 / 땅
 bawin : 바람
 solus : 태양
 molus : 달
-
 siros: 말하다
 jowet: 가다
 lokus: 보다
 litao : 살다
 fitao : 죽다
-
 louxi : 사랑
 sciac : 공포
 sipio : 지혜
 cronit : 시간
 hwon : 새롭다
-
 huhaio : 손 / 발
 okai : 눈
 poda : 음식
 volad : 길
 tister : 도구/기술/예술
 sipioster : 책
-
 인사(만날 때) : relio
 인사(헤어질때) : delio
-
 낮 : dayot
 밤 : notroy
-
 오늘 : troyot
 내일 : futroyot
 어제 : paitroyot
-
 고마워 : gride
 미안해 : sorid
 즐겁다 : injo
-
 학교 : sipioius
 시장 : padaius
-
 밥/끼니 :podamio
 돈 : volaster
-
 부모 : haskumio
-
 아이 : dynatumio
-
 형제/자매 : pedumio
-
 선생님 : sipiomio
-
 학생 : dysipio
-
 연인 : louxiot
-
 먹다 : podes
-
 마시다 : muwates
-
 자다 : notroies
-
 일하다 : woliki
-
 배우다 : sipiolig
-
 놀다 : injoes
-
 기다리다 : cronites
-
 만들다 : hwoist
-
 주다 : givok
-
 받다 : kivog
-
 걷다 : vadin
-
 도시 : crathios
-
 나라 : hethiros
-
 마을 : thious
-
 집안/방 : linius
-
 길거리 : volados
-
 가게/상점 : anuthio
-
 병원 : hositio
-
 지금 : rigrono
-
 항상 : alcrono
-
 자주 : oilcrono
-
 가끔 : ultcrono
-
 절대/전혀 : niver
-
 곧 : croniso
-
 오래 : cronis
-
 빠르게 : litier
-
 기쁘다 : injok
-
 슬프다 : dejok
-
 화나다 : michil
-
 아프다 : hait
-
 배고프다 : bipohun
-
 피곤하다 / 힘들다 : thurio
-
 지루하다 / 재미없다 : dinjo
-
 무섭다 : sciacy
-
 크다 : luong
-
 작다 : girog
-
 많다 : lungo
-
 적다 : roig
-
 좋다 : krit
-
 나쁘다 : teris
-
 멀다 : volun
-
 가깝다 : vogiro
 
 자신의 고향식으로 말해도 다른 사용자와 호환되는 언어
 한국인 화자: Humaio-joi pifi-otika lokus. (SOV)
-
 영어 화자: Humaio-joi lokus pifi-otika. (SVO)
-
 몽골어 화자: Pifi-otika Humaio-joi lokus. (OVS)
-
 라틴어 감성 화자: Lokus humaio-joi pifi-otika. (VSO)
-
 → 전부 똑같이 “사람이 불을 본다.”
 
 humaio-joi fitao : 사람이 죽다
 humaio-joi pai-fitao : 사람이 죽었다
 humaio-joi fu-fitao : 사람이 죽을 것이다.
-
 Nuki humaio-joi pai-fitao :  사람이 죽지 않았다
 Whispi humaio-joi pai-fitao :  사람이 죽지 않았습니까?
-
 humaio-joi humaio-istio pai-fitao : 사람이 사람 때문에 죽었다.
 
 (Nuki가 맨 앞에 붙으면 전체를 부정한다)
@@ -205,26 +133,23 @@ humaio-joi humaio-istio pai-fitao : 사람이 사람 때문에 죽었다.
 
 응용 /
 Relio, framiot! → 안녕, 친구야!
-
 Nuki tio-otika jowet joious-siyon. → 너희들은 집에 가지 않았다.
-
 Delio, gio-joi futroyot lokus. → 잘 가, 우리는 내일 보자.
-
 Whispi tio-joi futroyot jowet sipioius-siyon? → “너는 내일 학교에 가니?”
-
 Nuki gio-joi volaster-otika sipioster lokus. → “우리는 돈으로 책을 보지 않는다.”
-
 Whispi Nuki gio-joi fu-jowet sipioius-siyon?
 → “우리가 내일 학교에 안 가겠지?”
 
 Nukil
-
 humaio-joi fu-jowet sipioius-siyon.
 
 한국어
-
 사람이 학교에 갈 것이다.
 
 영어
-
 The person will go to school.
+
+인간 관계에는 단어 합성이 들어감.
+부모(haskumio) = hask(하늘) + humaio(사람)
+연인(louxiot) = louxi(사랑) + humaio(사람)
+선생(sipiomio) = sipio(지혜) + humaio(사람)
