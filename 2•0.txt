@@ -1,7 +1,6 @@
 Nukil 2.2 초안
 
 es : -이다
-
 주어 : -joi(조이)
 목적어 : -otika(오티카)
 소유 : -milny(밀니)
@@ -11,17 +10,14 @@ es : -이다
 복수 : 's
 더(비교) : -er
 가장(최상) : -git  
-
 가능(할 수 있다.) : kanon
 의무(해야 한다.) : mori
 원함(하고 싶다.) : wint
-
 의문 : Whispi
-
 과거 : pai(페이)
 미래 : fu(퓨)
-
 ~때문에(~의 해서) : -istio
+~보다 : -komi
 
 어휘 초안 /
 
@@ -50,7 +46,7 @@ framiot (친구)
 haskumio (부모)
 dynatumio (아이)
 pedumio (형제/자매)
-louxiot (연인)
+louxio (연인)
 sipiomio (선생님)
 dysipio (학생)
 
@@ -104,12 +100,12 @@ sipioster (책)
 injo (즐겁다)
 injok (기쁘다)
 dejok (슬프다)
-michil (화나다)
-hait (아프다)
-bipohun (배고프다)
-thurio (피곤하다/힘들다)
+hajok (화나다)
+haitjo (아프다)
+bipjo (배고프다)
+thurjo (피곤하다/힘들다)
 dinjo (지루하다/재미없다)
-sciacy (무섭다)
+scijok (무섭다)
 
 📏 성질·형용사
 hwon (새롭다)
@@ -121,7 +117,7 @@ krit (좋다)
 teris (나쁘다)
 volun (멀다)
 vogiro (가깝다)
-litier (빠르게)
+litir (빠르게)
 
 🧍 신체
 huhaio (손 / 발)
@@ -138,13 +134,15 @@ sipiolig (배우다)
 woliki (일하다)
 injoes (놀다)
 cronites (기다리다)
-hwoist (만들다)
+hwous (만들다)
 givok (주다)
 kivog (받다)
 vadin (걷다)
 podes (먹다)
 muwates (마시다)
 notroies (자다)
+esi (있다 / 존재하다)
+esin (없다)
 
 🗨️ 인사·표현
 relio (인사/만날 때)
@@ -157,12 +155,56 @@ idis (그리고)
 soi (그래서)
 bedis (하지만)
 olis (또는/이 아니면)
+ifris (만약 / ~라면)
+folis (~하기 위해) *목적 
 
 📍 위치
 upos (위에)
 dopos (아래에)
 inpos (안에)
 expos (밖에)
+
+🔢 Nukil 2.3 숫자 체계 (A안)
+
+기본수 (0–9)
+0 = zip
+1 = tung
+2 = tog
+3 = diam
+4 = twi
+5 = kiri
+6 = sev
+7 = eti
+8 = nit
+9 = pof
+
+자리값
+10 = sol
+100 = pok
+1000 = twio
+
+🧩 조합 규칙
+
+[큰 수 + 작은 수] 순서로 읽는다.
+
+덧셈 방식 (중국어/한국어 계열).
+
+예시:
+
+11 = sol-tung
+12 = sol-tog
+20 = tog-sol
+23 = tog-sol-diam
+100 = pok
+305 = diam-pok-kiri
+1999 = tung-pok-pof-twio-pof-sol-pof
+
+sus (년)
+molus (~월) *달과 같은 단어 사용
+solus (~일) *해와 같은 단어 사용
+kera (~개)
+
+ex / 11 = (pofio tung) *괄호로 묶기
 
 자신의 고향식으로 말해도 다른 사용자와 호환되는 언어
 한국인 화자: Humaio-joi pifi-otika lokus. (SOV)
@@ -207,3 +249,11 @@ The person will go to school.
 → mio-joi kanon jowet sipioius-siyon = 나는 학교에 갈 수 있다.
 → tio-joi mori woliki = 너는 일해야 한다.
 → gio-joi wint injoes = 우리는 놀고 싶다.
+
+
+'upos-inpos'와 같은 식으로 ~에 있다를 만든다.
+
+Mio-joi pai-woliki sipioius-siyon, bedis gio-joi fu-injoes linius-inpos, idis tio-joi kanon lokus sipioster-otika,
+olis hio-joi wint muwates muwat-otika, soi thio-joi mori vadin volados-siyon.
+=> “나는 과거에 학교에서 일했지만, 우리는 미래에 방 안에서 놀 것이고, 또 너는 책을 볼 수 있으며,
+그는 물을 마시고 싶고, 그래서 그들은 반드시 길거리를 걸어야 한다.”
