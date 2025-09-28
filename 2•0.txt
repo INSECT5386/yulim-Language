@@ -9,6 +9,12 @@ es : -이다
 부정 : Nuki(누키, 글로벌 부정)
 부정 : -n(로컬 부정)
 복수 : 's
+더(비교) : -er
+가장(최상) : -git  
+
+가능(할 수 있다.) : kanon
+의무(해야 한다.) : mori
+원함(하고 싶다.) : wint
 
 의문 : Whispi
 
@@ -19,100 +25,144 @@ es : -이다
 
 어휘 초안 /
 
-humaio : 사람
-famiot : 가족
-framiot: 친구
-mio : 나
-tio : 너
-gio : 우리
-thio : 그들
-joius : 집
-paius : 고향
-pifi: 불
-muwat: 물
-hask: 하늘
-dynat : 흙 / 땅
-bawin : 바람
-solus : 태양
-molus : 달
-siros: 말하다
-jowet: 가다
-lokus: 보다
-litao : 살다
-fitao : 죽다
-louxi : 사랑
-sciac : 공포
-sipio : 지혜
-cronit : 시간
-hwon : 새롭다
-huhaio : 손 / 발
-okai : 눈
-poda : 음식
-volad : 길
-tister : 도구/기술/예술
-sipioster : 책
-인사(만날 때) : relio
-인사(헤어질때) : delio
-낮 : dayot
-밤 : notroy
-오늘 : troyot
-내일 : futroyot
-어제 : paitroyot
-고마워 : gride
-미안해 : sorid
-즐겁다 : injo
-학교 : sipioius
-시장 : padaius
-밥/끼니 :podamio
-돈 : volaster
-부모 : haskumio
-아이 : dynatumio
-형제/자매 : pedumio
-선생님 : sipiomio
-학생 : dysipio
-연인 : louxiot
-먹다 : podes
-마시다 : muwates
-자다 : notroies
-일하다 : woliki
-배우다 : sipiolig
-놀다 : injoes
-기다리다 : cronites
-만들다 : hwoist
-주다 : givok
-받다 : kivog
-걷다 : vadin
-도시 : crathios
-나라 : hethiros
-마을 : thious
-집안/방 : linius
-길거리 : volados
-가게/상점 : anuthio
-병원 : hositio
-지금 : rigrono
-항상 : alcrono
-자주 : oilcrono
-가끔 : ultcrono
-절대/전혀 : niver
-곧 : croniso
-오래 : cronis
-빠르게 : litier
-기쁘다 : injok
-슬프다 : dejok
-화나다 : michil
-아프다 : hait
-배고프다 : bipohun
-피곤하다 / 힘들다 : thurio
-지루하다 / 재미없다 : dinjo
-무섭다 : sciacy
-크다 : luong
-작다 : girog
-많다 : lungo
-적다 : roig
-좋다 : krit
-나쁘다 : teris
-멀다 : volun
-가깝다 : vogiro
+👤 인칭·대명사
+1인칭: mio (나), gio (우리)
+2인칭: tio (너)
+3인칭: hio (그), hios (그녀), itos (그것), thio (그들)
+
+👉 지시사
+thiso (이것 / 이)
+itio (그것 / 그)
+theso (저것 / 저)
+
+❓ 의문사
+whumaio (누구)
+whitio (무엇)
+whivolad (어디)
+whicronit (언제)
+whistio (왜)
+whilitier (어떻게)
+
+👪 사람과 관계
+humaio (사람)
+famiot (가족)
+framiot (친구)
+haskumio (부모)
+dynatumio (아이)
+pedumio (형제/자매)
+louxiot (연인)
+sipiomio (선생님)
+dysipio (학생)
+
+🌍 자연·환경
+hask (하늘)
+solus (태양)
+molus (달)
+bawin (바람)
+muwat (물)
+
+pifi (불)
+dynat (흙 / 땅)
+
+🏠 장소
+joius (집)
+linius (집안/방)
+paius (고향)
+sipioius (학교)
+padaius (시장)
+anuthio (가게/상점)
+hositio (병원)
+volad (길)
+volados (길거리)
+crathios (도시)
+thious (마을)
+hethiros (나라)
+
+🕒 시간
+cronit (시간)
+rigrono (지금)
+troyot (오늘)
+futroyot (내일)
+paitroyot (어제)
+dayot (낮)
+notroy (밤)
+alcrono (항상)
+oilcrono (자주)
+ultcrono (가끔)
+niver (절대/전혀)
+croniso (곧)
+cronis (오래)
+
+🍞 사물·생활
+poda (음식)
+podamio (밥/끼니)
+volaster (돈)
+tister (도구/기술/예술)
+sipioster (책)
+
+🧠 감정·상태
+injo (즐겁다)
+injok (기쁘다)
+dejok (슬프다)
+michil (화나다)
+hait (아프다)
+bipohun (배고프다)
+thurio (피곤하다/힘들다)
+dinjo (지루하다/재미없다)
+sciacy (무섭다)
+
+📏 성질·형용사
+hwon (새롭다)
+luong (크다)
+girog (작다)
+lungo (많다)
+roig (적다)
+krit (좋다)
+teris (나쁘다)
+volun (멀다)
+vogiro (가깝다)
+litier (빠르게)
+
+🧍 신체
+huhaio (손 / 발)
+okai (눈)
+
+🗣️ 동사
+siros (말하다)
+jowet (가다)
+lokus (보다)
+litao (살다)
+fitao (죽다)
+louxi (사랑)
+sipiolig (배우다)
+woliki (일하다)
+injoes (놀다)
+cronites (기다리다)
+hwoist (만들다)
+givok (주다)
+kivog (받다)
+vadin (걷다)
+podes (먹다)
+muwates (마시다)
+notroies (자다)
+
+🗨️ 인사·표현
+relio (인사/만날 때)
+delio (인사/헤어질 때)
+gride (고마워)
+sorid (미안해)
+
+🔗 접속사
+idis (그리고)
+soi (그래서)
+bedis (하지만)
+olis (또는/이 아니면)
+
+📍 위치
+upos (위에)
+dopos (아래에)
+inpos (안에)
+expos (밖에)
 
 자신의 고향식으로 말해도 다른 사용자와 호환되는 언어
 한국인 화자: Humaio-joi pifi-otika lokus. (SOV)
@@ -153,3 +203,7 @@ The person will go to school.
 부모(haskumio) = hask(하늘) + humaio(사람)
 연인(louxiot) = louxi(사랑) + humaio(사람)
 선생(sipiomio) = sipio(지혜) + humaio(사람)
+
+→ mio-joi kanon jowet sipioius-siyon = 나는 학교에 갈 수 있다.
+→ tio-joi mori woliki = 너는 일해야 한다.
+→ gio-joi wint injoes = 우리는 놀고 싶다.
