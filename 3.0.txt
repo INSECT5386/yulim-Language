@@ -2,9 +2,9 @@ Nukil 2.5 초안
 
 변경 사항 : 그리고 기존 Nukil(2.2~2.3)이 모든 어순을 다 지원하려다가 기계 학습에서 꼬여버려서 그냥 SOV로 통합하였다.
 
-ex1 / mimaio-ji sios-rul lous. (나는 학교에 간다)
-ex2 / yumaio-ji roas-rul raus. (너는 밥을 먹는다)
-ex3 / mimaio-ji maio toi relio rul pa'spius (나는 사람에게 안녕을 말했다)
+ex1 / mimaio ji sios-rul lous. (나는 학교에 간다)
+ex2 / yumaio ji roas-rul raus. (너는 밥을 먹는다)
+ex3 / mimaio ji maio toi relio rul pa'spius (나는 사람에게 안녕을 말했다)
 
 lis : ~이다, ~하다
 은/는 : ji
@@ -26,6 +26,21 @@ lis : ~이다, ~하다
 미래 : fo'
 ~때문에(~의 해서) : -iscau
 ~보다 : -komi
+
+~하고 있다. : -singo
+(완료, 경험적 과거 = 과거 완료) : -po 
+능동/피동 : -acto / -pato (예: mas-act → 만들다 / mas-pas → 만들어지다)
+~하는 동안 : shavo
+
+이미 : alre
+아직 : nore
+~부터 : frok
+
+매우 : fulmo
+부분적으로 : parmo
+완전히 : totmo
+가까이 : clomo
+멀리 : farmo
 
 어휘 초안 /
 
@@ -104,6 +119,8 @@ modis (아침)
 evdis (점심)
 nidis (저녁)
 
+becro, afcro, ducro : 이전, 이후, 동안
+
 🍞 사물·생활
 tol (물건/도구)
 roas (음식/밥/끼니)
@@ -119,7 +136,10 @@ rojok (배고프다)
 bojok (피곤하다/힘들다)
 dinjo (지루하다/재미없다)
 hojok (무섭다)
-lojok (사랑)
+lojok (사랑/호감)
+sipi (똑똑한/현명한/지혜로운)
+놀람 : surjok
+혐오 : bajok
 
 📏 성질·형용사
 hwok (새롭다)
@@ -175,52 +195,14 @@ budo (하지만)
 odo (또는/이 아니면)
 ifo (만약 / ~라면)
 foro (~하기 위해) *목적 
+~에 / ~으로/ ~로 : kiro
 
 📍 위치
-upos (위에)
-dopos (아래에)
-inpos (안에)
-expos (밖에)
+upos (위)
+dopos (아래)
+inpos (안)
+expos (밖)
 
-🔢 Nukil 2.3 숫자 체계 (A안)
-
-기본수 (0–9)
-0 = zip
-1 = tung
-2 = tog
-3 = diam
-4 = twi
-5 = kiri
-6 = sev
-7 = eti
-8 = nit
-9 = pof
-
-
-자리값
-10 = sol
-100 = pok
-1000 = twio
-
-🧩 조합 규칙
-
-[큰 수 + 작은 수] 순서로 읽는다.
-
-덧셈 방식 (중국어/한국어 계열).
-
-예시:
-
-11 = sol-tung
-12 = sol-tog
-20 = tog-sol
-23 = tog-sol-diam
-100 = pok
-305 = diam-pok-kiri
-1999 = tung-pok-pof-twio-pof-sol-pof
-
-sus (년)
-molus (~월) *달과 같은 단어 사용
-solus (~일) *해와 같은 단어 사용
-kera (~개)
-
-ex / 11 = (pofio tung) *괄호로 묶기
+~쪽 : biso (안쪽 = inpos-biso)
+멀리 : falo
+~통해 : expre
