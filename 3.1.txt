@@ -4,7 +4,7 @@
 
 형태	설명	예시
 
-기본형	-k로 끝남	giok (좋다), baok (나쁘다)
+기본형	-ok로 끝남	giok (좋다), baok (나쁘다)
 명사형	형용사 + i	gioki (좋음), baoki (나쁨)
 부사형	형용사 + ea	giok → giokea (좋게), baok → baokea (나쁘게)
 
@@ -137,7 +137,7 @@ hajok(행복), cojok(슬픔), anjok(화), unjok(아픔), rojok(배고픔), bojok
 
 형용사
 
-hwok(새롭다), biok(크다), siok(작다), manok(많다), litok(적다), giok(좋다), baok(나쁘다), faloa(멀다), neloa(가깝다), spea(빠르다)
+hwok(새롭다), biok(크다), siok(작다), manok(많다), litok(적다), giok(좋다), baok(나쁘다), falok(멀다), nelok(가깝다), speok(빠르다)
 
 신체
 
