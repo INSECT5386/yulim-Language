@@ -178,7 +178,3 @@ upos(위), dopos(아래), inpos(안), expos(밖), biso(~쪽), falo(멀리), expr
 
 4. simaio ji gioki rul spius.
 → 선생님은 좋음을 말했다.
-
-
-5. mimaio ji lous-ni clo-mo.
-→ 나는 조금 가고 있지 않다.
