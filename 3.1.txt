@@ -37,7 +37,7 @@
 
 형태	설명	예시
 
-형용사 부사형	형용사 + ea	giok → gioea (좋게)
+형용사 부사형	형용사 + ea	giok → giokea (좋게)
 동사 진행형	동사 + -singo	lous → lous-singo (가고 있다)
 
 
