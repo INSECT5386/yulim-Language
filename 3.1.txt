@@ -145,7 +145,7 @@ humio(손/발), emio(눈)
 
 동사
 
-spius(말하다), uso(사용하다), reso(읽다), boso(부수다), wriso(쓰다), fiso(느끼다), fikso(고치다), lous(가다), lokus(보다), livo(살다), divo(죽다), lesi(배우다), woliki(일하다), halis(놀다), maso(만들다), givus(주다), recus(받다), loaus(걷다), raus(먹다), walus(마시다), slepus(자다), inlis(있다), unlis(없다)
+spius(말하다), usus(사용하다), resus(읽다), bosus(부수다), wrisus(쓰다), fisus(느끼다), fiksus(고치다), lousus(가다), lokus(보다), livus(살다), divus(죽다), lesius(배우다), wolus(일하다), halus(놀다), masus (만들다), givus(주다), recus(받다), loaus(걷다), raus(먹다), walus(마시다), slepus(자다), inlius(있다), unlius(없다)
 
 인사·표현
 
