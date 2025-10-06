@@ -1,7 +1,5 @@
 Nukil 2.5 초안
 
-변경 사항 : 그리고 기존 Nukil(2.2~2.3)이 모든 어순
-
 1. 형용사 규칙
 
 형태	설명	예시
@@ -178,16 +176,8 @@ sipi (똑똑한/현명한/지혜로운)
 혐오 : bajok
 
 📏 성질·형용사
-hwok (새롭다)
-biok (크다)
-siok (작다)
-manok (많다)
-litok (적다)
-giok (좋다)
-baok (나쁘다)
-faloa (멀다)
-neloa (가깝다)
-spea (빠르게)
+hwok(새롭다), biok(크다), siok(작다), manok(많다), litok(적다), giok(좋다), baok(나쁘다), falok(멀다), nelok(가깝다), speok(빠르다)
+
 
 🧍 신체
 humio (손 / 발)
