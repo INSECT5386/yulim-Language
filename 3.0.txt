@@ -211,3 +211,20 @@ expos (밖)
 ~쪽 : biso (안쪽 = inpos-biso)
 멀리 : falo
 ~통해 : expre
+
+1. mimaio ji roas-rul giok-ea raus-singo.
+→ 나는 음식을 맛있게 먹고 있다.
+
+
+2. yumaio ji sitol-ui resus-po.
+→ 너는 책을 읽은 상태다.
+
+
+3. himaio ji masus-acto foro tol.
+→ 그는 물건을 만들기 위해 만든다.
+
+
+4. simaio ji gioki rul spius.
+→ 선생님은 좋음을 말했다.
+
+이런 언어를 만드는 중인데 어때?
