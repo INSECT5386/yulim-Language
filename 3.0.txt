@@ -140,7 +140,6 @@ evcro (매일)
 ofcro (자주)
 socro (가끔/때때로)
 soncro (곧)
-wacro (기다리다)
 locro (오래)
 
 nicro (절대/전혀)
@@ -187,7 +186,7 @@ emio (눈)
 
 🗣️ 동사
 
-spius(말하다), usus(사용하다), resus(읽다), bosus(부수다), wrisus(쓰다), fisus(느끼다), fiksus(고치다), lousus(가다), lokus(보다), livus(살다), divus(죽다), lesius(배우다), wolus(일하다), halus(놀다), masus (만들다), givus(주다), recus(받다), loaus(걷다), raus(먹다), walus(마시다), slepus(자다), inlius(있다), unlius(없다)
+spius(말하다), usus(사용하다), resus(읽다), bosus(부수다), wrisus(쓰다), fisus(느끼다), fiksus(고치다), lousus(가다), lokus(보다), livus(살다), divus(죽다), lesius(배우다), wolus(일하다), halus(놀다), masus (만들다), givus(주다), recus(받다), loaus(걷다), raus(먹다), walus(마시다), slepus(자다), inlius(있다), unlius(없다), wacrous (기다리다)
 
 🗨️ 인사·표현
 relio (인사/만날 때)
