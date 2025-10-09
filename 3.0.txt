@@ -61,6 +61,7 @@ lis : ~이다, ~하다
 ~때문에(~의 해서) : -iscau
 ~보다 : -komi
 
+
 ~하고 있다. : -singo
 (완료, 경험적 과거 = 과거 완료) : -po 
 능동/피동 : -acto / -pato (예: mas-act → 만들다 / mas-pas → 만들어지다)
@@ -81,7 +82,7 @@ lis : ~이다, ~하다
 👤 인칭·대명사
 1인칭: mimaio (나), wimaio (우리)
 2인칭: yumaio (너)
-3인칭: himaio (그), simaio (그녀), itos (그것), timaio (그들)
+3인칭: himaio (그), siomaio (그녀), itos (그것), timaio (그들)
 
 👉 지시사
 toso (이것 / 이)
@@ -153,6 +154,7 @@ modis (아침)
 evdis (점심)
 nidis (저녁)
 
+
 becro, afcro, ducro : 이전, 이후, 동안
 
 🍞 사물·생활
@@ -168,7 +170,7 @@ anjok (화)
 unjok (아픔)
 rojok (배고프다)
 bojok (피곤하다/힘들다)
-dinjo (지루하다/재미없다)
+dinjok (지루하다/재미없다)
 hojok (무섭다)
 lojok (사랑/호감)
 sipi (똑똑한/현명한/지혜로운)
