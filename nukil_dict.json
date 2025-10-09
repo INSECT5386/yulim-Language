@@ -709,11 +709,37 @@
   },
   "walus": {
     "품사": "동사",
-    "뜻": "마시다"
+    "뜻": "마시다",
+    "변형":{
+      "과거": "pa'walus (마셨다)",
+      "미래": "fo'walus (마실 것이다)",
+      "부정": "walus-ni (마시지 않다)",
+      "진행": "walus-singo (마시고 있다)",
+      "완료": "walus-po (마신 상태이다)",
+      "능동": "walus-acto (마시다 *스스로)",
+      "피동": "walus-pato (마셔지다)",
+      "목적": "foro walus (마시기 위해)",
+    "명사형": "walusio (마심)"
+    }
   },
   "slepus": {
     "품사": "동사",
-    "뜻": "자다"
+    "뜻": "자다",
+    "변형": {
+      "과거": "pa'slepus (잤다)",
+      "미래": "fo'slepus (잘 것이다)",
+      "부정": "slepus-ni (자지 않다)",
+      "진행": "slepus-singo (자고 있다)",
+      "완료": "slepus-po (잔 상태이다 / 이미 잠든 상태)",
+      "능동": "slepus-acto (스스로 잔다)",
+      "피동": "slepus-pato (잠겨지다 / 잠이 들다)",
+      "목적": "foro slepus (자기 위해)",
+      "명사형": "slepusio (잠 / 수면)"
+    },
+    "예문": [
+      "mimaio ji slepus-singo. (나는 자고 있다.)",
+      "timaio ji slepus-po. (그들은 잔 상태다.)"
+    ]
   },
   "inlius": {
     "품사": "동사",
