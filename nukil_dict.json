@@ -720,7 +720,11 @@
       "피동": "walus-pato (마셔지다)",
       "목적": "foro walus (마시기 위해)",
     "명사형": "walusio (마심)"
-    }
+    },
+    "예문": [
+      "mimaio ji walus-singo. (나는 마시고 있다.)",
+      "timaio ji walus-po. (그들은 마신 상태이다.)"
+    ]
   },
   "slepus": {
     "품사": "동사",
