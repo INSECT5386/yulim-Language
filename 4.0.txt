@@ -18,15 +18,18 @@ anjoko (명사): 화
 anvjok (형용사): 무겁다
     [명사형]: anvjoki (무거움)
     [부사형]: anvjokea (무겁게)
+aptos (명사): 의자 / 좌석
 bajoko (명사): 혐오
 baok (형용사): 나쁘다
     [명사형]: baoki (나쁨)
     [부사형]: baokea (나쁘게)
 becrom (부사): 이전
 belom (명사): 소지품 / 물건
+bidos (명사): 베개 / 침구
 biok (형용사): 크다
     [명사형]: bioki (큼)
     [부사형]: biokea (크게)
+blandos (명사): 이불 / 담요
 bojok (형용사): 피곤하다 / 힘들다
     [명사형]: bojoki (피곤함/힘듦)
     [부사형]: bojokea (피곤하게/힘들게)
@@ -40,7 +43,9 @@ bosus (동사): 부수다
     [피동]: bosus-pato (부셔지다 / 부서지다)
     [목적]: foro bosus (부수기 위해)
     [명사형]: bosusio (파괴 / 부수기)
+brivos (명사): 테이블 / 책상
 budo (접속사): 하지만
+clocros (명사): 시계 / 시간계측기
 clomo (부사): 가까이
 cojoko (명사): 슬픔
 coptivus (동사): 닫다
@@ -51,9 +56,12 @@ coptivus (동사): 닫다
     [완료]: coptivus-po (닫힌 상태이다)
     [능동]: coptivus-acto (스스로 닫다)
     [피동]: coptivus-pato (닫혀지다)
+    [목적]: foro coptivus (닫기 위해)
     [명사형]: coptivusio (닫힘)
 crom (명사): 시간
+cutos (명사): 컵 / 잔
 dayos (명사): 낮
+decotolis (명사): 거울 / 반사체
 delio (명사): 인사 (헤어질 때)
 dinjok (형용사): 지루하다 / 재미없다
     [명사형]: dinjoki (지루함)
@@ -70,11 +78,13 @@ divus (동사): 죽다
     [목적]: foro divus (죽기 위해)
     [명사형]: divusio (죽음)
 dopos (명사 / 전치사): 아래
+dritos (명사): 칼 / 검
 ducrom (부사): 동안
 emio (명사): 눈
 endo (접속사): 그리고
 evcrom (명사): 매일
 evdis (명사): 점심
+evros (명사): 숟가락 / 젓가락
 expos (명사 / 전치사): 밖 / 외부
 falok (형용사): 멀다
     [명사형]: faloki (멀음 / 멈)
@@ -96,6 +106,7 @@ fiksus (동사): 고치다 / 수리하다
     [목적]: foro fiksus (고치기 위해)
     [명사형]: fiksusio (수리 / 수정)
 filem (명사): 불
+filemoros (명사): 가스 / 가스불
 fimaio (명사): 친구
 fisus (동사): 느끼다
     [과거]: pa'fisus (느꼈다)
@@ -111,9 +122,12 @@ fo' (접두사): 미래 시제
 fodis (명사): 어제
 fomio (명사): 동물
 foro (접속사): ~하기 위해 (목적)
+frimos (명사): 냉장고
 frok (전치사): ~부터
 fulmo (부사): 매우
+futos (명사): 접시 / 그릇
 ga (조사): 이/가
+gabdos (명사): 가방 / 배낭
 giok (형용사): 좋다
     [명사형]: gioki (좋음)
     [부사형]: giokea (좋게)
@@ -153,11 +167,13 @@ hojok (형용사): 무섭다
 homaio (의문사): 누구
 humaio (명사): 형제 / 자매 / 남매
 humio (명사): 손 / 발
+hutos (명사): 바닥 / 지면
 hwok (형용사): 새롭다
     [명사형]: hwoki (새로움)
     [부사형]: hwokea (새롭게)
 ifo (접속사): 만약 / ~라면
 ilos (명사): 건물
+ilvos (명사): 문 / 출입구
 inlius (동사): 있다 / 존재하다
     [과거]: pa'inlius (있었다 / 존재했다)
     [미래]: fo'inlius (있을 것이다 / 존재할 것이다)
@@ -171,7 +187,9 @@ inlius (동사): 있다 / 존재하다
 inpos (명사 / 전치사): 안 / 내부
 itos (대명사): 그것
 ji (조사): 은/는
+juvos (명사): 창문 / 유리
 kanon (조동사): 할 수 있다
+kero (명사): 열쇠 / 잠금장치
 kiro (전치사): ~에 / ~으로 / ~로
 kivus (동사): 웃다
     [과거]: pa'kivus (웃었다)
@@ -181,6 +199,7 @@ kivus (동사): 웃다
     [완료]: kivus-po (웃은 상태이다)
     [능동]: kivus-acto (스스로 웃다 / 웃음 짓다)
     [피동]: kivus-pato (웃겨지다 / 웃음이 생기다)
+    [목적]: foro kivus (웃기 위해)
     [명사형]: kivusio (웃음)
 lalem (명사): 흙 / 땅
 lamaio (명사): 아이
@@ -204,11 +223,14 @@ lirus (동사): 듣다 / 귀 기울이다
     [완료]: lirus-po (들은 상태이다. / 귀 기울였던 상태이다)
     [능동]: lirus-acto (스스로 듣다 / 스스로 귀 기울이다 / 집중하다)
     [피동]: lirus-pato (들어지다 / 귀 기울여지다)
+    [목적]: foro lirus (듣기 위해/귀 기울이기 위해)
     [명사형]: lirusio (들음 / 귀 기울임)
 lis (동사): ~이다, ~하다
 litok (형용사): 적다
     [명사형]: litoki (적음)
     [부사형]: litokea (적게)
+litolem (명사): 번개 / 천둥
+litolemoros (명사): 전기 / 전원
 livus (동사): 살다 / 생존하다
     [과거]: pa'livus (살았다 / 생존했다)
     [미래]: fo'livus (살 것이다 / 생존할 것이다)
@@ -268,7 +290,9 @@ masus (동사): 만들다 / 창조하다
     [피동]: masus-pato (만들어지다 / 창조되다)
     [목적]: foro masus (만들기 위해 / 창조하기 위해)
     [명사형]: masusio (제작 / 창조)
+meko (명사): 약
 mimaio (대명사): 나
+mimos (명사): 휴대폰 / 기기
 miogos (명사): 영화 / 영상
 mivus (동사): 움직이다 / 활동하다
     [과거]: pa'mivus (움직였다 / 활동했다)
@@ -278,6 +302,7 @@ mivus (동사): 움직이다 / 활동하다
     [완료]: mivus-po (움직인 상태이다 / 활동한 상태이다)
     [능동]: mivus-acto (스스로 움직인다 / 스스로 활동한다)
     [피동]: mivus-pato (움직여지다 / 활동해지다)
+    [목적]: foro mivus (움직이기 위해 / 활동하기 위해)
     [명사형]: mivusio (움직임 / 활동함)
 modis (명사): 아침
 molus (명사): 달
@@ -291,11 +316,22 @@ nidis (명사): 저녁
 nijok (형용사): 춥다
     [명사형]: nijoki (추움)
     [부사형]: nijokea (춥게)
+nimos (동사): 충전하다 / 전원 연결
+    [과거]: pa'nimos (충전했다 / 전원 연결했다)
+    [미래]: fo'nimos (충전할 것이다 / 전원 연결할 것이다)
+    [부정]: nimos-ni (충전하지 않다 / 전원 연결하지 않다)
+    [진행]: nimos-singo (충전하는 중이다 / 전원 연결 중이다)
+    [완료]: nimos-po (충전한 상태이다 / 전원 연결된 상태이다)
+    [능동]: nimos-acto (스스로 충전하다 / 스스로 전원 연결하다)
+    [피동]: nimos-pato (충전 당하다 / 전원 연결 당하다)
+    [목적]: foro nimos (충전하기 위해 / 전원 연결하기 위해)
+    [명사형]: nimosio (충전 / 전원 연결)
 niyos (명사): 밤
 nomios (명사): 이름
 nore (부사): 아직
 odo (접속사): 또는 / 이 아니면
 ofcrom (명사): 자주
+opros (명사): 가방 속 물건 / 소지품
 optivus (동사): 열다
     [과거]: pa'optivus (열었다)
     [미래]: fo'optivus (열 것이다)
@@ -304,6 +340,7 @@ optivus (동사): 열다
     [완료]: optivus-po (연 상태이다)
     [능동]: optivus-acto (스스로 열다)
     [피동]: optivus-pato (열리다)
+    [목적]: foro optivus (열기 위해)
     [명사형]: optivusio (열림)
 pa' (접두사): 과거 시제
 padis (명사): 내일
@@ -312,7 +349,29 @@ pifilem (명사): 연기 / 향기
 pilos (명사): 카페 / 휴식 공간
 pios (명사): 고향
 piroasio (명사): 간식 / 음식 종류
+pishio (명사): 스위치 / 버튼
+pishiorus (동사): 누르다
+    [과거]: pa'pishiorus (눌렀다)
+    [미래]: fo'pishiorus (누를 것이다)
+    [부정]: pishiorus-ni (누르지 않다)
+    [진행]: pishiorus-singo (누르는 중이다)
+    [완료]: pishiorus-po (이미 눌렀다)
+    [능동]: pishiorus-acto (스스로 누르다)
+    [피동]: pishiorus-pato (눌러졌다)
+    [목적]: foro pishiorus (누르기 위해)
+    [명사형]: pishiorusio (누름)
+primos (명사): 장보기 / 쇼핑
 prolus (명사): 사건
+qimus (동사): 사다 / 구입하다
+    [과거]: pa'qimus (샀다 / 구입했다)
+    [미래]: fo'qimus (살 것이다 / 구입할 것이다)
+    [부정]: qimus-ni (사지 않다 / 구입하지 않다)
+    [진행]: qimus-singo (사는 중이다 / 구입하는 중이다)
+    [완료]: qimus-po (산 상태이다 / 구입한 상태이다)
+    [능동]: qimus-acto (스스로 사다 / 스스로 구입하다)
+    [피동]: qimus-pato (사짐 당하다 / 구입당하다)
+    [목적]: foro qimus (사기 위해 / 구입하기 위해)
+    [명사형]: qimusio (구입 / 구매)
 raus (동사): 먹다
     [과거]: pa'raus (먹었다)
     [미래]: fo'raus (먹을 것이다)
@@ -342,6 +401,7 @@ remivus (동사): 기억하다 / 생각나다
     [완료]: remivus-po (기억한 상태이다 / 생각난 상태이다)
     [능동]: remivus-acto (스스로 기억하다 / 스스로 생각나다)
     [피동]: remivus-pato (기억되어지다 / 생각나게 되다)
+    [목적]: foro remivus (기억하기 위해 / 생각나기 위해)
     [명사형]: remivusio (기억 / 생각)
 resus (동사): 읽다
     [과거]: pa'resus (읽었다)
@@ -354,11 +414,32 @@ resus (동사): 읽다
     [목적]: foro resus (읽기 위해)
     [명사형]: resusio (읽음 / 독서)
 ricrom (명사): 지금
+rimos (명사): 카드 / 결제 수단
 rios (명사): 시장 / 식당
 roasio (명사): 음식 / 밥 / 끼니
+roasus (동사): 요리하다 / 조리하다
+    [과거]: pa'roasus (요리했다/조리했다)
+    [미래]: fo'roasus (요리할 것이다 / 조리할 것이다)
+    [부정]: roasus-ni (요리하지 않다 / 조리하지 않다)
+    [진행]: roasus-singo (요리하는 중이다 / 조리하는 중이다)
+    [완료]: roasus-po (이미 요리했다 / 이미 조리했다)
+    [능동]: roasus-acto (스스로 요리하다 / 스스로 조리하다)
+    [피동]: roasus-pato (요리 당하다 / 조리 당하다)
+    [목적]: foro roasus (요리하기 위해)
+    [명사형]: roasusio (요리함 / 조리함)
 rojok (형용사): 배고프다
     [명사형]: rojoki (배고픔)
     [부사형]: rojokea (배고프게)
+rolus (동사): 설거지하다 / 씻다
+    [과거]: pa'rolus (설거지 했다 / 씻었다)
+    [미래]: fo'rolus (설거지 할 것이다 / 씻을 것이다)
+    [부정]: rolus-ni (설거지 하지 않다 / 씻지 않다)
+    [진행]: rolus-singo (설거지하는 중이다 / 씻는 중이다)
+    [완료]: rolus-po (설거지 한 상태이다 / 씻은 상태이다)
+    [능동]: rolus-acto (스스로 설거지하다 / 스스로 씻다)
+    [피동]: rolus-pato (씻겨지다)
+    [목적]: foro rolus (씻기 위해 / 설거지하기 위해)
+    [명사형]: rolusio (씻음 / 설거지 함)
 romos (명사): 집안 / 방
 rul (조사): 을/를
 samaio (명사): 조부모
@@ -371,8 +452,10 @@ setius (동사): 보내다 / 전달하다
     [완료]: setius-po (보낸 상태이다 / 전달한 상태이다)
     [능동]: setius-acto (스스로 보내다 / 스스로 전달하다)
     [피동]: setius-pato (보내지다 / 전달되다)
+    [목적]: foro setius (보내기 위해 / 전달하기 위해)
     [명사형]: setiusio (보냄 / 전달)
 shavo (접속사): ~하는 동안
+shomos (명사): 샤워기 / 수도
 siljok (형용사): 밝다 / 환하다
     [명사형]: siljoki (밝음 / 환함)
     [부사형]: siljokea (밝게 / 환하게)
@@ -396,6 +479,7 @@ sirvus (동사): 울다 / 눈물 흘리다
     [완료]: sirvus-po (운 상태이다 / 눈물 흘린 상태이다)
     [능동]: sirvus-acto (스스로 운다 / 눈물 흘린다)
     [피동]: sirvus-pato (울게 되다 / 눈물 흘려지다)
+    [목적]: foro sirvus (울기 위해 / 눈물을 흘리기 위해)
     [명사형]: sirvusio (울음 / 눈물)
 sitolis (명사): 책
 sizifus (명사): 봄
@@ -413,6 +497,7 @@ socrom (명사): 가끔 / 때때로
 solo (감탄사): 미안해
 solus (명사): 태양
 soncrom (명사): 곧
+sopidos (명사): 비누 / 세제
 sopus (동사): 숨다 / 감추다
     [과거]: pa'sopus (숨었다 / 감췄다)
     [미래]: fo'sopus (숨을 것이다 / 감출 것이다)
@@ -421,6 +506,7 @@ sopus (동사): 숨다 / 감추다
     [완료]: sopus-po (숨은 상태이다 / 감춘 상태이다)
     [능동]: sopus-acto (스스로 숨다 / 스스로 감추다)
     [피동]: sopus-pato (숨어지다 / 감춰지다)
+    [목적]: foro sopus (숨기 위래 / 감추기 위해)
     [명사형]: sopusio (숨음 / 감춤)
 speok (형용사): 빠르다
     [명사형]: speoki (빠름)
@@ -441,11 +527,13 @@ teso (지시사): 저것 / 저
 ticjok (형용사): 어렵다 / 복잡하다
     [명사형]: ticjoki (어려움 / 복잡함)
     [부사형]: ticjokea (어렵게 / 복잡하게)
+tidos (명사): 휴지 / 종이
 timaio (대명사): 그들
 tiso (지시사): 그것 / 그
 toi (조사): 에게
 tolis (명사): 물건 / 도구
 tolos (명사): 가게 / 상점
+tomeko (명사): 치약 / 세정제
 torio (명사): 시간 단위 (시/분)
 torus (동사): 생각하다 / 고민하다
     [과거]: pa'torus (생각했다 / 고민했다)
@@ -455,10 +543,16 @@ torus (동사): 생각하다 / 고민하다
     [완료]: torus-po (생각한 상태이다 / 고민한 상태이다)
     [능동]: torus-acto (스스로 생각한다 / 스스로 고민한다)
     [피동]: torus-pato (생각해지다 / 고민해지다)
+    [목적]: foro torus (생각하기 위해 / 고민하기 위해)
     [명사형]: torusio (생각함 / 고민함)
 toso (지시사): 이것 / 이
+tothio (명사): 이 / 이빨
 totmo (부사): 완전히
+totolis (명사): 칫솔 / 청결도구
+trados (명사): 쓰레기 / 폐기물
+trimos (명사): 편지 / 문서
 tumaio (명사): 친척
+twodos (명사): 수건 / 행주
 ui (조사): 의
 unjoko (명사): 아픔
 unlius (동사): 없다 / 존재하지 않다
@@ -472,6 +566,7 @@ unlius (동사): 없다 / 존재하지 않다
     [목적]: foro unlius (없기 위해 / 존재하지 않기 위해)
     [명사형]: unliusio (부재 / 없음)
 upos (명사 / 전치사): 위
+urvos (명사): 약 / 의료용품
 usus (동사): 사용하다
     [과거]: pa'usus (사용했다)
     [미래]: fo'usus (사용할 것이다)
@@ -479,12 +574,23 @@ usus (동사): 사용하다
     [진행]: usus-singo (사용하고 있다)
     [완료]: usus-po (사용한 상태이다)
     [능동]: usus-acto (사용한다)
-    [피동]: 사용해진다/써진다
+    [피동]: usus-pato (사용해진다/써진다)
+    [목적]: foro usus (사용하기 위해)
     [명사형]: ususio (사용함 / 씀)
 vijok (형용사): 덥다
     [명사형]: vijoki (더움)
     [부사형]: vijokea (덥게)
 vomos (명사): 가구 / 집안 물건
+vrimos (동사): 복용하다 / 사용하다
+    [과거]: pa'vrimos (복용했다 / 사용했다)
+    [미래]: fo'vrimos (복용할 것이다 / 사용할 것이다)
+    [부정]: vrimos-ni (복용하지 않다 / 사용하지 않다)
+    [진행]: vrimos-singo (복용하는 중이다 / 사용하는 중이다)
+    [완료]: vrimos-po (복용한 상태이다 / 사용한 상태이다)
+    [능동]: vrimos-acto (스스로 복용하다 / 스스로 사용하다)
+    [피동]: vrimos-pato (복용 당하다 / 사용 당하다)
+    [목적]: foro vrimos (복용하기 위해 / 사용하기 위해)
+    [명사형]: vrimosio (복용 / 사용)
 wacrous (동사): 기다리다
     [과거]: pa'wacrous (기다렸다)
     [미래]: fo'wacrous (기다릴 것이다)
@@ -506,6 +612,7 @@ walus (동사): 마시다
     [피동]: walus-pato (마셔지다 / 마시게 되다)
     [목적]: foro walus (마시기 위해)
     [명사형]: walusio (마심 / 음료)
+wamos (명사): 싱크대 / 세면대
 wav (조동사): 하고 싶다
 wethio (명사): 날씨
 whi (의문사): 왜
