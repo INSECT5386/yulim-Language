@@ -1,0 +1,542 @@
+'si (접미사): 복수형
+-acto (접미사): 능동형
+-hig (접미사): 가장 (최상급)
+-iscau (접미사): ~때문에, ~의 해서
+-komi (접미사): ~보다
+-mo (접미사): 더 (비교급)
+-ni (부정어(로컬)): ~하지 않다
+-pato (접미사): 피동형
+-po (접미사): 완료, 경험적 과거
+-singo (접미사): ~하고 있다
+Noti (부정어(글로벌)): 아니다, 하지 않다
+Whispi (의문표지): 의문을 나타냄
+afcrom (부사): 이후
+alcrom (명사): 항상
+alre (부사): 이미
+ando (접속사): 그래서
+anjoko (명사): 화
+anvjok (형용사): 무겁다
+    [명사형]: anvjoki (무거움)
+    [부사형]: anvjokea (무겁게)
+bajoko (명사): 혐오
+baok (형용사): 나쁘다
+    [명사형]: baoki (나쁨)
+    [부사형]: baokea (나쁘게)
+becrom (부사): 이전
+belom (명사): 소지품 / 물건
+biok (형용사): 크다
+    [명사형]: bioki (큼)
+    [부사형]: biokea (크게)
+bojok (형용사): 피곤하다 / 힘들다
+    [명사형]: bojoki (피곤함/힘듦)
+    [부사형]: bojokea (피곤하게/힘들게)
+bosus (동사): 부수다
+    [과거]: pa'bosus (부셨다)
+    [미래]: fo'bosus (부술 것이다)
+    [부정]: bosus-ni (부수지 않다)
+    [진행]: bosus-singo (부수고 있다)
+    [완료]: bosus-po (부순 상태이다)
+    [능동]: bosus-acto (스스로 부순다)
+    [피동]: bosus-pato (부셔지다 / 부서지다)
+    [목적]: foro bosus (부수기 위해)
+    [명사형]: bosusio (파괴 / 부수기)
+budo (접속사): 하지만
+clomo (부사): 가까이
+cojoko (명사): 슬픔
+coptivus (동사): 닫다
+    [과거]: pa'coptivus (닫았다)
+    [미래]: fo'coptivus (닫을 것이다)
+    [부정]: coptivus-ni (닫지 않다)
+    [진행]: coptivus-singo (닫는 중이다)
+    [완료]: coptivus-po (닫힌 상태이다)
+    [능동]: coptivus-acto (스스로 닫다)
+    [피동]: coptivus-pato (닫혀지다)
+    [명사형]: coptivusio (닫힘)
+crom (명사): 시간
+dayos (명사): 낮
+delio (명사): 인사 (헤어질 때)
+dinjok (형용사): 지루하다 / 재미없다
+    [명사형]: dinjoki (지루함)
+    [부사형]: dinjokea (지루하게/재미없게)
+dis (명사): 오늘
+divus (동사): 죽다
+    [과거]: pa'divus (죽었다)
+    [미래]: fo'divus (죽을 것이다)
+    [부정]: divus-ni (죽지 않다)
+    [진행]: divus-singo (죽어가고 있다)
+    [완료]: divus-po (죽은 상태이다)
+    [능동]: divus-acto (스스로 죽는다)
+    [피동]: divus-pato (죽게 되다)
+    [목적]: foro divus (죽기 위해)
+    [명사형]: divusio (죽음)
+dopos (명사 / 전치사): 아래
+ducrom (부사): 동안
+emio (명사): 눈
+endo (접속사): 그리고
+evcrom (명사): 매일
+evdis (명사): 점심
+expos (명사 / 전치사): 밖 / 외부
+falok (형용사): 멀다
+    [명사형]: faloki (멀음 / 멈)
+    [부사형]: falokea (멀게)
+famaio (명사): 가족
+farmo (부사): 멀리
+fazifus (명사): 가을
+fijok (형용사): 시원하다 / 쾌적하다
+    [명사형]: fijoki (시원함 / 쾌적함)
+    [부사형]: fijokea (시원하게 / 쾌적하게)
+fiksus (동사): 고치다 / 수리하다
+    [과거]: pa'fiksus (고쳤다)
+    [미래]: fo'fiksus (고칠 것이다)
+    [부정]: fiksus-ni (고치지 않다)
+    [진행]: fiksus-singo (고치고 있다)
+    [완료]: fiksus-po (고친 상태이다)
+    [능동]: fiksus-acto (스스로 고친다)
+    [피동]: fiksus-pato (고쳐지다 / 수리되다)
+    [목적]: foro fiksus (고치기 위해)
+    [명사형]: fiksusio (수리 / 수정)
+filem (명사): 불
+fimaio (명사): 친구
+fisus (동사): 느끼다
+    [과거]: pa'fisus (느꼈다)
+    [미래]: fo'fisus (느낄 것이다)
+    [부정]: fisus-ni (느끼지 않다)
+    [진행]: fisus-singo (느끼고 있다)
+    [완료]: fisus-po (느낀 상태이다)
+    [능동]: fisus-acto (스스로 느낀다)
+    [피동]: fisus-pato (느껴지다)
+    [목적]: foro fisus (느끼기 위해)
+    [명사형]: fisusio (감각 / 느낌)
+fo' (접두사): 미래 시제
+fodis (명사): 어제
+fomio (명사): 동물
+foro (접속사): ~하기 위해 (목적)
+frok (전치사): ~부터
+fulmo (부사): 매우
+ga (조사): 이/가
+giok (형용사): 좋다
+    [명사형]: gioki (좋음)
+    [부사형]: giokea (좋게)
+givus (동사): 주다
+    [과거]: pa'givus (주었다)
+    [미래]: fo'givus (줄 것이다)
+    [부정]: givus-ni (주지 않는다)
+    [진행]: givus-singo (주고 있다)
+    [완료]: givus-po (준 상태이다 / 이미 주었다)
+    [능동]: givus-acto (스스로 준다)
+    [피동]: givus-pato (주어지다 / 받게 되다)
+    [목적]: foro givus (주기 위해)
+    [명사형]: givusio (주기 / 제공)
+golo (감탄사): 고마워
+hajoko (명사): 행복 / 기쁨
+halus (동사): 놀다 / 여가를 즐기다
+    [과거]: pa'halus (놀았다)
+    [미래]: fo'halus (놀 것이다)
+    [부정]: halus-ni (놀지 않는다)
+    [진행]: halus-singo (놀고 있다 / 여가를 즐기고 있다)
+    [완료]: halus-po (논 상태이다 / 이미 놀았다)
+    [능동]: halus-acto (스스로 논다)
+    [피동]: halus-pato (놀게 되다 / 즐기게 되다)
+    [목적]: foro halus (놀기 위해 / 여가를 즐기기 위해)
+    [명사형]: halusio (놀이 / 여가)
+hamaio (명사): 부모
+hasko (명사): 하늘
+hav (조동사): 해야 한다
+higsis (명사): 도시 / 나라
+hilos (명사): 위치 / 장소
+himaio (대명사): 그
+hios (명사): 집
+hiosis (명사): 마을
+hojok (형용사): 무섭다
+    [명사형]: hojoki (무서움)
+    [부사형]: hojokea (무섭게)
+homaio (의문사): 누구
+humaio (명사): 형제 / 자매 / 남매
+humio (명사): 손 / 발
+hwok (형용사): 새롭다
+    [명사형]: hwoki (새로움)
+    [부사형]: hwokea (새롭게)
+ifo (접속사): 만약 / ~라면
+ilos (명사): 건물
+inlius (동사): 있다 / 존재하다
+    [과거]: pa'inlius (있었다 / 존재했다)
+    [미래]: fo'inlius (있을 것이다 / 존재할 것이다)
+    [부정]: inlius-ni (없다 / 존재하지 않는다)
+    [진행]: inlius-singo (있고 있다 / 존재하고 있다)
+    [완료]: inlius-po (있던 상태이다 / 존재한 상태이다)
+    [능동]: inlius-acto (스스로 존재한다)
+    [피동]: inlius-pato (존재하게 되다 / 존재되어 있다)
+    [목적]: foro inlius (있기 위해 / 존재하기 위해)
+    [명사형]: inliusio (존재 / 있음)
+inpos (명사 / 전치사): 안 / 내부
+itos (대명사): 그것
+ji (조사): 은/는
+kanon (조동사): 할 수 있다
+kiro (전치사): ~에 / ~으로 / ~로
+kivus (동사): 웃다
+    [과거]: pa'kivus (웃었다)
+    [미래]: fo'kivus (웃을 것이다)
+    [부정]: kivus-ni (웃지 않다)
+    [진행]: kivus-singo (웃는 중이다)
+    [완료]: kivus-po (웃은 상태이다)
+    [능동]: kivus-acto (스스로 웃다 / 웃음 짓다)
+    [피동]: kivus-pato (웃겨지다 / 웃음이 생기다)
+    [명사형]: kivusio (웃음)
+lalem (명사): 흙 / 땅
+lamaio (명사): 아이
+lemaio (명사): 학생
+lesius (동사): 배우다 / 공부하다
+    [과거]: pa'lesius (배웠다 / 공부했다)
+    [미래]: fo'lesius (배울 것이다 / 공부할 것이다)
+    [부정]: lesius-ni (배우지 않는다 / 공부하지 않는다)
+    [진행]: lesius-singo (배우고 있다 / 공부하고 있다)
+    [완료]: lesius-po (배운 상태이다 / 공부한 상태이다)
+    [능동]: lesius-acto (스스로 배운다 / 공부한다)
+    [피동]: lesius-pato (배워지다 / 공부되다)
+    [목적]: foro lesius (배우기 위해 / 공부하기 위해)
+    [명사형]: lesiusio (배움 / 학습)
+lilos (명사): 병원
+lirus (동사): 듣다 / 귀 기울이다
+    [과거]: pa'lirus (들었다. / 귀 기울였다)
+    [미래]: fo'lirus (들을 것이다 / 귀 기울일 것이다)
+    [부정]: lirus-ni (듣지 않다 / 귀 기울이지 않다)
+    [진행]: lirus-singo (듣는 중이다 / 귀 기울기고 있다)
+    [완료]: lirus-po (들은 상태이다. / 귀 기울였던 상태이다)
+    [능동]: lirus-acto (스스로 듣다 / 스스로 귀 기울이다 / 집중하다)
+    [피동]: lirus-pato (들어지다 / 귀 기울여지다)
+    [명사형]: lirusio (들음 / 귀 기울임)
+lis (동사): ~이다, ~하다
+litok (형용사): 적다
+    [명사형]: litoki (적음)
+    [부사형]: litokea (적게)
+livus (동사): 살다 / 생존하다
+    [과거]: pa'livus (살았다 / 생존했다)
+    [미래]: fo'livus (살 것이다 / 생존할 것이다)
+    [부정]: livus-ni (살지 않다 / 생존하지 않다)
+    [진행]: livus-singo (살고 있다 / 생존하고 있다)
+    [완료]: livus-po (살던 상태이다 / 생존한 상태이다)
+    [능동]: livus-acto (스스로 살아간다)
+    [피동]: livus-pato (살게 되다 / 생존하게 되다)
+    [목적]: foro livus (살기 위해 / 생존하기 위해)
+    [명사형]: livusio (생존 / 삶)
+loaus (동사): 걷다
+    [과거]: pa'loaus (걸었다)
+    [미래]: fo'loaus (걸을 것이다)
+    [부정]: loaus-ni (걷지 않는다)
+    [진행]: loaus-singo (걷고 있다)
+    [완료]: loaus-po (걸은 상태이다 / 이미 걸었다)
+    [능동]: loaus-acto (스스로 걷는다)
+    [피동]: loaus-pato (걸리다 / 걷게 되다)
+    [목적]: foro loaus (걷기 위해)
+    [명사형]: loausio (걷기 / 보행)
+locrom (부사): 오래
+lojoko (명사): 사랑 / 호감
+lokus (동사): 보다 / 바라보다
+    [과거]: pa'lokus (봤다)
+    [미래]: fo'lokus (볼 것이다)
+    [부정]: lokus-ni (보지 않다)
+    [진행]: lokus-singo (보고 있다)
+    [완료]: lokus-po (본 상태이다)
+    [능동]: lokus-acto (스스로 본다)
+    [피동]: lokus-pato (보여지다 / 보여지게 되다)
+    [목적]: foro lokus (보기 위해)
+    [명사형]: lokusio (보기 / 관찰)
+lomaio (명사): 연인
+los (명사): 길 / 거리
+lothio (명사): 옷 / 의류
+lousus (동사): 가다
+    [과거]: pa'lousus (갔다)
+    [미래]: fo'lousus (갈 것이다)
+    [부정]: lousus-ni (가지 않다)
+    [진행]: lousus-singo (가고 있다)
+    [완료]: lousus-po (간 상태이다)
+    [능동]: lousus-acto (스스로 간다)
+    [피동]: lousus-pato (가져지다 / 가게 되다)
+    [목적]: foro lousus (가기 위해)
+    [명사형]: loususio (이동 / 가기)
+maio (명사): 사람
+manok (형용사): 많다
+    [명사형]: manoki (많음)
+    [부사형]: manokea (많게)
+masus (동사): 만들다 / 창조하다
+    [과거]: pa'masus (만들었다)
+    [미래]: fo'masus (만들 것이다)
+    [부정]: masus-ni (만들지 않는다)
+    [진행]: masus-singo (만들고 있다)
+    [완료]: masus-po (만든 상태이다 / 이미 만들었다)
+    [능동]: masus-acto (스스로 만든다)
+    [피동]: masus-pato (만들어지다 / 창조되다)
+    [목적]: foro masus (만들기 위해 / 창조하기 위해)
+    [명사형]: masusio (제작 / 창조)
+mimaio (대명사): 나
+miogos (명사): 영화 / 영상
+mivus (동사): 움직이다 / 활동하다
+    [과거]: pa'mivus (움직였다 / 활동했다)
+    [미래]: fo'mivus (움직일 것이다 / 활동할 것이다)
+    [부정]: mivus-ni (움직이지 않다 / 활동하지 않다)
+    [진행]: mivus-singo (움직이는 중이다 / 활동하는 중이다)
+    [완료]: mivus-po (움직인 상태이다 / 활동한 상태이다)
+    [능동]: mivus-acto (스스로 움직인다 / 스스로 활동한다)
+    [피동]: mivus-pato (움직여지다 / 활동해지다)
+    [명사형]: mivusio (움직임 / 활동함)
+modis (명사): 아침
+molus (명사): 달
+monos (명사): 돈
+motos (명사): 교통수단 / 차량
+nelok (형용사): 가깝다
+    [명사형]: neloki (가까움)
+    [부사형]: nelokea (가깝게)
+nicrom (부사): 절대 / 전혀
+nidis (명사): 저녁
+nijok (형용사): 춥다
+    [명사형]: nijoki (추움)
+    [부사형]: nijokea (춥게)
+niyos (명사): 밤
+nomios (명사): 이름
+nore (부사): 아직
+odo (접속사): 또는 / 이 아니면
+ofcrom (명사): 자주
+optivus (동사): 열다
+    [과거]: pa'optivus (열었다)
+    [미래]: fo'optivus (열 것이다)
+    [부정]: optivus-ni (열지 않다)
+    [진행]: optivus-singo (열고 있는 중이다)
+    [완료]: optivus-po (연 상태이다)
+    [능동]: optivus-acto (스스로 열다)
+    [피동]: optivus-pato (열리다)
+    [명사형]: optivusio (열림)
+pa' (접두사): 과거 시제
+padis (명사): 내일
+parmo (부사): 부분적으로
+pifilem (명사): 연기 / 향기
+pilos (명사): 카페 / 휴식 공간
+pios (명사): 고향
+piroasio (명사): 간식 / 음식 종류
+prolus (명사): 사건
+raus (동사): 먹다
+    [과거]: pa'raus (먹었다)
+    [미래]: fo'raus (먹을 것이다)
+    [부정]: raus-ni (먹지 않다)
+    [진행]: raus-singo (먹고 있다)
+    [완료]: raus-po (먹은 상태이다 / 이미 먹었다)
+    [능동]: raus-acto (스스로 먹는다)
+    [피동]: raus-pato (먹혀지다 / 먹어지다)
+    [목적]: foro raus (먹기 위해)
+    [명사형]: rausio (먹음 / 식사)
+recus (동사): 받다
+    [과거]: pa'recus (받았다)
+    [미래]: fo'recus (받을 것이다)
+    [부정]: recus-ni (받지 않는다)
+    [진행]: recus-singo (받고 있다)
+    [완료]: recus-po (받은 상태이다 / 이미 받았다)
+    [능동]: recus-acto (스스로 받는다)
+    [피동]: recus-pato (받아지다 / 주어지다)
+    [목적]: foro recus (받기 위해)
+    [명사형]: recusio (받음 / 수령)
+relio (명사): 인사 (만날 때)
+remivus (동사): 기억하다 / 생각나다
+    [과거]: pa'remivus (기억했다 / 생각났다)
+    [미래]: fo'remivus (기억할 것이다 / 생각날 것이다)
+    [부정]: remivus-ni (기억하지 않다 / 생각나지 않다)
+    [진행]: remivus-singo (기억하는 중이다 / 생각나는 중이다)
+    [완료]: remivus-po (기억한 상태이다 / 생각난 상태이다)
+    [능동]: remivus-acto (스스로 기억하다 / 스스로 생각나다)
+    [피동]: remivus-pato (기억되어지다 / 생각나게 되다)
+    [명사형]: remivusio (기억 / 생각)
+resus (동사): 읽다
+    [과거]: pa'resus (읽었다)
+    [미래]: fo'resus (읽을 것이다)
+    [부정]: resus-ni (읽지 않다)
+    [진행]: resus-singo (읽고 있다)
+    [완료]: resus-po (읽은 상태이다)
+    [능동]: resus-acto (스스로 읽는다)
+    [피동]: resus-pato (읽혀지다 / 읽어지다)
+    [목적]: foro resus (읽기 위해)
+    [명사형]: resusio (읽음 / 독서)
+ricrom (명사): 지금
+rios (명사): 시장 / 식당
+roasio (명사): 음식 / 밥 / 끼니
+rojok (형용사): 배고프다
+    [명사형]: rojoki (배고픔)
+    [부사형]: rojokea (배고프게)
+romos (명사): 집안 / 방
+rul (조사): 을/를
+samaio (명사): 조부모
+sasko (명사): 우주
+setius (동사): 보내다 / 전달하다
+    [과거]: pa'setius (보냈다 / 전달했다)
+    [미래]: fo'setius (보낼 것이다 / 전달할 것이다)
+    [부정]: setius-ni (보내지 않다 / 전달하지 않다)
+    [진행]: setius-singo (보내는 중이다 / 전달하는 중이다)
+    [완료]: setius-po (보낸 상태이다 / 전달한 상태이다)
+    [능동]: setius-acto (스스로 보내다 / 스스로 전달하다)
+    [피동]: setius-pato (보내지다 / 전달되다)
+    [명사형]: setiusio (보냄 / 전달)
+shavo (접속사): ~하는 동안
+siljok (형용사): 밝다 / 환하다
+    [명사형]: siljoki (밝음 / 환함)
+    [부사형]: siljokea (밝게 / 환하게)
+silus (명사): 빛
+simaio (명사): 선생님
+sinjok (형용사): 쉽다 / 간단하다
+    [명사형]: sinjoki (쉬움 / 간단함)
+    [부사형]: sinjokea (쉽게 / 간단하게)
+siogos (명사): 음악 / 노래
+siok (형용사): 작다
+    [명사형]: sioki (작음)
+    [부사형]: siokea (작게)
+siomaio (대명사): 그녀
+sios (명사): 학교 / 학원
+sipi (형용사): 똑똑한 / 현명한 / 지혜로운
+sirvus (동사): 울다 / 눈물 흘리다
+    [과거]: pa'sirvus (울었다 / 눈물 흘렸다)
+    [미래]: fo'sirvus (울 것이다 / 눈물 흘릴 것이다)
+    [부정]: sirvus-ni (울지 않다 / 눈물 흘리지 않다)
+    [진행]: sirvus-singo (우는 중이다 / 눈물 흘리는 중이다)
+    [완료]: sirvus-po (운 상태이다 / 눈물 흘린 상태이다)
+    [능동]: sirvus-acto (스스로 운다 / 눈물 흘린다)
+    [피동]: sirvus-pato (울게 되다 / 눈물 흘려지다)
+    [명사형]: sirvusio (울음 / 눈물)
+sitolis (명사): 책
+sizifus (명사): 봄
+slepus (동사): 자다
+    [과거]: pa'slepus (잤다)
+    [미래]: fo'slepus (잘 것이다)
+    [부정]: slepus-ni (자지 않는다)
+    [진행]: slepus-singo (자고 있다)
+    [완료]: slepus-po (잔 상태이다 / 이미 잠든 상태)
+    [능동]: slepus-acto (스스로 잔다)
+    [피동]: slepus-pato (잠들다 / 잠겨지다)
+    [목적]: foro slepus (자기 위해)
+    [명사형]: slepusio (잠 / 수면)
+socrom (명사): 가끔 / 때때로
+solo (감탄사): 미안해
+solus (명사): 태양
+soncrom (명사): 곧
+sopus (동사): 숨다 / 감추다
+    [과거]: pa'sopus (숨었다 / 감췄다)
+    [미래]: fo'sopus (숨을 것이다 / 감출 것이다)
+    [부정]: sopus-ni (숨지않다 / 감추지 않다)
+    [진행]: sopus-singo (숨는 중이다 / 감추는 중이다)
+    [완료]: sopus-po (숨은 상태이다 / 감춘 상태이다)
+    [능동]: sopus-acto (스스로 숨다 / 스스로 감추다)
+    [피동]: sopus-pato (숨어지다 / 감춰지다)
+    [명사형]: sopusio (숨음 / 감춤)
+speok (형용사): 빠르다
+    [명사형]: speoki (빠름)
+    [부사형]: speokea (빠르게)
+spius (동사): 말하다
+    [과거]: pa'spius (말했다)
+    [미래]: fo'spius (말할 것이다)
+    [부정]: spius-ni (말하지 않을 것이다)
+    [진행]: spius-singo (말하고 있다)
+    [완료]: spius-po (말한 상태이다 / 이미 말했다)
+    [능동]: spius-acto (스스로 말한다)
+    [피동]: spius-pato (말해지다/이야기되다/전달되다)
+    [목적]: foro spius (말하기 위해)
+    [명사형]: spiusio (말함)
+surjoko (명사): 놀람
+suzifus (명사): 여름
+teso (지시사): 저것 / 저
+ticjok (형용사): 어렵다 / 복잡하다
+    [명사형]: ticjoki (어려움 / 복잡함)
+    [부사형]: ticjokea (어렵게 / 복잡하게)
+timaio (대명사): 그들
+tiso (지시사): 그것 / 그
+toi (조사): 에게
+tolis (명사): 물건 / 도구
+tolos (명사): 가게 / 상점
+torio (명사): 시간 단위 (시/분)
+torus (동사): 생각하다 / 고민하다
+    [과거]: pa'torus (생각했다 / 고민했다)
+    [미래]: fo'torus (생각할 것이다 / 고민할 것이다)
+    [부정]: torus-ni (생각하지 않다 / 고민하지 않다)
+    [진행]: torus-singo (생각하는 중이다 / 고민하는 중이다)
+    [완료]: torus-po (생각한 상태이다 / 고민한 상태이다)
+    [능동]: torus-acto (스스로 생각한다 / 스스로 고민한다)
+    [피동]: torus-pato (생각해지다 / 고민해지다)
+    [명사형]: torusio (생각함 / 고민함)
+toso (지시사): 이것 / 이
+totmo (부사): 완전히
+tumaio (명사): 친척
+ui (조사): 의
+unjoko (명사): 아픔
+unlius (동사): 없다 / 존재하지 않다
+    [과거]: pa'unlius (없었다 / 존재하지 않았다)
+    [미래]: fo'unlius (없을 것이다 / 존재하지 않을 것이다)
+    [부정]: unlius-ni (있지 않다 / 존재하지 않는다)
+    [진행]: unlius-singo (없고 있다 / 존재하지 않고 있다)
+    [완료]: unlius-po (없던 상태이다 / 존재하지 않았던 상태이다)
+    [능동]: unlius-acto (스스로 존재하지 않는다)
+    [피동]: unlius-pato (존재하지 않게 되다)
+    [목적]: foro unlius (없기 위해 / 존재하지 않기 위해)
+    [명사형]: unliusio (부재 / 없음)
+upos (명사 / 전치사): 위
+usus (동사): 사용하다
+    [과거]: pa'usus (사용했다)
+    [미래]: fo'usus (사용할 것이다)
+    [부정]: usus-ni (사용하지 않다)
+    [진행]: usus-singo (사용하고 있다)
+    [완료]: usus-po (사용한 상태이다)
+    [능동]: usus-acto (사용한다)
+    [피동]: 사용해진다/써진다
+    [명사형]: ususio (사용함 / 씀)
+vijok (형용사): 덥다
+    [명사형]: vijoki (더움)
+    [부사형]: vijokea (덥게)
+vomos (명사): 가구 / 집안 물건
+wacrous (동사): 기다리다
+    [과거]: pa'wacrous (기다렸다)
+    [미래]: fo'wacrous (기다릴 것이다)
+    [부정]: wacrous-ni (기다리지 않는다)
+    [진행]: wacrous-singo (기다리고 있다 / 기다리는 중이다)
+    [완료]: wacrous-po (기다린 상태이다 / 이미 기다렸다)
+    [능동]: wacrous-acto (스스로 기다린다)
+    [피동]: wacrous-pato (기다려지다 / 기다리게 되다)
+    [목적]: foro wacrous (기다리기 위해)
+    [명사형]: wacrousio (기다림 / 대기)
+walem (명사): 물
+walus (동사): 마시다
+    [과거]: pa'walus (마셨다)
+    [미래]: fo'walus (마실 것이다)
+    [부정]: walus-ni (마시지 않다)
+    [진행]: walus-singo (마시고 있다)
+    [완료]: walus-po (마신 상태이다 / 이미 마셨다)
+    [능동]: walus-acto (스스로 마신다)
+    [피동]: walus-pato (마셔지다 / 마시게 되다)
+    [목적]: foro walus (마시기 위해)
+    [명사형]: walusio (마심 / 음료)
+wav (조동사): 하고 싶다
+wethio (명사): 날씨
+whi (의문사): 왜
+whicro (의문사): 언제
+whihow (의문사): 어떻게
+whilo (의문사): 어디
+whito (의문사): 무엇
+wilem (명사): 바람
+wili (조동사): 할 것이다
+wimaio (대명사): 우리
+wizifus (명사): 겨울
+wolgos (명사): 직업
+wolus (동사): 일하다 / 노동하다
+    [과거]: pa'wolus (일했다 / 노동했다)
+    [미래]: fo'wolus (일할 것이다 / 노동할 것이다)
+    [부정]: wolus-ni (일하지 않는다 / 노동하지 않는다)
+    [진행]: wolus-singo (일하고 있다 / 노동하고 있다)
+    [완료]: wolus-po (일한 상태이다 / 노동한 상태이다)
+    [능동]: wolus-acto (스스로 일한다 / 노동한다)
+    [피동]: wolus-pato (일하게 되다 / 노동하게 되다)
+    [목적]: foro wolus (일하기 위해 / 노동하기 위해)
+    [명사형]: wolusio (일 / 노동)
+wrisus (동사): 쓰다
+    [과거]: pa'wrisus (썼다)
+    [미래]: fo'wrisus (쓸 것이다)
+    [부정]: wrisus-ni (쓰지 않다)
+    [진행]: wrisus-singo (쓰고 있다)
+    [완료]: wrisus-po (쓴 상태이다)
+    [능동]: wrisus-acto (스스로 쓴다)
+    [피동]: wrisus-pato (써지다 / 작성되다)
+    [목적]: foro wrisus (쓰기 위해)
+    [명사형]: wrisusio (쓰기 / 기록)
+yumaio (대명사): 너
+zifus (명사): 계절
