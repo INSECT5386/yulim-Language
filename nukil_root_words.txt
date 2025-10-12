@@ -10,16 +10,24 @@
 -singo (접미사): ~하고 있다
 Noti (부정어(글로벌)): 아니다, 하지 않다
 Whispi (의문표지): 의문을 나타냄
+actomaio (명사): 배우
 afcrom (부사): 이후
 alcrom (명사): 항상
+alkolio (명사): 주황 / 주황색
 alre (부사): 이미
 ando (접속사): 그래서
 anjoko (명사): 화
 anvjok (형용사): 무겁다
 aptos (명사): 의자 / 좌석
+arjok (형용사): 어둡다
+arkus (명사): 어둠
+armaio (명사): 예술가
+astis (명사): 맛
 bajoko (명사): 혐오
+bajokus (동사): 미워하다 / 혐오하다
 baok (형용사): 나쁘다
 becrom (부사): 이전
+bekim (명사): 해변
 belom (명사): 소지품 / 물건
 bidos (명사): 베개 / 침구
 biok (형용사): 크다
@@ -28,20 +36,29 @@ bojok (형용사): 피곤하다 / 힘들다
 bosus (동사): 부수다
 brivos (명사): 테이블 / 책상
 budo (접속사): 하지만
+bulwem (명사): 다리
+cilus (동사): 팔다
+clockos (명사): 벽시계
 clocros (명사): 시계 / 시간계측기
 clomo (부사): 가까이
 cojoko (명사): 슬픔
 coptivus (동사): 닫다
+crakus (동사): 차다
+crenos (명사): 화면 / 스크린
+crenus (명사): 모니터 / 디스플레이
 crom (명사): 시간
 cutos (명사): 컵 / 잔
+dakolio (명사): 검정 / 검은색
 dayos (명사): 낮
 decotolis (명사): 거울 / 반사체
 delio (명사): 인사 (헤어질 때)
+dimaio (명사): 운전사
 dinjok (형용사): 지루하다 / 재미없다
 dis (명사): 오늘
 divus (동사): 죽다
 dopos (명사 / 전치사): 아래
 dritos (명사): 칼 / 검
+drivus (동사): 밀다
 ducrom (부사): 동안
 emio (명사): 눈
 endo (접속사): 그리고
@@ -49,6 +66,7 @@ evcrom (명사): 매일
 evdis (명사): 점심
 evros (명사): 숟가락 / 젓가락
 expos (명사 / 전치사): 밖 / 외부
+fakom (명사): 공원
 falok (형용사): 멀다
 famaio (명사): 가족
 farmo (부사): 멀리
@@ -56,15 +74,21 @@ fazifus (명사): 가을
 fijok (형용사): 시원하다 / 쾌적하다
 fiksus (동사): 고치다 / 수리하다
 filem (명사): 불
+filemaio (명사): 소방관
 filemoros (명사): 가스 / 가스불
 fimaio (명사): 친구
 fisus (동사): 느끼다
+flanus (동사): 계획하다
+flolus (동사): 흐르다
+flozom (명사): 광장
 fo' (접두사): 미래 시제
 fodis (명사): 어제
 fomio (명사): 동물
 foro (접속사): ~하기 위해 (목적)
+fotom (명사): 항구
 frimos (명사): 냉장고
 frok (전치사): ~부터
+frotus (동사): 보호하다
 fulmo (부사): 매우
 futos (명사): 접시 / 그릇
 ga (조사): 이/가
@@ -73,16 +97,25 @@ giok (형용사): 좋다
 givus (동사): 주다
 golo (감탄사): 고마워
 hajoko (명사): 행복 / 기쁨
+hakius (동사): 깨다 / 일어나다
+hakolio (명사): 하양 / 하얀색
 halus (동사): 놀다 / 여가를 즐기다
 hamaio (명사): 부모
 hasko (명사): 하늘
 hav (조동사): 해야 한다
+hifmaio (명사): 요리사
 higsis (명사): 도시 / 나라
+higus (동사): 껴안다
 hilos (명사): 위치 / 장소
+hilrus (동사): 돕다
 himaio (대명사): 그
+hiom (명사): 행성
+hiomaio (명사): 이웃
 hios (명사): 집
 hiosis (명사): 마을
+hitom (명사): 열
 hojok (형용사): 무섭다
+hojokus (동사): 두려워하다 / 무서워하다
 homaio (의문사): 누구
 humaio (명사): 형제 / 자매 / 남매
 humio (명사): 손 / 발
@@ -90,117 +123,215 @@ hutos (명사): 바닥 / 지면
 hwok (형용사): 새롭다
 ifo (접속사): 만약 / ~라면
 ilos (명사): 건물
+iltem (명사): 욕실
 ilvos (명사): 문 / 출입구
 inlius (동사): 있다 / 존재하다
 inpos (명사 / 전치사): 안 / 내부
 itos (대명사): 그것
 ji (조사): 은/는
 juvos (명사): 창문 / 유리
+kagus (명사): 변화 / 변동
+kalmos (명사): 전화기
+kalus (동사): 전화하다
+kamos (명사): 카메라
 kanon (조동사): 할 수 있다
+karus (동사): 돌보다
+karvus (동사): 운반하다
 kero (명사): 열쇠 / 잠금장치
+khancus (동사): 바꾸다
+kikolio (명사): 초록 / 초록색
+kimios (명사): 체육관
+kinmaio (명사): 왕 (또는 국가 원수)
+kipus (동사): 잡다
 kiro (전치사): ~에 / ~으로 / ~로
+kirus (동사): 자라다
 kivus (동사): 웃다
+klenus (동사): 청소하다
+kolio (명사): 색 / 색깔 / 색상
+krius (동사): 울부짖다
+kulom (명사): 구름
+kutus (동사): 자르다
 lalem (명사): 흙 / 땅
 lamaio (명사): 아이
+lanom (명사): 비
 lemaio (명사): 학생
+lerom (명사): 공기
 lesius (동사): 배우다 / 공부하다
+lidimaio (명사): 팀장 / 조장 / 대장
+liftus (동사): 들다
+likolio (명사): 빨강 / 빨간색
 lilos (명사): 병원
+limaio (명사): 의사
+linjokus (동사): 부러워하다 / 질투하다
+linkam (명사): 호수 / 저수지
+linpio (명사): 무지개
 lirus (동사): 듣다 / 귀 기울이다
 lis (동사): ~이다, ~하다
+lisomaio (명사): 간호사
 litok (형용사): 적다
 litolem (명사): 번개 / 천둥
 litolemoros (명사): 전기 / 전원
+litus (동사): 쉬다
+liviom (명사): 강
 livus (동사): 살다 / 생존하다
 loaus (동사): 걷다
 locrom (부사): 오래
 lojoko (명사): 사랑 / 호감
+lojokus (동사): 사랑하다
 lokus (동사): 보다 / 바라보다
 lomaio (명사): 연인
 los (명사): 길 / 거리
+losem (명사): 도로(차도)
 lothio (명사): 옷 / 의류
+lothiosus (동사): 옷 입다
 lousus (동사): 가다
+lus (명사): 자리
 maio (명사): 사람
 manok (형용사): 많다
 masus (동사): 만들다 / 창조하다
 meko (명사): 약
+melom (명사): 냄새
+milikus (동사): 믿다
+miltus (동사): 녹이다
 mimaio (대명사): 나
 mimos (명사): 휴대폰 / 기기
 miogos (명사): 영화 / 영상
+mitus (동사): 만나다
 mivus (동사): 움직이다 / 활동하다
 modis (명사): 아침
 molus (명사): 달
 monos (명사): 돈
 motos (명사): 교통수단 / 차량
+motus (동사): 치다 / 때리다
+muntom (명사): 산
+nanom (명사): 눈
+nedrus (동사): 끝내다
 nelok (형용사): 가깝다
+nemaio (명사): 적 / 원수
+nergim (명사): 에너지
 nicrom (부사): 절대 / 전혀
 nidis (명사): 저녁
 nijok (형용사): 춥다
 nimos (동사): 충전하다 / 전원 연결
+nimpitus (동사): 위로하다
 niyos (명사): 밤
 nomios (명사): 이름
 nore (부사): 아직
+nusem (명사): 박물관
 odo (접속사): 또는 / 이 아니면
 ofcrom (명사): 자주
 opros (명사): 가방 속 물건 / 소지품
 optivus (동사): 열다
 pa' (접두사): 과거 시제
 padis (명사): 내일
+pafiros (명사): 종이
+pakos (명사): 지갑
+palus (동사): 떨어지다
+pardos (명사): 판 / 게시판
+parmem (명사): 농장 / 텃밭
 parmo (부사): 부분적으로
+parsus (명사): 시골 / 촌락
 pifilem (명사): 연기 / 향기
+pikolio (명사): 보라 / 보라색
 pilos (명사): 카페 / 휴식 공간
+pinos (명사): 펜 / 연필 / 필기구
 pios (명사): 고향
 piroasio (명사): 간식 / 음식 종류
+pirom (명사): 힘
 pishio (명사): 스위치 / 버튼
 pishiorus (동사): 누르다
+plom (동사): 꽃
+plukolio (명사): 파랑 / 파란색
+pogus (동사): 잊다
+pokius (동사): 용서하다
+pomaio (명사): 경찰 / 경찰관
+porkos (명사): 포크
+potilos (명사): 병 / 유리병
+prerus (동사): 얼리다
+prestom (명사): 숲
 primos (명사): 장보기 / 쇼핑
 prolus (명사): 사건
+pulvus (동사): 당기다
+purus (동사): 태우다
 qimus (동사): 사다 / 구입하다
+rampis (명사): 등불 / 램프
+rantus (동사): 심다
 raus (동사): 먹다
 recus (동사): 받다
 relio (명사): 인사 (만날 때)
 remivus (동사): 기억하다 / 생각나다
+respus (동사): 대답하다
 resus (동사): 읽다
 ricrom (명사): 지금
+ridus (동사): 이끌다 / 안내하다
 rimos (명사): 카드 / 결제 수단
+rioko (명사): 시장 (전통시장)
 rios (명사): 시장 / 식당
+ripros (명사): 도서관
 roasio (명사): 음식 / 밥 / 끼니
 roasus (동사): 요리하다 / 조리하다
 rojok (형용사): 배고프다
 rolus (동사): 설거지하다 / 씻다
 romos (명사): 집안 / 방
 rul (조사): 을/를
+sadim (명사): 모래
 samaio (명사): 조부모
 sasko (명사): 우주
 setius (동사): 보내다 / 전달하다
+setrus (동사): 시작하다
 shavo (접속사): ~하는 동안
+shipus (동사): 속삭이다
 shomos (명사): 샤워기 / 수도
 siljok (형용사): 밝다 / 환하다
+silous (동사): 빛나다
 silus (명사): 빛
+sim (명사): 바다
 simaio (명사): 선생님
 sinjok (형용사): 쉽다 / 간단하다
+sinmaio (명사): 음악가
 siogos (명사): 음악 / 노래
+siogus (동사): 노래하다
 siok (형용사): 작다
+siokolio (명사): 남색
+siom (명사): 돌 / 바위
 siomaio (대명사): 그녀
 sios (명사): 학교 / 학원
 sipi (형용사): 똑똑한 / 현명한 / 지혜로운
+sirus (동사): 앉다
 sirvus (동사): 울다 / 눈물 흘리다
 sitolis (명사): 책
 sizifus (명사): 봄
+skus (동사): 묻다 / 질문하다
 slepus (동사): 자다
+smilus (동사): 미소 짓다
+so (명사): 보조
 socrom (명사): 가끔 / 때때로
+solmaio (명사): 군인
 solo (감탄사): 미안해
 solus (명사): 태양
 soncrom (명사): 곧
 sopidos (명사): 비누 / 세제
 sopus (동사): 숨다 / 감추다
+sous (동사): 보조하다
 speok (형용사): 빠르다
+spirus (동사): 달리다
 spius (동사): 말하다
+stirus (동사): 서다
 surjoko (명사): 놀람
 suzifus (명사): 여름
+tarm (명사): 별
+tathis (명사): 촉감
+tatiom (명사): 역
+tekidus (동사): 결정하다
 teso (지시사): 저것 / 저
+thiom (명사): 지구
+tiatro (명사): 영화관 / 극장
 ticjok (형용사): 어렵다 / 복잡하다
-tidos (명사): 휴지 / 종이
+tidos (명사): 휴지 / 화장지
+tikus (동사): 가르치다
+tilsem (명사): 화장실
 timaio (대명사): 그들
+tirus (동사): 던지다
 tiso (지시사): 그것 / 그
 toi (조사): 에게
 tolis (명사): 물건 / 도구
@@ -212,17 +343,26 @@ toso (지시사): 이것 / 이
 tothio (명사): 이 / 이빨
 totmo (부사): 완전히
 totolis (명사): 칫솔 / 청결도구
+tovo (명사): 텔레비전
 trados (명사): 쓰레기 / 폐기물
+tramus (동사): 잠자다 / 꿈꾸다
+trim (명사): 나무
 trimos (명사): 편지 / 문서
+troimio (명사): 꿈
+tubitus (동사): 의심하다
+tukus (동사): 만지다
 tumaio (명사): 친척
+tustrus (동사): 신뢰하다
 twodos (명사): 수건 / 행주
 ui (조사): 의
+undio (명사): 소리
 unjoko (명사): 아픔
 unlius (동사): 없다 / 존재하지 않다
 upos (명사 / 전치사): 위
 urvos (명사): 약 / 의료용품
 usus (동사): 사용하다
 vijok (형용사): 덥다
+vocam (명사): 화산
 vomos (명사): 가구 / 집안 물건
 vrimos (동사): 복용하다 / 사용하다
 wacrous (동사): 기다리다
@@ -230,17 +370,22 @@ walem (명사): 물
 walus (동사): 마시다
 wamos (명사): 싱크대 / 세면대
 wav (조동사): 하고 싶다
+wellus (동사): 소리 지르다
 wethio (명사): 날씨
 whi (의문사): 왜
 whicro (의문사): 언제
 whihow (의문사): 어떻게
 whilo (의문사): 어디
 whito (의문사): 무엇
+wikolio (명사): 노랑 / 노란색
 wilem (명사): 바람
 wili (조동사): 할 것이다
 wimaio (대명사): 우리
+wimus (동사): 뛰다
+wisrus (동사): 세척하다
 wizifus (명사): 겨울
 wolgos (명사): 직업
+wolmaio (명사): 노동자
 wolus (동사): 일하다 / 노동하다
 wrisus (동사): 쓰다
 yumaio (대명사): 너
