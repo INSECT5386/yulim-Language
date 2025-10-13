@@ -5,30 +5,20 @@ import pandas as pd
 with open("nukil_dict_re.json", "r", encoding="utf-8") as f:
     data = json.load(f)
 
-# 2. 단어별로 표 형태로 변환
+# 2. 단어별로 표 형태로 변환 (변형/형태 제외)
 rows = []
 for word, info in data.items():
     품사 = info.get("품사", "")
     뜻 = info.get("뜻", "")
     설명 = info.get("설명", "")
-    예문 = "\n".join(info.get("예문", []))
+    예문 = "\n".join(info.get("예문", [])) if "예문" in info else ""
     
-    # 동사일 경우 변형 표시
-    변형 = ""
-    if "변형" in info:
-        변형_list = [f"{k}: {v}" for k, v in info["변형"].items()]
-        변형 = "\n".join(변형_list)
-    
-    # 형용사일 경우 명사형/부사형 표시
-    if "형태" in info:
-        변형_list = [f"{k}: {v}" for k, v in info["형태"].items()]
-        변형 = "\n".join(변형_list)
-    
-    rows.append([word, 품사, 뜻, 설명, 변형, 예문])
+    # 변형/형태는 완전히 무시하고 포함하지 않음
+    rows.append([word, 품사, 뜻, 설명, 예문])
 
 # 3. 데이터프레임 생성
-df = pd.DataFrame(rows, columns=["단어", "품사", "뜻", "설명", "변형/형태", "예문"])
+df = pd.DataFrame(rows, columns=["단어", "품사", "뜻", "설명", "예문"])
 
-# ✅ 최신 pandas에서는 이렇게
+# 4. 엑셀로 저장
 df.to_excel("nukil_dictionary.xlsx", index=False)
-print("✅ nukile_dictionary.xlsx 파일 생성 완료!")
+print("✅ nukil_dictionary.xlsx 파일 생성 완료!")
