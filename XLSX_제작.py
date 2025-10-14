@@ -20,4 +20,5 @@ for word, info in data.items():
 df = pd.DataFrame(rows, columns=["단어", "품사", "뜻", "설명", "예문"])
 
 # 4. 엑셀로 저장
-df.to_excel("nukil_dictionary.xlsx", index=False)
+df.to_excel("yuchan_dictionary.xlsx", index=False)
+
