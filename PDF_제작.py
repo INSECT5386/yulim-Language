@@ -47,3 +47,4 @@ table.setStyle(TableStyle([
 
 doc.build([table])
 print("✅ PDF 생성 완료! 이제 내용 없는 칸은 아예 안 나옴")
+
