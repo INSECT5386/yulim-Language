@@ -7,7 +7,7 @@ from reportlab.pdfbase import pdfmetrics
 import pandas as pd
 
 # 엑셀 읽기
-df = pd.read_excel("nukil_dictionary.xlsx")
+df = pd.read_excel("yuchan_dictionary.xlsx")
 
 # PDF 설정
 pdfmetrics.registerFont(UnicodeCIDFont("HYSMyeongJo-Medium"))
@@ -46,4 +46,5 @@ table.setStyle(TableStyle([
 ]))
 
 doc.build([table])
+
 
