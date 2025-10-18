@@ -60,14 +60,11 @@ class Cobrablock(tf.keras.layers.Layer):
         k = apply_rope(k)
         x = self.attn(q, k, v)
         x = residual + self.dropout1(x, training=training)
-
         x = self.ffn(x)
-
         residual = x
         x = self.norm2(x)
         x = self.dropout2(x, training=training)
         x = residual + x
-
         return x
 
 # ======================= CobraModel ======================
@@ -77,11 +74,12 @@ class CobraModel(tf.keras.Model):
         self.token_embedding = layers.Embedding(vocab_size, d_model)
         self.blocks = [Cobrablock(d_model, dropout_rate) for _ in range(n_layers)]
         self.ln_f = layers.LayerNormalization(epsilon=1e-5)
-
+        self.mlm_head = layers.Dense(vocab_size)
+    
     def call(self, x, training=False):
         x = self.token_embedding(x)
         for block in self.blocks:
             x = block(x, training=training)
         x = self.ln_f(x)
-        logits = tf.matmul(x, self.token_embedding.embeddings, transpose_b=True)
+        logits = selt.mlm_head(x)
         return logits
