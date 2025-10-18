@@ -182,15 +182,15 @@ class SeProdBlock(layers.Layer):
         C = tf.nn.gelu(C)
         D = tf.nn.tanh(D)
 
-        Ath = tf.multiply([A, A1])
-        Bth = tf.multiply([B, B1])
-        Cth = tf.multiply([C, C1])
-        Dth = tf.multiply([D, D1])
+        Ath = A * A1
+        Bth = B * B1
+        Cth = C * C1
+        Dth = D * D1
 
-        ath = tf.multiply([a, at])
-        bth = tf.multiply([b, bt])
-        cth = tf.multiply([c, ct])
-        dth = tf.multiply([d, dt])
+        ath = a * at
+        bth = b * bt
+        cth = c * ct
+        dth = d * dt
 
         z_th = tf.concat([ath, bth, cth, dth, Ath, Bth, Cth, Dth], axis=-1)  # [B, T, D*2]
       
