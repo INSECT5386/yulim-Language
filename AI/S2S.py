@@ -200,8 +200,7 @@ class SeProdBlock(layers.Layer):
         x = self.norm2(x)
         f, ft = tf.split(x, num_or_size_splits=2, axis=-1)
         f = tf.nn.silu(f)
-        output = layers.multiply([f, ft])
-
+        output = f * ft
         return output
 
 d_model = 256
