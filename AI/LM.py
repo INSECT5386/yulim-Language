@@ -1,8 +1,6 @@
 import json  
 import numpy as np  
-import pandas as pd
 import tensorflow as tf  
-from tensorflow.keras import layers 
 import sentencepiece as spm  
 import requests
 
@@ -15,42 +13,56 @@ def download_file(url, save_path):
             f.write(chunk)
     print(f"✅ 파일 저장됨: {save_path}")
 
-# ⬇️ 데이터와 토크나이저 다운로드
-download_file('https://huggingface.co/datasets/Yuchan5386/KeraLux4/resolve/main/dataset.parquet?download=true', 'dataset.parquet')
+# ⬇️ 토크나이저 다운로드
 download_file('https://huggingface.co/datasets/Yuchan5386/KeraLux4/resolve/main/kolig_unigram.model?download=true', 'ko_unigram.model')
 
-# ⬇️ Parquet 데이터 불러오기
-df = pd.read_parquet("dataset.parquet", engine="pyarrow")
+# ⬇️ JSONL 데이터 불러오기
+def load_jsonl(file_path):
+    data = []
+    with open(file_path, 'r', encoding='utf-8') as f:
+        for line in f:
+            data.append(json.loads(line))
+    return data
 
-# ⬇️ <start> 질문 <sep> 답변 <end> 포맷으로 변환
+jsonl_data = load_jsonl("output.jsonl")
+print(f"✅ JSONL 데이터 로드 완료: {len(jsonl_data)}개의 대화")
+
+# ⬇️ 멀티턴 대화를 하나의 문장으로 변환
 train_sentences = []
 
-for conversations in df["conversations"]:
-    for i in range(0, len(conversations) - 1, 2):
-        item1, item2 = conversations[i], conversations[i + 1]
-        if item1.get("from") == "human" and item2.get("from") == "gpt":
-            prompt = item1.get("value", "").strip().replace("\n", " ")
-            response = item2.get("value", "").strip().replace("\n", " ")
-            full = f"<start> {prompt} <sep> {response} <end>"
-            train_sentences.append(full)
-train_sentences = train_sentences[:50]
-print(f"총 문장 개수: {len(train_sentences)}")
+for item in jsonl_data:
+    conversations = item.get("conversations", [])
+    
+    # 전체 대화를 하나의 시퀀스로 구성
+    dialogue_parts = ["<start>"]
+    
+    for msg in conversations:
+        if msg.get("from") == "human":
+            text = msg.get("value", "").strip().replace("\n", " ")
+            dialogue_parts.append(f"[질문] {text}")
+        elif msg.get("from") == "gpt":
+            text = msg.get("value", "").strip().replace("\n", " ")
+            dialogue_parts.append(f"[답변] {text}")
+    
+    dialogue_parts.append("<end>")
+    
+    # 전체 대화를 하나의 문장으로
+    full_dialogue = " ".join(dialogue_parts)
+    train_sentences.append(full_dialogue)
+
+print(f"✅ 총 멀티턴 대화 개수: {len(train_sentences)}")
 
 # ⬇️ 토크나이저 불러오기
 sp = spm.SentencePieceProcessor()
 sp.load("ko_unigram.model")
 
-# ⬇️ 특수 토큰 ID 추출
 pad_id = sp.piece_to_id("<pad>") if sp.piece_to_id("<pad>") != -1 else 0  
 start_id = sp.piece_to_id("<start>")  
-sep_id = sp.piece_to_id("<sep>")  
 end_id = sp.piece_to_id("<end>")  
-unk_id = sp.piece_to_id("<unk>")  
-
 vocab_size = sp.get_piece_size()
+
 print(f"✅ Vocabulary size: {vocab_size}")
 
-# ⬇️ 텍스트 <-> ID 변환 함수
 def text_to_ids(text):
     return sp.encode(text, out_type=int)
 
@@ -58,50 +70,37 @@ def ids_to_text(ids):
     return sp.decode(ids)
 
 # ⬇️ 전처리 하이퍼파라미터
-max_len = 100
-batch_size = 80
+max_len = 512  # 멀티턴이므로 길이 증가
+batch_size = 32  # 메모리 고려하여 감소
 
-# ⬇️ 인풋과 타겟 마스킹 포함된 전처리
 encoded_inputs = []
 targets = []
 
 for sentence in train_sentences:
-    if "<sep>" not in sentence:
+    ids = text_to_ids(sentence)
+    
+    if len(ids) < 2:
         continue
+    
+    # 입력: 전체 시퀀스
+    input_ids = ids[:max_len]
+    
+    # 타겟: 한 토큰씩 shift
+    target_ids = ids[1:max_len+1]
+    
+    # 패딩
+    if len(input_ids) < max_len:
+        pad_len = max_len - len(input_ids)
+        input_ids += [pad_id] * pad_len
+        target_ids += [pad_id] * pad_len
+    
+    encoded_inputs.append(input_ids)
+    targets.append(target_ids)
 
-    sep_index = sentence.index("<sep>")
-    input_text = sentence[:sep_index + len("<sep>")].strip()
-    target_text = sentence[sep_index + len("<sep>"):].strip()
-
-    input_ids = text_to_ids(input_text)
-    target_ids = text_to_ids(target_text + " <end>")
-
-    full_input = input_ids + target_ids
-    full_input = full_input[:max_len]
-
-    target_mask = [0] * len(input_ids) + [1] * len(target_ids)
-    target_mask = target_mask[:max_len]
-
-    if len(full_input) < max_len:
-        pad_len = max_len - len(full_input)
-        full_input += [pad_id] * pad_len
-        target_mask += [0] * pad_len
-
-    encoded_inputs.append(full_input)
-
-    target_seq = full_input[1:] + [end_id]
-    target_seq = target_seq[:max_len]
-
-    masked_target = [
-        t if m == 1 else pad_id
-        for t, m in zip(target_seq, target_mask)
-    ]
-
-    targets.append(masked_target)
-
-# ⬇️ 넘파이 변환
 encoded_inputs = np.array(encoded_inputs)
 targets = np.array(targets)
+
+print(f"✅ 인코딩 완료: {encoded_inputs.shape}, {targets.shape}")
 
 # ⬇️ TensorFlow Dataset 생성
 def data_generator():
@@ -119,6 +118,11 @@ dataset = tf.data.Dataset.from_generator(
 dataset = dataset.shuffle(1000).batch(batch_size).prefetch(tf.data.AUTOTUNE)
 
 print("✅ TF Dataset 생성 완료!")
+
+# ⬇️ 샘플 확인
+for input_batch, target_batch in dataset.take(1):
+    print(f"\n첫 번째 멀티턴 대화:")
+    print(ids_to_text(input_batch[0].numpy()[:100]))  # 앞부분만
 
 class SwiGLUFFN(tf.keras.layers.Layer):
     def __init__(self, dim):
