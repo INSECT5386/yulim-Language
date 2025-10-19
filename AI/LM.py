@@ -1,20 +1,21 @@
-import json  
-import numpy as np  
-import tensorflow as tf  
-import sentencepiece as spm  
+import json
+import numpy as np
+import tensorflow as tf
+import sentencepiece as spm
 import requests
+from tensorflow.keras import layers
 
-# ⬇️ 파일 다운로드 함수
-def download_file(url, save_path):
-    response = requests.get(url, stream=True)
-    response.raise_for_status()
-    with open(save_path, 'wb') as f:
-        for chunk in response.iter_content(chunk_size=8192):
-            f.write(chunk)
-    print(f"✅ 파일 저장됨: {save_path}")
+sp = spm.SentencePieceProcessor()
+# 'ko_unigram.model' 파일이 현재 경로에 있어야 합니다.
+sp.load("ko_unigram.model") 
 
-# ⬇️ 토크나이저 다운로드
-download_file('https://huggingface.co/datasets/Yuchan5386/KeraLux4/resolve/main/kolig_unigram.model?download=true', 'ko_unigram.model')
+pad_id = sp.piece_to_id("<pad>") if sp.piece_to_id("<pad>") != -1 else 0  
+start_token = sp.id_to_piece(sp.piece_to_id("<start>")) if sp.piece_to_id("<start>") != -1 else "<start>"
+end_token = sp.id_to_piece(sp.piece_to_id("<end>")) if sp.piece_to_id("<end>") != -1 else "<end>"
+sep_token = sp.id_to_piece(sp.piece_to_id("<sep>")) if sp.piece_to_id("<sep>") != -1 else "<sep>"
+vocab_size = sp.get_piece_size()
+
+print(f"Special Tokens: <start>={start_token}, <end>={end_token}, <sep>={sep_token}")
 
 # ⬇️ JSONL 데이터 불러오기
 def load_jsonl(file_path):
@@ -27,102 +28,116 @@ def load_jsonl(file_path):
 jsonl_data = load_jsonl("output.jsonl")
 print(f"✅ JSONL 데이터 로드 완료: {len(jsonl_data)}개의 대화")
 
-# ⬇️ 멀티턴 대화를 하나의 문장으로 변환
-train_sentences = []
+# ⬇️ 멀티턴 대화를 토큰 ID 시퀀스로 변환
+# 학습 데이터는 문자열 리스트 대신 토큰 ID 리스트의 리스트가 됩니다.
+all_token_sequences = [] # 변수명을 변경하여 최종 데이터 형태를 명확히 했습니다.
 
 for item in jsonl_data:
     conversations = item.get("conversations", [])
     
-    # 전체 대화를 하나의 시퀀스로 구성
-    dialogue_parts = ["<start>"]
+    # dialogue_parts는 전체 대화를 구성하는 문자열 조각들의 리스트입니다.
+    dialogue_parts = [start_token]
     
     for msg in conversations:
+        # 텍스트 전처리: 공백 제거 및 줄바꿈 공백으로 대체
+        text = msg.get("value", "").strip().replace("\n", " ") 
+        
         if msg.get("from") == "human":
-            text = msg.get("value", "").strip().replace("\n", " ")
-            dialogue_parts.append(f"[질문] {text}")
+            # "[사용자 발화]" 형태
+            dialogue_parts.append(f"{start_token} {text}")
         elif msg.get("from") == "gpt":
-            text = msg.get("value", "").strip().replace("\n", " ")
-            dialogue_parts.append(f"[답변] {text}")
+            # "[sep] [GPT 응답]" 형태
+            dialogue_parts.append(f"{sep_token} {text}")
+            
+    dialogue_parts.append(end_token)
     
-    dialogue_parts.append("<end>")
+    # 1. 모든 문자열 조각을 공백 한 칸으로 연결하여 하나의 긴 문자열 생성
+    full_dialogue_text = " ".join(dialogue_parts)
     
-    # 전체 대화를 하나의 문장으로
-    full_dialogue = " ".join(dialogue_parts)
-    train_sentences.append(full_dialogue)
+    # 2. SentencePiece 모델을 사용하여 긴 문자열을 토큰 ID 시퀀스로 변환
+    full_dialogue_ids = sp.encode_as_ids(full_dialogue_text)
+    
+    # 토큰 ID 시퀀스를 최종 리스트에 추가
+    all_token_sequences.append(full_dialogue_ids) # 변수명 변경 적용
 
-print(f"✅ 총 멀티턴 대화 개수: {len(train_sentences)}")
+print(f"✅ 토큰 ID 시퀀스 변환 완료: {len(all_token_sequences)}개의 시퀀스")
+print("\n--- 첫 번째 변환 결과 미리보기 ---")
+# 첫 번째 시퀀스의 길이와 토큰 ID를 출력
+print(f"길이: {len(all_token_sequences[0])}")
+print(f"토큰 ID 시퀀스 (일부): {all_token_sequences[0][:20]}...")
+# ID 시퀀스를 다시 텍스트로 디코딩하여 확인
+print(f"디코딩된 텍스트 (일부): {sp.decode_ids(all_token_sequences[0])[:100]}...")
 
-# ⬇️ 토크나이저 불러오기
-sp = spm.SentencePieceProcessor()
-sp.load("ko_unigram.model")
-
-pad_id = sp.piece_to_id("<pad>") if sp.piece_to_id("<pad>") != -1 else 0  
-start_id = sp.piece_to_id("<start>")  
-end_id = sp.piece_to_id("<end>")  
-vocab_size = sp.get_piece_size()
+# ----------------------------------------------------------------------
+# ********** 여기서부터 오류 수정 적용 **********
+# ----------------------------------------------------------------------
 
 print(f"✅ Vocabulary size: {vocab_size}")
 
+# 이제 이 함수들은 토큰 ID를 받지 않고, 문자열 <-> ID 변환만 담당
 def text_to_ids(text):
+    # 이 함수는 문자열을 기대하므로, list를 전달하면 안 됩니다.
     return sp.encode(text, out_type=int)
 
 def ids_to_text(ids):
     return sp.decode(ids)
 
 # ⬇️ 전처리 하이퍼파라미터
-max_len = 512  # 멀티턴이므로 길이 증가
-batch_size = 32  # 메모리 고려하여 감소
+max_len = 300
+batch_size = 8
 
 encoded_inputs = []
 targets = []
 
-for sentence in train_sentences:
-    ids = text_to_ids(sentence)
-    
+# train_sentences 대신 all_token_sequences 사용 (데이터 일관성 유지)
+for ids in all_token_sequences: # ids는 이미 정수 ID 리스트입니다.
+    # ids = text_to_ids(sentence) <-- 이 줄을 제거하여 TypeError를 방지
+
     if len(ids) < 2:
         continue
     
-    # 입력: 전체 시퀀스
-    input_ids = ids[:max_len]
-    
-    # 타겟: 한 토큰씩 shift
-    target_ids = ids[1:max_len+1]
-    
-    # 패딩
-    if len(input_ids) < max_len:
+    # 입력과 타겟 생성 (정확히 max_len으로)
+    if len(ids) >= max_len + 1:
+        # 길면 자르기
+        input_ids = ids[:max_len]
+        target_ids = ids[1:max_len+1]
+    else:
+        # 짧으면 패딩
+        input_ids = ids[:-1]  # 마지막 제외
+        target_ids = ids[1:]   # 첫 번째 제외
+        
+        # max_len에 맞게 패딩
         pad_len = max_len - len(input_ids)
-        input_ids += [pad_id] * pad_len
-        target_ids += [pad_id] * pad_len
+        input_ids = input_ids + [pad_id] * pad_len
+        target_ids = target_ids + [pad_id] * pad_len
+    
+    # 정확히 max_len인지 확인
+    assert len(input_ids) == max_len, f"Input length mismatch: {len(input_ids)}"
+    assert len(target_ids) == max_len, f"Target length mismatch: {len(target_ids)}"
     
     encoded_inputs.append(input_ids)
     targets.append(target_ids)
 
-encoded_inputs = np.array(encoded_inputs)
-targets = np.array(targets)
+# 이제 numpy 변환이 안전함
+encoded_inputs = np.array(encoded_inputs, dtype=np.int32)
+targets = np.array(targets, dtype=np.int32)
 
 print(f"✅ 인코딩 완료: {encoded_inputs.shape}, {targets.shape}")
 
 # ⬇️ TensorFlow Dataset 생성
-def data_generator():
-    for input_seq, target_seq in zip(encoded_inputs, targets):
-        yield input_seq, target_seq
-
-dataset = tf.data.Dataset.from_generator(
-    data_generator,
-    output_signature=(
-        tf.TensorSpec(shape=(max_len,), dtype=tf.int32),
-        tf.TensorSpec(shape=(max_len,), dtype=tf.int32)
-    )
-)
-
-dataset = dataset.shuffle(1000).batch(batch_size).prefetch(tf.data.AUTOTUNE)
+dataset = tf.data.Dataset.from_tensor_slices((encoded_inputs, targets))
+dataset = dataset.shuffle(10000).batch(batch_size).prefetch(tf.data.AUTOTUNE)
 
 print("✅ TF Dataset 생성 완료!")
 
 # ⬇️ 샘플 확인
 for input_batch, target_batch in dataset.take(1):
-    print(f"\n첫 번째 멀티턴 대화:")
-    print(ids_to_text(input_batch[0].numpy()[:100]))  # 앞부분만
+    print(f"\nBatch shapes: {input_batch.shape}, {target_batch.shape}")
+    print(f"\n첫 번째 대화 샘플 (처음 200자):")
+    decoded = ids_to_text(input_batch[0].numpy().tolist())
+    print(decoded[:200])
+
+# 이하 클래스 및 모델 코드는 변경 없음
 
 class Lo(layers.Layer):
     def __init__(self, d_model):
@@ -322,7 +337,7 @@ model = ReLaM(
     vocab_size=vocab_size,
     max_seq_len=max_len,
     d_model=256,
-    n_layers=10
+    n_layers=4
 )
 
 # 옵티마이저 설정
@@ -362,9 +377,6 @@ history = model.fit(
 # 가중치 저장
 model.save_weights("Cobra.weights.h5")
 print("모델 가중치 저장 완료!")
-from google.colab import files
-files.download('Cobra.weights.h5')  # 여기에 다운로드할 파일명을 넣어줘
-
 
 def generate_text_topp(model, prompt, max_len=100, max_gen=98, p=0.9, temperature=0.8, min_len=20):
     model_input = text_to_ids(f"<start> {prompt} <sep>")
@@ -379,7 +391,7 @@ def generate_text_topp(model, prompt, max_len=100, max_gen=98, p=0.9, temperatur
         input_tensor = tf.convert_to_tensor([input_padded])
         logits = model(input_tensor, training=False)
         next_token_logits = logits[0, len(input_seq) - 1].numpy()
-        next_token_logits[end_id] -= 5.0
+        next_token_logits[end_token] -= 5.0
         next_token_logits[pad_id] -= 10.0
         probs = tf.nn.softmax(next_token_logits / temperature).numpy()
         sorted_indices = np.argsort(probs)[::-1]
@@ -397,4 +409,3 @@ def generate_text_topp(model, prompt, max_len=100, max_gen=98, p=0.9, temperatur
 
 print("\n\n===== 생성 결과 =====")  
 print(generate_text_topp(model, "안녕", p=0.9))
-
