@@ -215,15 +215,18 @@ x = layers.Conv1D(d_model, kernel_size=3, padding='same', dilation_rate=1, activ
 x = layers.Conv1D(d_model, kernel_size=3, padding='same', dilation_rate=2, activation='relu')(x)
 x = layers.Conv1D(d_model, kernel_size=3, padding='same', dilation_rate=3, activation='relu')(x)
 x = layers.Conv1D(d_model, kernel_size=3, padding='same', dilation_rate=4, activation='relu')(x)
-context_vector =layers.Conv1D(d_model, kernel_size=3, padding='same', dilation_rate=5, activation='relu')(x)
+context_vector = layers.Conv1D(d_model, kernel_size=3, padding='same', dilation_rate=5, activation='relu')(x)
 # 디코더 경로
 decoder_input = Input(shape=(max_dec_len,), name='decoder_input')
 y_emb = layers.Embedding(input_dim=vocab_size, output_dim=d_model)(decoder_input)
 y_pos = LearnablePositionalEmbedding(max_dec_len, d_model)(y_emb)
-decoder_output = SeProdBlock(d_model, dropout_rate=dropout_rate)(y_pos, y_pos, training=True)
-output = SeProdBlock(d_model, dropout_rate=dropout_rate)(decoder_output, context_vector)
-
-# 최종 출력
+y = layers.Conv1D(d_model, kernel_size=3, padding='causal', dilation_rate=1, activation='relu')
+y = layers.Conv1D(d_model, kernel_size=3, padding='causal', dilation_rate=2, activation='relu')
+y = layers.Conv1D(d_model, kernel_size=3, padding='causal', dilation_rate=3, activation='relu')
+y = layers.Conv1D(d_model, kernel_size=3, padding='causal', dilation_rate=4, activation='relu')
+y = layers.Conv1D(d_model, kernel_size=3, padding='causal', dilation_rate=5, activation='relu')
+decoder_output = SeProdBlock(d_model, dropout_rate=dropout_rate)(y, context_vector, training=True)
+output = layers.Dense(d_model, activation='sigmoid')(decoder_output) * layers.Dense(d_model)(decoder_output)
 logits = layers.Dense(vocab_size)(output)
 
 model = Model(inputs=[encoder_input, decoder_input], outputs=logits, name='SeProd')
