@@ -236,7 +236,7 @@ model.compile(
 model.summary()
 
 model.fit(dataset, epochs=1, steps_per_epoch=len(train_sentences) // batch_size)
-
+model.save('tf_model.h5')
 
 def generate(model, sp, input_text, max_dec_len=128, temperature=0.7, verbose=False):
     start_id = sp.piece_to_id("<start>")
@@ -289,6 +289,6 @@ def generate(model, sp, input_text, max_dec_len=128, temperature=0.7, verbose=Fa
     decoded_text = sp.decode(generated_ids)
     return decoded_text
 
-input_text = "안녕하세요!."
+input_text = "안녕하세요! 어떻게 지내셨나요?"
 response = generate(model, sp, input_text, temperature=0.7, verbose=True)
 print("AI Response:", response)
