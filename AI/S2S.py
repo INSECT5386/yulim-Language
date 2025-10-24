@@ -211,8 +211,11 @@ encoder_input = Input(shape=(max_enc_len,), name='encoder_input')
 x_emb = layers.Embedding(input_dim=vocab_size, output_dim=d_model)(encoder_input)
 x_pos = LearnablePositionalEmbedding(max_enc_len, d_model)(x_emb)
 
-context_vector = SeProdBlock(d_model, dropout_rate=dropout_rate)(x_pos, x_pos, training=True)
-
+x = layers.Conv1D(d_model, kernel_size=3, padding='same', dilation_rate=1, activation='relu')(x_pos)
+x = layers.Conv1D(d_model, kernel_size=3, padding='same', dilation_rate=2, activation='relu')(x)
+x = layers.Conv1D(d_model, kernel_size=3, padding='same', dilation_rate=3, activation='relu')(x)
+x = layers.Conv1D(d_model, kernel_size=3, padding='same', dilation_rate=4, activation='relu')(x)
+context_vector =layers.Conv1D(d_model, kernel_size=3, padding='same', dilation_rate=5, activation='relu')(x)
 # 디코더 경로
 decoder_input = Input(shape=(max_dec_len,), name='decoder_input')
 y_emb = layers.Embedding(input_dim=vocab_size, output_dim=d_model)(decoder_input)
