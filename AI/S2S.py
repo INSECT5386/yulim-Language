@@ -203,6 +203,59 @@ class CrossBlock(layers.Layer):
         output = f * ft
         return output
 
+class LoSoU(layers.Layer):
+    def __init__(self, d_model, alpha=0.15, clip_value=5.0, eps=1e-6):
+        super().__init__()
+        self.d_model = d_model
+        self.alpha = float(alpha)
+        self.clip_value = float(clip_value)
+        self.eps = float(eps)
+        self.Q = layers.Dense(128, dtype='float32')
+        self.K = layers.Dense(128, dtype='float32')
+        self.V = layers.Dense(128, dtype='float32')  # Lo already handles casting to model dtype; we'll cast back to float32
+        self.proj = layers.Dense(d_model, use_bias=True, dtype='float32')
+        self.O = layers.Dense(d_model, dtype='float32')
+        self.norm = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
+
+    def _ema_over_time(self, score):
+        alpha = tf.constant(self.alpha, dtype=score.dtype)
+        seq = tf.transpose(score, perm=[1, 0, 2])
+
+        def step(prev_ema, x_t):
+            new = alpha * x_t + (1.0 - alpha) * prev_ema
+            return new
+
+        init = seq[0]  
+        ema_seq = tf.scan(fn=step, elems=seq[1:], initializer=init)
+        ema_seq = tf.concat([tf.expand_dims(init, 0), ema_seq], axis=0)  # (L, B, D)
+        ema = tf.transpose(ema_seq, perm=[1, 0, 2])
+        return ema
+
+    def call(self, x):
+        x_f32 = tf.cast(x, tf.float32)
+        residual = x_f32
+        q = self.Q(x_f32)   # (B, L, 128)
+        k = self.K(x_f32)   # (B, L, 128)
+        V = tf.cast(self.V(x), tf.float32)  # ensure V's output is float32
+        g_q = tf.nn.sigmoid(q)
+        g_k = tf.nn.sigmoid(k)
+        score = g_q * g_k
+        score_ema = self._ema_over_time(score)
+        mean_last = tf.reduce_mean(score_ema, axis=-1, keepdims=True)  # (B, L, 1)
+        denom = tf.maximum(mean_last, self.eps)
+        score_norm = score_ema / denom
+        score_clipped = tf.clip_by_value(score_norm, -self.clip_value, self.clip_value)
+        x_comb = score_clipped * V  # (B, L, d_model)
+        out = self.proj(x_comb)  # (B, L, d_model)
+        d = out.shape[-1]  # this is an int (static shape)
+        if d is not None and d % 2 == 1:
+            out = tf.pad(out, [[0,0],[0,0],[0,1]])
+        a, b = tf.split(out, 2, axis=-1)
+        gated = tf.nn.silu(a) * b
+        out = self.O(gated)
+        out = self.norm(out + residual)
+        return tf.cast(out, x.dtype)
+
 class EnBlock(layers.Layer):
     def __init__(self, dim, dropout_rate=0.1, **kwargs):
         super().__init__(**kwargs)
