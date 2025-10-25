@@ -203,7 +203,7 @@ class CrossBlock(layers.Layer):
         output = f * ft
         return output
 
-class LoSoU(layers.Layer):
+class BaseBlock(layers.Layer):
     def __init__(self, d_model, alpha=0.12, clip_value=5.0, eps=1e-6):
         super().__init__()
         self.d_model = d_model
@@ -277,17 +277,10 @@ class DeBlock(layers.Layer):
     def __init__(self, dim, dropout_rate=0.1, **kwargs):
         super().__init__(**kwargs)
         self.dim = dim
-        self.c = layers.Conv1D(dim, kernel_size=3, padding='causal', dilation_rate=1, activation='relu')
-        self.c1 = layers.Conv1D(dim, kernel_size=3, padding='causal', dilation_rate=2, activation='relu')
-        self.c2 = layers.Conv1D(dim, kernel_size=3, padding='causal', dilation_rate=3, activation='relu')
-        self.c3 = layers.Conv1D(dim, kernel_size=3, padding='causal', dilation_rate=4, activation='relu')
-        self.c4 = layers.Conv1D(dim, kernel_size=3, padding='causal', dilation_rate=5, activation='relu')
+        self.block = BaseBlock(dim)
+
     def call(self, x, training=None):
-        x = self.c(x)
-        x = self.c1(x)
-        x = self.c2(x)
-        x = self.c3(x)
-        x = self.c4(x)
+        x = self.block(x)
         return x
         
 d_model = 256
