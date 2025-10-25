@@ -258,7 +258,7 @@ decoder_input = Input(shape=(max_dec_len,), name='decoder_input')
 y_emb = layers.Embedding(input_dim=vocab_size, output_dim=d_model)(decoder_input)
 y_pos = LearnablePositionalEmbedding(max_dec_len, d_model)(y_emb)
 decoder_output = BaseBlock(d_model)(y_pos, training=True)
-output = CrossBlock(d_model, dropout_rate=dropout_rate)(decoder_output, context_vector)
+output = CrossBlock(d_model)(decoder_output, context_vector)
 
 # 최종 출력
 logits = layers.Dense(vocab_size)(output)
