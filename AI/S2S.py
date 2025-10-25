@@ -203,6 +203,23 @@ class SeProdBlock(layers.Layer):
         output = f * ft
         return output
 
+class Block(layers.Layer):
+    def __init__(self, dim, dropout_rate=0.1, **kwargs):
+        super().__init__(**kwargs)
+        self.dim = dim
+        self.c = layers.Conv1D(dim, kernel_size=3, padding='same', dilation_rate=1, activation='relu')
+        self.c1 = layers.Conv1D(dim, kernel_size=3, padding='same', dilation_rate=2, activation='relu')
+        self.c2 = layers.Conv1D(dim, kernel_size=3, padding='same', dilation_rate=3, activation='relu')
+        self.c3 = layers.Conv1D(dim, kernel_size=3, padding='same', dilation_rate=4, activation='relu')
+        self.c4 = layers.Conv1D(dim, kernel_size=3, padding='same', dilation_rate=5, activation='relu')
+    def call(self, x, training=None):
+        x = self.c(x)
+        x = self.c1(x)
+        x = self.c2(x)
+        x = self.c3(x)
+        x = self.c4(x)
+        return x
+
 d_model = 256
 dropout_rate = 0.1
 # ===== 모델 구성 =====
@@ -211,7 +228,8 @@ encoder_input = Input(shape=(max_enc_len,), name='encoder_input')
 x_emb = layers.Embedding(input_dim=vocab_size, output_dim=d_model)(encoder_input)
 x_pos = LearnablePositionalEmbedding(max_enc_len, d_model)(x_emb)
 
-context_vector = SeProdBlock(d_model, dropout_rate=dropout_rate)(x_pos, x_pos, training=True)
+x = SeProdBlock(d_model, dropout_rate=dropout_rate)(x_pos, x_pos, training=True)
+context_vector = Block(d_model)(x, training=True)
 
 # 디코더 경로
 decoder_input = Input(shape=(max_dec_len,), name='decoder_input')
