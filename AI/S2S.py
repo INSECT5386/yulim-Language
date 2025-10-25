@@ -7,18 +7,7 @@ from tensorflow.keras.initializers import RandomNormal
 import sentencepiece as spm  
 import requests
 from tensorflow.keras.initializers import RandomNormal
-
-import tensorflow as tf
 from tensorflow.keras import layers, Model, Input
-
-import tensorflow as tf
-from tensorflow.keras import layers, Model, Input
-from tensorflow.keras.initializers import RandomNormal
-
-
-import tensorflow as tf
-from tensorflow.keras import layers, Model, Input
-from tensorflow.keras.initializers import RandomNormal
 from tensorflow.keras.layers import Dropout
 
 # ⬇️ 파일 다운로드 함수
