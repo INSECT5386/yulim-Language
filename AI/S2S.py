@@ -242,34 +242,7 @@ class BaseBlock(layers.Layer):
         out = self.O(gated)
         out = self.norm(out + residual)
         return tf.cast(out, x.dtype)
-
-class EnBlock(layers.Layer):
-    def __init__(self, dim, dropout_rate=0.1, **kwargs):
-        super().__init__(**kwargs)
-        self.dim = dim
-        self.c = layers.Conv1D(dim, kernel_size=3, padding='same', dilation_rate=1, activation='relu')
-        self.c1 = layers.Conv1D(dim, kernel_size=3, padding='same', dilation_rate=2, activation='relu')
-        self.c2 = layers.Conv1D(dim, kernel_size=3, padding='same', dilation_rate=3, activation='relu')
-        self.c3 = layers.Conv1D(dim, kernel_size=3, padding='same', dilation_rate=4, activation='relu')
-        self.c4 = layers.Conv1D(dim, kernel_size=3, padding='same', dilation_rate=5, activation='relu')
-    def call(self, x, training=None):
-        x = self.c(x)
-        x = self.c1(x)
-        x = self.c2(x)
-        x = self.c3(x)
-        x = self.c4(x)
-        return x
-
-class DeBlock(layers.Layer):
-    def __init__(self, dim, dropout_rate=0.1, **kwargs):
-        super().__init__(**kwargs)
-        self.dim = dim
-        self.block = BaseBlock(dim)
-
-    def call(self, x, training=None):
-        x = self.block(x)
-        return x
-        
+       
 d_model = 256
 dropout_rate = 0.1
 # ===== 모델 구성 =====
@@ -278,13 +251,13 @@ encoder_input = Input(shape=(max_enc_len,), name='encoder_input')
 x_emb = layers.Embedding(input_dim=vocab_size, output_dim=d_model)(encoder_input)
 x_pos = LearnablePositionalEmbedding(max_enc_len, d_model)(x_emb)
 
-context_vector = EnBlock(d_model)(x_pos, training=True)
+context_vector = BaseBlock(d_model)(x_pos, training=True)
 
 # 디코더 경로
 decoder_input = Input(shape=(max_dec_len,), name='decoder_input')
 y_emb = layers.Embedding(input_dim=vocab_size, output_dim=d_model)(decoder_input)
 y_pos = LearnablePositionalEmbedding(max_dec_len, d_model)(y_emb)
-decoder_output = DeBlock(d_model)(y_pos, training=True)
+decoder_output = BaseBlock(d_model)(y_pos, training=True)
 output = CrossBlock(d_model, dropout_rate=dropout_rate)(decoder_output, context_vector)
 
 # 최종 출력
