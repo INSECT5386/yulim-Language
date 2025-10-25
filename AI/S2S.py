@@ -138,57 +138,59 @@ class LearnablePositionalEmbedding(layers.Layer):
         return self.add([inputs, self.pos_emb[tf.newaxis, :seq_len, :]])
 
 class CrossBlock(layers.Layer):
-    def __init__(self, d_model, alpha=0.12, clip_value=5.0, eps=1e-6):
-        super().__init__()
-        self.d_model = d_model
-        self.alpha = float(alpha)
-        self.clip_value = float(clip_value)
-        self.eps = float(eps)
-        self.Q = layers.Dense(128, dtype='float32')
-        self.K = layers.Dense(128, dtype='float32')
-        self.V = layers.Dense(128, dtype='float32')  # Lo already handles casting to model dtype; we'll cast back to float32
-        self.proj = layers.Dense(d_model, use_bias=True, dtype='float32')
-        self.O = layers.Dense(d_model, dtype='float32')
-        self.norm = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
+    def __init__(self, dim, dropout_rate=0.1, **kwargs):
+        super().__init__(**kwargs)
+        self.dim = dim
+        self.dense1 = layers.Dense(dim)
+        self.dense2 = layers.Dense(dim)
+        self.dense = layers.Dense(dim)
+  
+        self.norm1 = layers.LayerNormalization()
+        self.norm2 = layers.LayerNormalization()
+        self.dropout = layers.Dropout(dropout_rate)
 
-    def _ema_over_time(self, score):
-        alpha = tf.constant(self.alpha, dtype=score.dtype)
-        seq = tf.transpose(score, perm=[1, 0, 2])
+    def call(self, x, z, training=None):
+        batch_size, seq_len, d_model = tf.shape(x)[0], tf.shape(x)[1], tf.shape(x)[2]
+        x = self.dense(x)
 
-        def step(prev_ema, x_t):
-            new = alpha * x_t + (1.0 - alpha) * prev_ema
-            return new
+        # ===== Reverse Block (GLU Style) =====
+        A2 = self.dense2(z)  # [B, T, D*2]
+        splits = tf.split(A2, num_or_size_splits=8, axis=-1)
+        a, at, b, bt, c, ct, d, dt = splits
+        splits1 = tf.split(x, num_or_size_splits=8, axis=-1)
+        A, A1, B, B1, C, C1, D, D1 = splits1
 
-        init = seq[0]  
-        ema_seq = tf.scan(fn=step, elems=seq[1:], initializer=init)
-        ema_seq = tf.concat([tf.expand_dims(init, 0), ema_seq], axis=0)  # (L, B, D)
-        ema = tf.transpose(ema_seq, perm=[1, 0, 2])
-        return ema
+        a = tf.sigmoid(a)
+        b = tf.nn.silu(b)
+        c = tf.nn.gelu(c)
+        d = tf.nn.tanh(d)
 
-    def call(self, x, z):
-        x_f32 = tf.cast(x, tf.float32)
-        residual = x_f32
-        q = self.Q(x_f32)   # (B, L, 128)
-        k = self.K(x_f32)   # (B, L, 128)
-        V = tf.cast(self.V(z), tf.float32)  # ensure V's output is float32
-        g_q = tf.nn.sigmoid(q)
-        g_k = tf.nn.sigmoid(z)
-        score = g_q * g_k
-        score_ema = self._ema_over_time(score)
-        mean_last = tf.reduce_mean(score_ema, axis=-1, keepdims=True)  # (B, L, 1)
-        denom = tf.maximum(mean_last, self.eps)
-        score_norm = score_ema / denom
-        score_clipped = tf.clip_by_value(score_norm, -self.clip_value, self.clip_value)
-        x_comb = score_clipped * V  # (B, L, d_model)
-        out = self.proj(x_comb)  # (B, L, d_model)
-        d = out.shape[-1]  # this is an int (static shape)
-        if d is not None and d % 2 == 1:
-            out = tf.pad(out, [[0,0],[0,0],[0,1]])
-        a, b = tf.split(out, 2, axis=-1)
-        gated = tf.nn.silu(a) * b
-        out = self.O(gated)
-        out = self.norm(out + residual)
-        return tf.cast(out, x.dtype)
+
+        A = tf.sigmoid(A)
+        B = tf.nn.silu(B)
+        C = tf.nn.gelu(C)
+        D = tf.nn.tanh(D)
+
+        Ath = A * A1
+        Bth = B * B1
+        Cth = C * C1
+        Dth = D * D1
+
+        ath = a * at
+        bth = b * bt
+        cth = c * ct
+        dth = d * dt
+
+        z_th = tf.concat([ath, bth, cth, dth, Ath, Bth, Cth, Dth], axis=-1)  # [B, T, D*2]
+      
+        z_th = self.norm1(z_th)
+        x = z_th
+        x = self.dense1(x)
+        x = self.norm2(x)
+        f, ft = tf.split(x, num_or_size_splits=2, axis=-1)
+        f = tf.nn.silu(f)
+        output = f * ft
+        return output
 
 class BaseBlock(layers.Layer):
     def __init__(self, d_model, alpha=0.12, clip_value=5.0, eps=1e-6):
