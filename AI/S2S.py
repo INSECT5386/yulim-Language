@@ -204,7 +204,7 @@ class CrossBlock(layers.Layer):
         return output
 
 class LoSoU(layers.Layer):
-    def __init__(self, d_model, alpha=0.15, clip_value=5.0, eps=1e-6):
+    def __init__(self, d_model, alpha=0.12, clip_value=5.0, eps=1e-6):
         super().__init__()
         self.d_model = d_model
         self.alpha = float(alpha)
