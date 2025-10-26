@@ -1,5 +1,6 @@
 import requests
 import json
+import pandas as pd
 
 def download_file(url, save_path):
     response = requests.get(url, stream=True)
@@ -81,3 +82,87 @@ sorted_data = {**sorted_with_meaning, **without_meaning}
 
 with open("adjectives_re.json", "w", encoding="utf-8") as f:
     json.dump(sorted_data, f, ensure_ascii=False, indent=2)
+
+
+# 1. JSON 파일 읽기
+with open("adjectives_re.json", "r", encoding="utf-8") as f:
+    data = json.load(f)
+
+# 2. 단어별로 표 형태로 변환 (변형/형태 제외)
+rows = []
+for word, info in data.items():
+    품사 = info.get("품사", "")
+    뜻 = info.get("뜻", "")
+    설명 = info.get("설명", "")
+    예문 = "\n".join(info.get("예문", [])) if "예문" in info else ""
+    
+    # 변형/형태는 완전히 무시하고 포함하지 않음
+    rows.append([word, 품사, 뜻, 설명, 예문])
+
+# 3. 데이터프레임 생성
+df = pd.DataFrame(rows, columns=["단어", "품사", "뜻", "설명", "예문"])
+
+# 4. 엑셀로 저장
+df.to_excel("adjectives.xlsx", index=False)
+
+
+with open("nouns_re.json", "r", encoding="utf-8") as f:
+    data = json.load(f)
+
+# 2. 단어별로 표 형태로 변환 (변형/형태 제외)
+rows = []
+for word, info in data.items():
+    품사 = info.get("품사", "")
+    뜻 = info.get("뜻", "")
+    설명 = info.get("설명", "")
+    예문 = "\n".join(info.get("예문", [])) if "예문" in info else ""
+    
+    # 변형/형태는 완전히 무시하고 포함하지 않음
+    rows.append([word, 품사, 뜻, 설명, 예문])
+
+# 3. 데이터프레임 생성
+df = pd.DataFrame(rows, columns=["단어", "품사", "뜻", "설명", "예문"])
+
+# 4. 엑셀로 저장
+df.to_excel("nouns.xlsx", index=False)
+
+
+with open("others_re.json", "r", encoding="utf-8") as f:
+    data = json.load(f)
+
+# 2. 단어별로 표 형태로 변환 (변형/형태 제외)
+rows = []
+for word, info in data.items():
+    품사 = info.get("품사", "")
+    뜻 = info.get("뜻", "")
+    설명 = info.get("설명", "")
+    예문 = "\n".join(info.get("예문", [])) if "예문" in info else ""
+    
+    # 변형/형태는 완전히 무시하고 포함하지 않음
+    rows.append([word, 품사, 뜻, 설명, 예문])
+
+# 3. 데이터프레임 생성
+df = pd.DataFrame(rows, columns=["단어", "품사", "뜻", "설명", "예문"])
+
+# 4. 엑셀로 저장
+df.to_excel("others.xlsx", index=False)
+
+with open("verbs_re.json", "r", encoding="utf-8") as f:
+    data = json.load(f)
+
+# 2. 단어별로 표 형태로 변환 (변형/형태 제외)
+rows = []
+for word, info in data.items():
+    품사 = info.get("품사", "")
+    뜻 = info.get("뜻", "")
+    설명 = info.get("설명", "")
+    예문 = "\n".join(info.get("예문", [])) if "예문" in info else ""
+    
+    # 변형/형태는 완전히 무시하고 포함하지 않음
+    rows.append([word, 품사, 뜻, 설명, 예문])
+
+# 3. 데이터프레임 생성
+df = pd.DataFrame(rows, columns=["단어", "품사", "뜻", "설명", "예문"])
+
+# 4. 엑셀로 저장
+df.to_excel("verbs.xlsx", index=False)
