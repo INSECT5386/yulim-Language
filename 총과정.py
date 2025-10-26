@@ -38,7 +38,7 @@ without_meaning = {k:v for k,v in data.items() if "뜻" not in v}
 sorted_with_meaning = dict(sorted(with_meaning.items(), key=lambda item: get_chosung(item[1]["뜻"])))
 sorted_data = {**sorted_with_meaning, **without_meaning}
 
-with open("yuchan_dict_re.json", "w", encoding="utf-8") as f:
+with open("verbs_re.json", "w", encoding="utf-8") as f:
     json.dump(sorted_data, f, ensure_ascii=False, indent=2)
 
 
@@ -53,7 +53,7 @@ without_meaning = {k:v for k,v in data.items() if "뜻" not in v}
 sorted_with_meaning = dict(sorted(with_meaning.items(), key=lambda item: get_chosung(item[1]["뜻"])))
 sorted_data = {**sorted_with_meaning, **without_meaning}
 
-with open("yuchan_dict_re.json", "w", encoding="utf-8") as f:
+with open("others_re.json", "w", encoding="utf-8") as f:
     json.dump(sorted_data, f, ensure_ascii=False, indent=2)
 
 
@@ -66,7 +66,7 @@ without_meaning = {k:v for k,v in data.items() if "뜻" not in v}
 sorted_with_meaning = dict(sorted(with_meaning.items(), key=lambda item: get_chosung(item[1]["뜻"])))
 sorted_data = {**sorted_with_meaning, **without_meaning}
 
-with open("yuchan_dict_re.json", "w", encoding="utf-8") as f:
+with open("nouns_re.json", "w", encoding="utf-8") as f:
     json.dump(sorted_data, f, ensure_ascii=False, indent=2)
 
 
@@ -79,5 +79,5 @@ without_meaning = {k:v for k,v in data.items() if "뜻" not in v}
 sorted_with_meaning = dict(sorted(with_meaning.items(), key=lambda item: get_chosung(item[1]["뜻"])))
 sorted_data = {**sorted_with_meaning, **without_meaning}
 
-with open("yuchan_dict_re.json", "w", encoding="utf-8") as f:
+with open("adjectives_re.json", "w", encoding="utf-8") as f:
     json.dump(sorted_data, f, ensure_ascii=False, indent=2)
