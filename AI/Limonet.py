@@ -147,7 +147,7 @@ class Block(layers.Layer):
         self.W = layers.Conv1D(
     filters=d_model,          # 출력 채널 수
     kernel_size=3,       # 필터(커널) 크기
-    padding='causal',    # ⭐ 인과적 컨볼루션을 위한 설정
+    padding='same',    # ⭐ 인과적 컨볼루션을 위한 설정
     activation='relu'
         )
         self.gap = layers.GlobalAveragePooling1D()
