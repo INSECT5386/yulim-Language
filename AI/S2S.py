@@ -193,7 +193,7 @@ class CrossBlock(layers.Layer):
         return output
 
 class BaseBlock(layers.Layer):
-    def __init__(self, d_model, alpha=0.12, clip_value=5.0, eps=1e-6):
+    def __init__(self, d_model, clip_value=5.0, eps=1e-6):
         super().__init__()
         self.d_model = d_model
         self.alpha = float(alpha)
@@ -206,8 +206,10 @@ class BaseBlock(layers.Layer):
         self.norm1 = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
         self.norm2 = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
 
-    def _ema_over_time(self, score):
-        alpha = tf.constant(self.alpha, dtype=score.dtype)
+        self.a = layers.Dense(1)
+
+    def _ema_over_time(self, score, alpha):
+        alpha = tf.constant(alpha, dtype=score.dtype)
         seq = tf.transpose(score, perm=[1, 0, 2])
 
         def step(prev_ema, x_t):
@@ -228,7 +230,8 @@ class BaseBlock(layers.Layer):
         k = self.K(x_f32)   # (B, L, 128)
         V = tf.cast(self.V(x), tf.float32)  # ensure V's output is float32
         score = self.norm2(tf.sigmoid(q * g))
-        score_ema = self._ema_over_time(score)
+        alpha = tf.sigmoid(self.a(x_f32))
+        score_ema = self._ema_over_time(score, alpha)
         mean_last = tf.reduce_mean(score_ema, axis=-1, keepdims=True)  # (B, L, 1)
         denom = tf.maximum(mean_last, self.eps)
         score_norm = score_ema / denom
