@@ -199,10 +199,12 @@ class BaseBlock(layers.Layer):
         self.alpha = float(alpha)
         self.clip_value = float(clip_value)
         self.eps = float(eps)
-        self.Q = layers.Dense(128, dtype='float32')
-        self.K = layers.Dense(128, dtype='float32')
-        self.V = layers.Dense(128, dtype='float32')  # Lo already handles casting to model dtype; we'll cast back to float32
+        self.Q = layers.Dense(d_model, dtype='float32')
+        self.K = layers.Dense(d_model, dtype='float32')
+        self.V = layers.Dense(d_model, dtype='float32')  # Lo already handles casting to model dtype; we'll cast back to float32
         self.norm = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
+        self.norm1 = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
+        self.norm2 = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
 
     def _ema_over_time(self, score):
         alpha = tf.constant(self.alpha, dtype=score.dtype)
@@ -220,11 +222,12 @@ class BaseBlock(layers.Layer):
 
     def call(self, x):
         x_f32 = tf.cast(x, tf.float32)
+        x_f32 = self.norm1(x_f32)
         residual = x_f32
         q = self.Q(x_f32)   # (B, L, 128)
         k = self.K(x_f32)   # (B, L, 128)
         V = tf.cast(self.V(x), tf.float32)  # ensure V's output is float32
-        score = tf.sigmoid(q * g)
+        score = self.norm2(tf.sigmoid(q * g))
         score_ema = self._ema_over_time(score)
         mean_last = tf.reduce_mean(score_ema, axis=-1, keepdims=True)  # (B, L, 1)
         denom = tf.maximum(mean_last, self.eps)
