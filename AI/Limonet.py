@@ -180,18 +180,7 @@ class D(layers.Layer):
         x = self.norm1(x)
         x = self.attn([x, x], use_causal_mask=True)
         return self.norm2(x)
-
-class E(layers.Layer):
-    def __init__(self, d_model, clip_value=5.0, eps=1e-6):
-        super().__init__()
-        self.d_model = d_model
-        self.attn = tf.keras.layers.Attention()
-        self.norm1 = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
-        self.norm2 = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
-    def call(self, x):
-        x = self.norm1(x)
-        x = self.attn([x, x])
-        return self.norm2(x)
+      
 
 # ===== 3. 교차 융합 Block (수정) =====
 class CrossBlock(layers.Layer):
@@ -204,16 +193,68 @@ class CrossBlock(layers.Layer):
 
         self.norm1 = layers.LayerNormalization()
         self.norm2 = layers.LayerNormalization()
-        self.attn = tf.keras.layers.Attention()
-        self.norm3 = layers.LayerNormalization()
-        self.norm4 = layers.LayerNormalization()
+        self.dropout = layers.Dropout(dropout_rate)
+        self.split_size = dim // 8
+
     def call(self, x, z, training=None):
-        x = self.norm1(x)
-        x = self.attn([x, z, z])
-        x = self.norm(x)
-        x = tf.nn.silu(self.dense(x)) * self.dense1(x)
-        x = self.norm3(x)
-        return self.norm4(self.dense2(x))
+        # x: [B, T_dec, D] (디코더 시퀀스)
+        # z: [B, D] (컨텍스트 벡터)
+
+        # 1. 시퀀스 길이 추출
+        seq_len = tf.shape(x)[1]
+
+        # 2. Sequence Projection
+        x_proj = self.dense(x) # x_proj: [B, T, D]
+
+        # 3. Context vector expansion: [B, D] -> [B, 1, D] -> [B, T, D]
+        z_expanded = tf.expand_dims(z, axis=1)
+        z_repeated = tf.tile(z_expanded, [1, seq_len, 1]) # 시퀀스 T_dec 길이만큼 복제
+
+        # ===== Reverse Block (GLU Style) =====
+        A2 = self.dense2(z_repeated)  # Context gate: [B, T, D]
+        splits = tf.split(A2, num_or_size_splits=8, axis=-1)
+        a, at, b, bt, c, ct, d, dt = splits # Context splits (a, b, c, d는 게이트, at, bt, ct, dt는 값)
+
+        splits1 = tf.split(x_proj, num_or_size_splits=8, axis=-1)
+        A, A1, B, B1, C, C1, D, D1 = splits1 # Sequence splits (A, B, C, D는 게이트, A1, B1, C1, D1는 값)
+
+        # 활성화 함수 적용
+        a = tf.sigmoid(a)
+        b = tf.nn.silu(b)
+        c = tf.nn.gelu(c)
+        d = tf.nn.tanh(d)
+
+        A = tf.sigmoid(A)
+        B = tf.nn.silu(B)
+        C = tf.nn.gelu(C)
+        D = tf.nn.tanh(D)
+
+        # 게이트 적용 (Sequence)
+        Ath = A * A1 # [B, T, D/8]
+        Bth = B * B1
+        Cth = C * C1
+        Dth = D * D1
+
+        # 게이트 적용 (Context)
+        ath = a * at # [B, T, D/8]
+        bth = b * bt
+        cth = c * ct
+        dth = d * dt
+
+        # 모든 텐서 연결: [B, T, D/8] * 8 = [B, T, D]
+        z_th = tf.concat([ath, bth, cth, dth, Ath, Bth, Cth, Dth], axis=-1)
+
+        z_th = self.norm1(z_th)
+        x = z_th # x는 이제 컨텍스트와 융합된 시퀀스 [B, T, D]
+        
+        x = self.dense1(x) # [B, T, D] -> [B, T, D]
+        x = self.norm2(x)
+        
+        # 마지막 출력 GLU 스타일 projection: [B, T, D] -> [B, T, D/2]
+        f, ft = tf.split(x, num_or_size_splits=2, axis=-1)
+        f = tf.nn.silu(f)
+        output = f * ft
+        return output # [B, T, D/2]
 
 d_model = 256
 dropout_rate = 0.1
@@ -224,7 +265,7 @@ x_emb = layers.Embedding(input_dim=vocab_size, output_dim=d_model)(encoder_input
 x_pos = LearnablePositionalEmbedding(max_enc_len, d_model)(x_emb)
 
 # x_pos: [B, T_enc, D]. Block을 통해 컨텍스트 벡터 [B, D] 생성
-context_vector = E(d_model)(x_pos) # [B, D]
+context_vector = Block(d_model)(x_pos) # [B, D]
 
 # 디코더 경로
 decoder_input = Input(shape=(max_dec_len,), name='decoder_input')
@@ -238,7 +279,7 @@ y_pos = D(d_model)(y_pos)
 output = CrossBlock(d_model)(y_pos, context_vector)
 
 # 최종 출력: [B, T_dec, D/2] -> [B, T_dec, Vocab]
-logits = layers.Dense(vocab_size, use_bias=False)(output)
+logits = layers.Dense(vocab_size)(output)
 
 model = Model(inputs=[encoder_input, decoder_input], outputs=logits, name='SeProd')
 
