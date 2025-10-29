@@ -144,7 +144,12 @@ class Block(layers.Layer):
     def __init__(self, d_model, clip_value=5.0, eps=1e-6):
         super().__init__()
         self.d_model = d_model
-        self.W = layers.Dense(d_model)
+        self.W = layers.Conv1D(
+    filters=d_model,          # 출력 채널 수
+    kernel_size=3,       # 필터(커널) 크기
+    padding='causal',    # ⭐ 인과적 컨볼루션을 위한 설정
+    activation='relu'
+        )
         self.gap = layers.GlobalAveragePooling1D()
         self.W3 = layers.Dense(d_model, activation='silu')
         self.W2 = layers.Dense(d_model)
