@@ -37,7 +37,7 @@ for conversations in df["conversations"]:
             response = item2.get("value", "").strip().replace("\n", " ")
             full = f"<start> {prompt} <sep> {response} <end>"
             train_sentences.append(full)
-train_sentences = train_sentences[:10000] # 예제용 소량
+train_sentences = train_sentences[:100000] # 예제용 소량
 print(f"총 문장 개수: {len(train_sentences)}")
 
 # ⬇️ 토크나이저 불러오기
@@ -45,6 +45,7 @@ sp = spm.SentencePieceProcessor()
 sp.load("ko_unigram.model")
 
 # ⬇️ 특수 토큰 ID 추출
+# 전역 변수로 pad_id 정의
 pad_id = sp.piece_to_id("<pad>") if sp.piece_to_id("<pad>") != -1 else 0  
 start_id = sp.piece_to_id("<start>")  
 sep_id = sp.piece_to_id("<sep>")  
@@ -68,17 +69,19 @@ for sentence in train_sentences:
         continue
 
     sep_index = sentence.index("<sep>")
-    input_text = sentence[:sep_index].strip() # 질문 부분
-    target_text = sentence[sep_index + len("<sep>"):].strip() # 답변 부분
+    # <start>는 인코더 입력에서 제거하고, 디코더 입력에서 추가됩니다.
+    input_text = sentence[:sep_index].replace("<start>", "").strip() # 질문 부분
+    target_text = sentence[sep_index + len("<sep>"):].replace("<end>", "").strip() # 답변 부분
 
     # 인코더 입력: 질문 + <sep>
     enc_ids = sp.encode(input_text + " <sep>")[:max_enc_len]
 
-# 디코더 입력: <start> + 답변[:-1]
-    dec_input_ids = [start_id] + sp.encode(target_text)[:max_dec_len - 2]
+    # 디코더 입력: <start> + 답변[:-1]
+    dec_input_ids = [start_id] + sp.encode(target_text)[:max_dec_len - 1]
 
-# 정답 라벨: 답변 + <end>
+    # 정답 라벨: 답변 + <end>
     target_ids = sp.encode(target_text)[:max_dec_len - 1] + [end_id]
+
     # 패딩 추가
     enc_padded = enc_ids + [pad_id] * (max_enc_len - len(enc_ids))
     dec_padded = dec_input_ids + [pad_id] * (max_dec_len - len(dec_input_ids))
@@ -137,109 +140,122 @@ class LearnablePositionalEmbedding(layers.Layer):
         seq_len = tf.shape(inputs)[1]
         return self.add([inputs, self.pos_emb[tf.newaxis, :seq_len, :]])
 
+class Block(layers.Layer):
+    def __init__(self, d_model, clip_value=5.0, eps=1e-6):
+        super().__init__()
+        self.d_model = d_model
+        self.W = layers.Dense(d_model)
+        self.gap = layers.GlobalAveragePooling1D()
+        self.W1 = layers.Dense(1024, activation='silu')
+        self.W3 = layers.Dense(d_model, activation='silu')
+        self.W2 = layers.Dense(d_model)
+        self.W4 = layers.Dense(d_model)
+        self.norm = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
+        self.norm1 = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
+        self.norm2 = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
+
+        self.norm3 = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
+        self.norm4 = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
+        self.norm5 = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
+    def call(self, x):
+        x = self.norm(x)
+        x = self.W(x)
+        x = self.norm1(x)
+        x = self.gap(x)
+        x = self.norm2(x)
+        x = self.W1(x)
+        x = self.norm3(x)
+        x = self.W2(x) * self.W3(x)
+        x = self.norm4(x)
+        return self.norm5(self.W4(x))
+
+class D(layers.Layer):
+    def __init__(self, d_model, clip_value=5.0, eps=1e-6):
+        super().__init__()
+        self.d_model = d_model
+        self.attn = tf.keras.layers.Attention()
+        self.norm1 = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
+        self.norm2 = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
+    def call(self, x):
+        x = self.norm1(x)
+        x = self.attn([x, x], use_causal_mask=True)
+        return self.norm2(x)
+      
+
+# ===== 3. 교차 융합 Block (수정) =====
 class CrossBlock(layers.Layer):
     def __init__(self, dim, dropout_rate=0.1, **kwargs):
         super().__init__(**kwargs)
         self.dim = dim
-        self.dense1 = layers.Dense(dim)
-        self.dense2 = layers.Dense(dim)
-        self.dense = layers.Dense(dim)
-  
+        self.dense1 = layers.Dense(dim) # 최종 projection
+        self.dense2 = layers.Dense(dim) # Context gate projection
+        self.dense = layers.Dense(dim) # Sequence projection
+
         self.norm1 = layers.LayerNormalization()
         self.norm2 = layers.LayerNormalization()
         self.dropout = layers.Dropout(dropout_rate)
+        self.split_size = dim // 8
 
     def call(self, x, z, training=None):
-        batch_size, seq_len, d_model = tf.shape(x)[0], tf.shape(x)[1], tf.shape(x)[2]
-        x = self.dense(x)
+        # x: [B, T_dec, D] (디코더 시퀀스)
+        # z: [B, D] (컨텍스트 벡터)
+
+        # 1. 시퀀스 길이 추출
+        seq_len = tf.shape(x)[1]
+
+        # 2. Sequence Projection
+        x_proj = self.dense(x) # x_proj: [B, T, D]
+
+        # 3. Context vector expansion: [B, D] -> [B, 1, D] -> [B, T, D]
+        z_expanded = tf.expand_dims(z, axis=1)
+        z_repeated = tf.tile(z_expanded, [1, seq_len, 1]) # 시퀀스 T_dec 길이만큼 복제
 
         # ===== Reverse Block (GLU Style) =====
-        A2 = self.dense2(z)  # [B, T, D*2]
+        A2 = self.dense2(z_repeated)  # Context gate: [B, T, D]
         splits = tf.split(A2, num_or_size_splits=8, axis=-1)
-        a, at, b, bt, c, ct, d, dt = splits
-        splits1 = tf.split(x, num_or_size_splits=8, axis=-1)
-        A, A1, B, B1, C, C1, D, D1 = splits1
+        a, at, b, bt, c, ct, d, dt = splits # Context splits (a, b, c, d는 게이트, at, bt, ct, dt는 값)
 
+        splits1 = tf.split(x_proj, num_or_size_splits=8, axis=-1)
+        A, A1, B, B1, C, C1, D, D1 = splits1 # Sequence splits (A, B, C, D는 게이트, A1, B1, C1, D1는 값)
+
+        # 활성화 함수 적용
         a = tf.sigmoid(a)
         b = tf.nn.silu(b)
         c = tf.nn.gelu(c)
         d = tf.nn.tanh(d)
-
 
         A = tf.sigmoid(A)
         B = tf.nn.silu(B)
         C = tf.nn.gelu(C)
         D = tf.nn.tanh(D)
 
-        Ath = A * A1
+        # 게이트 적용 (Sequence)
+        Ath = A * A1 # [B, T, D/8]
         Bth = B * B1
         Cth = C * C1
         Dth = D * D1
 
-        ath = a * at
+        # 게이트 적용 (Context)
+        ath = a * at # [B, T, D/8]
         bth = b * bt
         cth = c * ct
         dth = d * dt
 
-        z_th = tf.concat([ath, bth, cth, dth, Ath, Bth, Cth, Dth], axis=-1)  # [B, T, D*2]
-      
+        # 모든 텐서 연결: [B, T, D/8] * 8 = [B, T, D]
+        z_th = tf.concat([ath, bth, cth, dth, Ath, Bth, Cth, Dth], axis=-1)
+
         z_th = self.norm1(z_th)
-        x = z_th
-        x = self.dense1(x)
+        x = z_th # x는 이제 컨텍스트와 융합된 시퀀스 [B, T, D]
+        
+        x = self.dense1(x) # [B, T, D] -> [B, T, D]
         x = self.norm2(x)
+        
+        # 마지막 출력 GLU 스타일 projection: [B, T, D] -> [B, T, D/2]
         f, ft = tf.split(x, num_or_size_splits=2, axis=-1)
         f = tf.nn.silu(f)
         output = f * ft
-        return output
+        return output # [B, T, D/2]
 
-class BaseBlock(layers.Layer):
-    def __init__(self, d_model, clip_value=5.0, eps=1e-6):
-        super().__init__()
-        self.d_model = d_model
-        self.alpha = float(alpha)
-        self.clip_value = float(clip_value)
-        self.eps = float(eps)
-        self.Q = layers.Dense(d_model, dtype='float32')
-        self.K = layers.Dense(d_model, dtype='float32')
-        self.V = layers.Dense(d_model, dtype='float32')  # Lo already handles casting to model dtype; we'll cast back to float32
-        self.norm = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
-        self.norm1 = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
-        self.norm2 = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
-
-        self.a = layers.Dense(1)
-
-    def _ema_over_time(self, score, alpha):
-        alpha = tf.constant(alpha, dtype=score.dtype)
-        seq = tf.transpose(score, perm=[1, 0, 2])
-
-        def step(prev_ema, x_t):
-            new = alpha * x_t + (1.0 - alpha) * prev_ema
-            return new
-
-        init = seq[0]  
-        ema_seq = tf.scan(fn=step, elems=seq[1:], initializer=init)
-        ema_seq = tf.concat([tf.expand_dims(init, 0), ema_seq], axis=0)  # (L, B, D)
-        ema = tf.transpose(ema_seq, perm=[1, 0, 2])
-        return ema
-
-    def call(self, x):
-        x_f32 = tf.cast(x, tf.float32)
-        x_f32 = self.norm1(x_f32)
-        residual = x_f32
-        q = self.Q(x_f32)   # (B, L, 128)
-        k = self.K(x_f32)   # (B, L, 128)
-        V = tf.cast(self.V(x), tf.float32)  # ensure V's output is float32
-        score = self.norm2(tf.sigmoid(q * g))
-        alpha = tf.sigmoid(self.a(x_f32))
-        score_ema = self._ema_over_time(score, alpha)
-        mean_last = tf.reduce_mean(score_ema, axis=-1, keepdims=True)  # (B, L, 1)
-        denom = tf.maximum(mean_last, self.eps)
-        score_norm = score_ema / denom
-        score_clipped = tf.clip_by_value(score_norm, -self.clip_value, self.clip_value)
-        x_comb = score_clipped * V  # (B, L, d_model)# (B, L, d_model)
-        out = self.norm(x_comb + residual)
-        return tf.cast(out, x.dtype)
-       
 d_model = 256
 dropout_rate = 0.1
 # ===== 모델 구성 =====
@@ -248,16 +264,21 @@ encoder_input = Input(shape=(max_enc_len,), name='encoder_input')
 x_emb = layers.Embedding(input_dim=vocab_size, output_dim=d_model)(encoder_input)
 x_pos = LearnablePositionalEmbedding(max_enc_len, d_model)(x_emb)
 
-context_vector = BaseBlock(d_model)(x_pos, training=True)
+# x_pos: [B, T_enc, D]. Block을 통해 컨텍스트 벡터 [B, D] 생성
+context_vector = Block(d_model)(x_pos) # [B, D]
 
 # 디코더 경로
 decoder_input = Input(shape=(max_dec_len,), name='decoder_input')
 y_emb = layers.Embedding(input_dim=vocab_size, output_dim=d_model)(decoder_input)
-y_pos = LearnablePositionalEmbedding(max_dec_len, d_model)(y_emb)
-decoder_output = BaseBlock(d_model)(y_pos, training=True)
-output = CrossBlock(d_model)(decoder_output, context_vector)
+y_pos = LearnablePositionalEmbedding(max_dec_len, d_model)(y_emb) # [B, T_dec, D]
+y_pos = D(d_model)(y_pos)
 
-# 최종 출력
+# 수정: decoder_output = Block(d_model)(y_pos, training=True) 부분을 제거하고, 
+# 시퀀스 텐서 y_pos를 CrossBlock의 입력으로 직접 사용합니다.
+# CrossBlock(y_pos, context_vector) -> [B, T_dec, D/2]
+output = CrossBlock(d_model)(y_pos, context_vector)
+
+# 최종 출력: [B, T_dec, D/2] -> [B, T_dec, Vocab]
 logits = layers.Dense(vocab_size)(output)
 
 model = Model(inputs=[encoder_input, decoder_input], outputs=logits, name='SeProd')
@@ -272,17 +293,24 @@ model.compile(
 # 모델 요약
 model.summary()
 
-model.fit(dataset, epochs=1, steps_per_epoch=len(train_sentences) // batch_size)
-model.save('tf_model.h5')
+# 학습
+try:
+    model.fit(dataset, epochs=1, steps_per_epoch=len(train_sentences) // batch_size)
+    model.save('tf_model.h5')
+except Exception as e:
+    print(f"⚠️ 학습 중 오류 발생: {e}")
 
+# ===== 추론 함수 (generate) 수정: pad_id 사용 =====
 def generate(model, sp, input_text, max_dec_len=128, temperature=0.7, verbose=False):
+    # 전역 pad_id 사용
     start_id = sp.piece_to_id("<start>")
     end_id = sp.piece_to_id("<end>")
     
     # 인코더 입력 전처리
-    enc_ids = sp.encode(input_text)
+    enc_ids = sp.encode(input_text + " <sep>")
     enc_ids = enc_ids[:max_enc_len]
-    enc_ids += [sp.pad_id()] * (max_enc_len - len(enc_ids))
+    # pad_id 전역 변수 사용
+    enc_ids += [pad_id] * (max_enc_len - len(enc_ids))
     enc_tensor = tf.constant([enc_ids], dtype=tf.int32)
 
     if verbose:
@@ -295,11 +323,12 @@ def generate(model, sp, input_text, max_dec_len=128, temperature=0.7, verbose=Fa
 
     for step in range(max_dec_len):
         # 디코더 입력을 max_dec_len으로 패딩
+        # pad_id 전역 변수 사용
         padded_dec_input = tf.pad(dec_input, [[0, 0], [0, max_dec_len - tf.shape(dec_input)[1]]],
-                                  constant_values=sp.pad_id())
+                                  constant_values=pad_id)
 
         # 전체 모델 예측
-        decoder_output = model.predict([enc_tensor, padded_dec_input])
+        decoder_output = model.predict([enc_tensor, padded_dec_input], verbose=0)
         
         # 현재 스텝의 로짓 추출
         logits = decoder_output[:, step, :]  # 현재 step 위치의 로짓
@@ -308,6 +337,7 @@ def generate(model, sp, input_text, max_dec_len=128, temperature=0.7, verbose=Fa
             pred_id = tf.argmax(logits, axis=-1, output_type=tf.int32)
         else:
             logits = logits / temperature
+            # logits 차원 확인: (1, vocab_size)
             pred_id = tf.random.categorical(logits, 1, dtype=tf.int32)
 
         pred_id = tf.squeeze(pred_id, axis=1)  # (1, )
@@ -317,6 +347,7 @@ def generate(model, sp, input_text, max_dec_len=128, temperature=0.7, verbose=Fa
             break
 
         generated_ids.append(int(pred_id[0]))
+        # 다음 스텝을 위해 디코더 입력 업데이트
         dec_input = tf.concat([dec_input, pred_id[:, tf.newaxis]], axis=1)
 
         if verbose:
