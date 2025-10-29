@@ -146,14 +146,11 @@ class Block(layers.Layer):
         self.d_model = d_model
         self.W = layers.Dense(d_model)
         self.gap = layers.GlobalAveragePooling1D()
-        self.W1 = layers.Dense(1024, activation='silu')
         self.W3 = layers.Dense(d_model, activation='silu')
         self.W2 = layers.Dense(d_model)
         self.W4 = layers.Dense(d_model)
         self.norm = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
         self.norm1 = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
-        self.norm2 = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
-
         self.norm3 = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
         self.norm4 = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
         self.norm5 = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
@@ -162,8 +159,6 @@ class Block(layers.Layer):
         x = self.W(x)
         x = self.norm1(x)
         x = self.gap(x)
-        x = self.norm2(x)
-        x = self.W1(x)
         x = self.norm3(x)
         x = self.W2(x) * self.W3(x)
         x = self.norm4(x)
@@ -181,7 +176,6 @@ class D(layers.Layer):
         x = self.attn([x, x], use_causal_mask=True)
         return self.norm2(x)
       
-
 # ===== 3. 교차 융합 Block (수정) =====
 class CrossBlock(layers.Layer):
     def __init__(self, dim, dropout_rate=0.1, **kwargs):
