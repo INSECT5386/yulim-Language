@@ -146,6 +146,12 @@ class Adapter(layers.Layer):
         self.d_model = d_model
         self.W = layers.Dense(d_model)
         self.W1 = layers.Dense(64)
+        self.norm = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
+    def call(self, x):
+        re = x
+        x = self.W1(x)
+        x = self.norm(self.W(x) + re)
+        return x
 
 class Block(layers.Layer):
     def __init__(self, d_model, clip_value=5.0, eps=1e-6):
@@ -160,7 +166,7 @@ class Block(layers.Layer):
         self.gap = layers.GlobalAveragePooling1D()
         self.W3 = layers.Dense(d_model, activation='silu')
         self.W2 = layers.Dense(d_model)
-        self.W4 = layers.Dense(d_model)
+        self.W4 = Adapter(d_model)
         self.norm = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
         self.norm1 = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
         self.norm3 = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
@@ -183,9 +189,11 @@ class D(layers.Layer):
         self.attn = tf.keras.layers.Attention()
         self.norm1 = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
         self.norm2 = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
+        self.W = Adapter(d_model)
     def call(self, x):
         x = self.norm1(x)
-        x = self.attn([x, x], use_causal_mask=True)
+        v = self.W(x)
+        x = self.attn([x, x, v], use_causal_mask=True)
         return self.norm2(x)
       
 # ===== 3. 교차 융합 Block (수정) =====
