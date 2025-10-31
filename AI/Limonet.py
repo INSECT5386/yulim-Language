@@ -203,8 +203,6 @@ class CrossBlock(layers.Layer):
         self.dim = dim
         self.dense1 = layers.Dense(dim) # 최종 projection
         self.dense2 = layers.Dense(dim) # Context gate projection
-        self.dense = layers.Dense(dim) # Sequence projection
-
         self.norm1 = layers.LayerNormalization()
         self.norm2 = layers.LayerNormalization()
         self.dropout = layers.Dropout(dropout_rate)
@@ -216,35 +214,14 @@ class CrossBlock(layers.Layer):
 
         # 1. 시퀀스 길이 추출
         seq_len = tf.shape(x)[1]
-
-        # 2. Sequence Projection
-        x_proj = self.dense(x) # x_proj: [B, T, D]
-
         # 3. Context vector expansion: [B, D] -> [B, 1, D] -> [B, T, D]
         z_expanded = tf.expand_dims(z, axis=1)
         z_repeated = tf.tile(z_expanded, [1, seq_len, 1]) # 시퀀스 T_dec 길이만큼 복제
 
         # ===== Reverse Block (GLU Style) =====
         A2 = self.dense2(z_repeated)  # Context gate: [B, T, D]
-        splits = tf.split(A2, num_or_size_splits=2, axis=-1)
-        a, at= splits # Context splits (a, b, c, d는 게이트, at, bt, ct, dt는 값)
 
-        splits1 = tf.split(x_proj, num_or_size_splits=2, axis=-1)
-        A, A1 = splits1 # Sequence splits (A, B, C, D는 게이트, A1, B1, C1, D1는 값)
-
-        # 활성화 함수 적용
-        a = tf.sigmoid(a)
-
-        A = tf.sigmoid(A)
-
-        # 게이트 적용 (Sequence)
-        Ath = A * A1 # [B, T, D/8]
-
-        # 게이트 적용 (Context)
-        ath = a * at # [B, T, D/8]
-
-        # 모든 텐서 연결: [B, T, D/8] * 8 = [B, T, D]
-        z_th = tf.concat([ath, Ath], axis=-1)
+        z_th = tf.nn.sigmoid(x * A2) * A2
 
         z_th = self.norm1(z_th)
         x = z_th # x는 이제 컨텍스트와 융합된 시퀀스 [B, T, D]
