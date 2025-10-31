@@ -20,8 +20,8 @@ def download_file(url, save_path):
     print(f"✅ 파일 저장됨: {save_path}")
 
 # ⬇️ 데이터와 토크나이저 다운로드
-download_file('https://huggingface.co/datasets/Yuchan5386/TinyInst/resolve/refs%2Fconvert%2Fparquet/default/train/0000.parquet?download=true', 'dataset.parquet')
-download_file('https://huggingface.co/datasets/Yuchan5386/TinyInst/resolve/main/ko_unigram.model?download=true', 'ko_unigram.model')
+download_file('https://huggingface.co/datasets/Yuchan5386/SFT/resolve/refs%2Fconvert%2Fparquet/default/partial-train/0000.parquet?download=true', 'dataset.parquet')
+download_file('https://huggingface.co/Yuchan5386/ReLaM1-35m-instruct/resolve/main/ko_unigram.model?download=true', 'ko_unigram.model')
 
 # ⬇️ Parquet 데이터 불러오기  
 df = pd.read_parquet("dataset.parquet", engine="pyarrow")
@@ -37,7 +37,7 @@ for conversations in df["conversations"]:
             response = item2.get("value", "").strip().replace("\n", " ")
             full = f"<start> {prompt} <sep> {response} <end>"
             train_sentences.append(full)
-train_sentences = train_sentences[:100000] # 예제용 소량
+train_sentences = train_sentences# 예제용 소량
 print(f"총 문장 개수: {len(train_sentences)}")
 
 # ⬇️ 토크나이저 불러오기
