@@ -234,29 +234,17 @@ class CrossBlock(layers.Layer):
 
         # 활성화 함수 적용
         a = tf.sigmoid(a)
-        b = tf.nn.silu(b)
-        c = tf.nn.gelu(c)
-        d = tf.nn.tanh(d)
 
         A = tf.sigmoid(A)
-        B = tf.nn.silu(B)
-        C = tf.nn.gelu(C)
-        D = tf.nn.tanh(D)
 
         # 게이트 적용 (Sequence)
         Ath = A * A1 # [B, T, D/8]
-        Bth = B * B1
-        Cth = C * C1
-        Dth = D * D1
 
         # 게이트 적용 (Context)
         ath = a * at # [B, T, D/8]
-        bth = b * bt
-        cth = c * ct
-        dth = d * dt
 
         # 모든 텐서 연결: [B, T, D/8] * 8 = [B, T, D]
-        z_th = tf.concat([ath, bth, cth, dth, Ath, Bth, Cth, Dth], axis=-1)
+        z_th = tf.concat([ath, Ath], axis=-1)
 
         z_th = self.norm1(z_th)
         x = z_th # x는 이제 컨텍스트와 융합된 시퀀스 [B, T, D]
