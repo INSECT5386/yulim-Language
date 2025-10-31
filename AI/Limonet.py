@@ -226,11 +226,11 @@ class CrossBlock(layers.Layer):
 
         # ===== Reverse Block (GLU Style) =====
         A2 = self.dense2(z_repeated)  # Context gate: [B, T, D]
-        splits = tf.split(A2, num_or_size_splits=8, axis=-1)
-        a, at, b, bt, c, ct, d, dt = splits # Context splits (a, b, c, d는 게이트, at, bt, ct, dt는 값)
+        splits = tf.split(A2, num_or_size_splits=2, axis=-1)
+        a, at= splits # Context splits (a, b, c, d는 게이트, at, bt, ct, dt는 값)
 
-        splits1 = tf.split(x_proj, num_or_size_splits=8, axis=-1)
-        A, A1, B, B1, C, C1, D, D1 = splits1 # Sequence splits (A, B, C, D는 게이트, A1, B1, C1, D1는 값)
+        splits1 = tf.split(x_proj, num_or_size_splits=2, axis=-1)
+        A, A1 = splits1 # Sequence splits (A, B, C, D는 게이트, A1, B1, C1, D1는 값)
 
         # 활성화 함수 적용
         a = tf.sigmoid(a)
