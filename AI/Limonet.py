@@ -140,6 +140,13 @@ class LearnablePositionalEmbedding(layers.Layer):
         seq_len = tf.shape(inputs)[1]
         return self.add([inputs, self.pos_emb[tf.newaxis, :seq_len, :]])
 
+class Adapter(layers.Layer):
+    def __init__(self, d_model, clip_value=5.0, eps=1e-6):
+        super().__init__()
+        self.d_model = d_model
+        self.W = layers.Dense(d_model)
+        self.W1 = layers.Dense(64)
+
 class Block(layers.Layer):
     def __init__(self, d_model, clip_value=5.0, eps=1e-6):
         super().__init__()
