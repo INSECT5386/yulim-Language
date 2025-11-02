@@ -1,1 +1,230 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Yuchan 인공어 사전 — 검색기</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--accent:#7c3aed;--muted:#94a3b8;--glass:rgba(255,255,255,0.04)}
+    *{box-sizing:border-box;font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial}
+    body{margin:0;background:linear-gradient(180deg,#071029 0%, #071530 60%);color:#e6eef8;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px}
+    .wrap{width:100%;max-width:960px}
+    header{display:flex;align-items:center;gap:16px;margin-bottom:18px}
+    header h1{margin:0;font-size:20px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.03);padding:18px;border-radius:12px;box-shadow:0 6px 30px rgba(2,6,23,0.6)}
+    .controls{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+    .search-row{display:flex;gap:8px;width:100%}
+    input[type=text]{flex:1;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:var(--glass);color:inherit;font-size:15px}
+    select, button{padding:10px 12px;border-radius:10px;border:0;background:rgba(255,255,255,0.03);color:inherit;font-weight:600}
+    button.primary{background:linear-gradient(90deg,var(--accent),#4c1d95);box-shadow:0 6px 20px rgba(124,58,237,0.18)}
+    .meta{color:var(--muted);font-size:13px;margin-top:8px}
+    .results{margin-top:14px;display:grid;grid-template-columns:1fr;gap:12px}
+    .entry{padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.02)}
+    .entry h2{margin:0 0 6px 0;font-size:18px}
+    .tags{font-size:13px;color:var(--muted);margin-bottom:6px}
+    .examples{margin-top:8px;color:#cfe6ff;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:8px;border-radius:8px}
+    .small{font-size:13px;color:var(--muted)}
+    .actions{display:flex;gap:8px;margin-top:10px}
+    .hint{font-size:13px;color:var(--muted);margin-top:10px}
+    .uploader{margin-left:auto;display:flex;gap:8px}
+    footer{margin-top:14px;color:var(--muted);font-size:13px;text-align:center}
+    @media(max-width:640px){header{flex-direction:column;align-items:flex-start} .uploader{width:100%}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <h1>Yuchan 인공어 사전 — 검색기</h1>
+        <div class="meta">conlang ↔ 한국어 양방향 검색. JSON 파일 업로드 가능.</div>
+      </div>
+      <div class="uploader">
+        <label class="small">JSON 업로드: <input id="fileInput" type="file" accept="application/json" style="display:inline-block;margin-left:8px"/></label>
+      </div>
+    </header>
 
+    <section class="card">
+      <div class="controls">
+        <div class="search-row">
+          <input id="q" type="text" placeholder="검색어를 입력하세요 — 예: golo 또는 '고마워'" />
+          <select id="mode" title="검색 모드">
+            <option value="auto">자동 감지 (추천)</option>
+            <option value="c2k">인공어 → 한국어</option>
+            <option value="k2c">한국어 → 인공어</option>
+          </select>
+          <button id="searchBtn" class="primary">검색</button>
+        </div>
+      </div>
+
+      <div class="hint">입력창에 단어 일부만 넣어도 검색됩니다. Enter로 검색 가능.</div>
+
+      <div id="results" class="results"></div>
+
+      <div class="meta" style="margin-top:12px">데이터 로드 상태: <span id="status">내장 샘플 사용 중</span></div>
+    </section>
+
+    <footer class="card" style="margin-top:12px">
+      <div class="small">사용법: 단어를 입력하고 검색. 한국어로 입력하면 뜻·예문에서 부분 일치로 찾아 인공어 항목을 보여줍니다.</div>
+    </footer>
+  </div>
+
+  <script>
+    // 기본 샘플 데이터 (yuchan_dict_re.json 예시를 기반으로 한 내부 데이터)
+    let DICT = {
+      "golo": {
+        "품사": "감탄사",
+        "뜻": "고마워",
+        "예문": ["golovus : 고마워지다."]
+      },
+      "solo": {
+        "품사": "감탄사",
+        "뜻": "미안해",
+        "예문": ["solovus : 미안해지다"]
+      },
+      "hima": {
+        "품사": "대명사",
+        "뜻": "그",
+        "예문": ["hima est: 그는 간다."]
+      },
+      "itos": {
+        "품사": "대명사",
+        "뜻": "그것",
+        "예문": ["itos pila: 그것은 붉다."]
+      },
+      "sioma": {
+        "품사": "대명사",
+        "뜻": "그녀",
+        "예문": ["sioma ven: 그녀가 노래한다."]
+      },
+      "timas": {
+        "품사": "대명사",
+        "뜻": "그들",
+        "예문": ["timas ran: 그들이 온다."]
+      },
+      "mima": {
+        "품사": "대명사",
+        "뜻": "나",
+        "복수형": "wimas (우리)",
+        "예문": ["mima sol: 나는 먹는다."]
+      },
+      "yuma": {
+        "품사": "대명사",
+        "뜻": "너",
+        "예문": ["yuma tal: 너는 달린다."]
+      },
+      "wimas": {
+        "품사": "대명사",
+        "뜻": "우리",
+        "예문": ["wimas plu: 우리는 간다."]
+      }
+    };
+
+    // DOM
+    const qEl = document.getElementById('q');
+    const modeEl = document.getElementById('mode');
+    const btn = document.getElementById('searchBtn');
+    const resultsEl = document.getElementById('results');
+    const statusEl = document.getElementById('status');
+    const fileInput = document.getElementById('fileInput');
+
+    function normalize(s){return String(s||'').toLowerCase();}
+
+    function detectMode(input){
+      if(modeEl.value !== 'auto') return modeEl.value;
+      // 한글이 들어있으면 k2c, 아니면 c2k
+      return /[\u3131-\u318e\uac00-\ud7a3]/.test(input) ? 'k2c' : 'c2k';
+    }
+
+    function search(query){
+      const q = query.trim();
+      if(!q) return [];
+      const mode = detectMode(q);
+      const out = [];
+      if(mode === 'c2k'){
+        // conlang -> 한국어: 키로 바로 찾고, 부분일치 검색
+        const keys = Object.keys(DICT);
+        const qn = normalize(q);
+        // 정확매치 우선
+        if(DICT[qn]) out.push({key: qn, val: DICT[qn]});
+        for(const k of keys){ if(k.includes(qn) && !out.find(x=>x.key===k)) out.push({key:k, val: DICT[k]}); }
+      } else {
+        // Korean -> conlang: 뜻, 예문, 품사 등에서 부분일치
+        const qn = normalize(q);
+        for(const [k,v] of Object.entries(DICT)){
+          const fields = [];
+          if(v['뜻']) fields.push(v['뜻']);
+          if(v['품사']) fields.push(v['품사']);
+          if(v['예문']) fields.push(v['예문'].join('\n'));
+          if(v['복수형']) fields.push(v['복수형']);
+          const hay = normalize(fields.join(' '));
+          if(hay.includes(qn) || k.includes(qn)) out.push({key:k, val:v});
+        }
+      }
+      return out;
+    }
+
+    function render(results, query){
+      resultsEl.innerHTML = '';
+      if(results.length===0){
+        resultsEl.innerHTML = '<div class="entry small">결과 없음 — 입력을 바꿔보거나 JSON 파일을 업로드해보세요.</div>';
+        return;
+      }
+      for(const r of results){
+        const v = r.val;
+        const el = document.createElement('div'); el.className='entry';
+        const h = document.createElement('h2'); h.textContent = r.key; el.appendChild(h);
+        const tags = document.createElement('div'); tags.className='tags';
+        const pos = v['품사']? v['품사'] : '-';
+        const mean = v['뜻']? v['뜻'] : '-';
+        tags.innerHTML = `<strong class="small">품사:</strong> ${pos} &nbsp; <strong class="small">뜻:</strong> ${mean}`;
+        if(v['복수형']) tags.innerHTML += ` &nbsp; <span class="small">복수형: ${v['복수형']}</span>`;
+        el.appendChild(tags);
+        if(v['예문']){
+          const ex = document.createElement('div'); ex.className='examples';
+          const list = Array.isArray(v['예문'])? v['예문'] : [v['예문']];
+          ex.innerHTML = '<strong>예문</strong><br>' + list.map(x=>`<div style="margin-top:6px">${escapeHtml(x)}</div>`).join('');
+          el.appendChild(ex);
+        }
+        const act = document.createElement('div'); act.className='actions';
+        const copyBtn = document.createElement('button'); copyBtn.textContent='예문 복사';
+        copyBtn.onclick = ()=>{ navigator.clipboard.writeText( (v['예문']||[]).join('\n') ).then(()=>{ copyBtn.textContent='복사됨!'; setTimeout(()=>copyBtn.textContent='예문 복사',900); }) }
+        const detailsBtn = document.createElement('button'); detailsBtn.textContent='JSON 보기';
+        detailsBtn.onclick = ()=>{ alert(JSON.stringify({[r.key]:v}, null, 2)); }
+        act.appendChild(copyBtn); act.appendChild(detailsBtn);
+        el.appendChild(act);
+        resultsEl.appendChild(el);
+      }
+    }
+
+    function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    btn.addEventListener('click', ()=>{ const q = qEl.value; const res = search(q); render(res,q); });
+    qEl.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ btn.click(); } });
+
+    // 파일 업로드로 DICT 교체
+    fileInput.addEventListener('change', (ev)=>{
+      const f = ev.target.files && ev.target.files[0];
+      if(!f) return;
+      const reader = new FileReader();
+      reader.onload = (e)=>{
+        try{
+          const data = JSON.parse(e.target.result);
+          // 간단한 validation
+          if(typeof data !== 'object') throw new Error('올바른 JSON 오브젝트가 아닙니다.');
+          DICT = data;
+          statusEl.textContent = `로컬 파일로 로드됨: ${f.name} (항목 ${Object.keys(DICT).length}개)`;
+          resultsEl.innerHTML = '';
+        }catch(err){
+          alert('파일을 열 수 없습니다: '+err.message);
+        }
+      };
+      reader.readAsText(f,'utf-8');
+    });
+
+    // 페이지 로드 시 초깃값 검색 예시
+    document.addEventListener('DOMContentLoaded', ()=>{
+      render([{key:'golo', val:DICT['golo']}]);
+    });
+  </script>
+</body>
+</html>
