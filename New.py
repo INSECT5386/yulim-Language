@@ -161,9 +161,11 @@ styleExplanation.leading = 12
 total_words = len(sorted_data)
 title_text = "YuLimo (유리모) 단어장"
 explanation_text = (
+    f"--- 조합식 ---<br/>"
+    f"fo' + 동사= 미래형. pa' + 동사= 과거형. 동사 + utu= 피동형. 동사 + io= 명사형. 동사 + a= 형용사형. 동사 + ia= 부사형. 동사 + nus= 진행형. 동사 + pus= 완료. 동사 + wen/hen/cen= ~하고싶고/ ~해야하고/ ~할 수 있고. 형용사 + vus= ~해지다/된 상태가 되다. 명사 + us= 동사(조건부 가능, 예) hato(행복) + us = hatus(행복하다), 명사 + vus= ~해지다/된 상태가 되다.(조건부 가능, 예) hato(행복) + vus= hatovus(행복해지다)"
     f"--- 데이터 요약 ---<br/>"
-    f"이 문서는 YuLimo 프로젝트의 한국어 단어 데이터를 기반으로 생성되었습니다. "
-    f"총 {total_words}개의 단어가 포함되어 있으며, 품사별로 분류된 후 뜻의 가나다순으로 재정렬되었습니다."
+    f"총 {total_words}개의 단어가 포함됨."
+    f"품사별로 묶은 후 뜻의 초성 순으로 정렬됨"
 )
 
 # Flowables 리스트 (문서에 들어갈 요소들)
