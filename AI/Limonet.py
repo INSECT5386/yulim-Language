@@ -181,7 +181,7 @@ class CrossBlock(layers.Layer):
         super().__init__(**kwargs)
         self.dim = dim
         self.dense1 = layers.Dense(dim) # 최종 projection
-        self.dense2 = layers.Dense(dim) # Context gate projection
+        self.dense2 = layers.Dense(dim, activation='silu') # Context gate projection
         self.norm1 = layers.LayerNormalization()
         self.norm2 = layers.LayerNormalization()
         self.dropout = layers.Dropout(dropout_rate)
@@ -198,21 +198,16 @@ class CrossBlock(layers.Layer):
         z_repeated = tf.tile(z_expanded, [1, seq_len, 1]) # 시퀀스 T_dec 길이만큼 복제
 
         # ===== Reverse Block (GLU Style) =====
-        A2 = self.dense2(z_repeated)  # Context gate: [B, T, D]
+        A2 = self.dense1(z_repeated)  # Context gate: [B, T, D]
 
         z_th = tf.nn.sigmoid(x * A2) * A2
 
         z_th = self.norm1(z_th)
         x = z_th # x는 이제 컨텍스트와 융합된 시퀀스 [B, T, D]
         
-        x = self.dense1(x) # [B, T, D] -> [B, T, D]
+        x = self.dense2(x) # [B, T, D] -> [B, T, D]
         x = self.norm2(x)
-        
-        # 마지막 출력 GLU 스타일 projection: [B, T, D] -> [B, T, D/2]
-        f, ft = tf.split(x, num_or_size_splits=2, axis=-1)
-        f = tf.nn.silu(f)
-        output = f * ft
-        return output # [B, T, D/2]
+        return x
 
 d_model = 256
 dropout_rate = 0.1
