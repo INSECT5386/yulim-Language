@@ -46,7 +46,7 @@
     <section class="card">
       <div class="controls">
         <div class="search-row">
-          <input id="q" type="text" placeholder="검색어를 입력하세요 — 예: golo 또는 '고마워'" />
+          <input id="q" type="text" placeholder="검색어를 입력하세요 — 예: golo 또는 '고마워'"/>
           <select id="mode" title="검색 모드">
             <option value="auto">자동 감지 (추천)</option>
             <option value="c2k">인공어 → 한국어</option>
@@ -60,7 +60,7 @@
 
       <div id="results" class="results"></div>
 
-      <div class="meta" style="margin-top:12px">데이터 로드 상태: <span id="status">내장 샘플 사용 중</span></div>
+      <div class="meta" style="margin-top:12px">데이터 로드 상태: <span id="status">로딩 중...</span></div>
     </section>
 
     <footer class="card" style="margin-top:12px">
@@ -69,55 +69,20 @@
   </div>
 
   <script>
-    // 기본 샘플 데이터 (yuchan_dict_re.json 예시를 기반으로 한 내부 데이터)
-    let DICT = {
-      "golo": {
-        "품사": "감탄사",
-        "뜻": "고마워",
-        "예문": ["golovus : 고마워지다."]
-      },
-      "solo": {
-        "품사": "감탄사",
-        "뜻": "미안해",
-        "예문": ["solovus : 미안해지다"]
-      },
-      "hima": {
-        "품사": "대명사",
-        "뜻": "그",
-        "예문": ["hima est: 그는 간다."]
-      },
-      "itos": {
-        "품사": "대명사",
-        "뜻": "그것",
-        "예문": ["itos pila: 그것은 붉다."]
-      },
-      "sioma": {
-        "품사": "대명사",
-        "뜻": "그녀",
-        "예문": ["sioma ven: 그녀가 노래한다."]
-      },
-      "timas": {
-        "품사": "대명사",
-        "뜻": "그들",
-        "예문": ["timas ran: 그들이 온다."]
-      },
-      "mima": {
-        "품사": "대명사",
-        "뜻": "나",
-        "복수형": "wimas (우리)",
-        "예문": ["mima sol: 나는 먹는다."]
-      },
-      "yuma": {
-        "품사": "대명사",
-        "뜻": "너",
-        "예문": ["yuma tal: 너는 달린다."]
-      },
-      "wimas": {
-        "품사": "대명사",
-        "뜻": "우리",
-        "예문": ["wimas plu: 우리는 간다."]
-      }
+    // 내장 폴백 데이터 (fetch 실패 시 사용)
+    const FALLBACK = {
+      "golo": {"품사":"감탄사","뜻":"고마워","예문":["golovus : 고마워지다."]},
+      "solo": {"품사":"감탄사","뜻":"미안해","예문":["solovus : 미안해지다"]},
+      "hima": {"품사":"대명사","뜻":"그","예문":["hima est: 그는 간다."]},
+      "itos": {"품사":"대명사","뜻":"그것","예문":["itos pila: 그것은 붉다."]},
+      "sioma":{"품사":"대명사","뜻":"그녀","예문":["sioma ven: 그녀가 노래한다."]},
+      "timas":{"품사":"대명사","뜻":"그들","예문":["timas ran: 그들이 온다."]},
+      "mima":{"품사":"대명사","뜻":"나","복수형":"wimas (우리)","예문":["mima sol: 나는 먹는다."]},
+      "yuma":{"품사":"대명사","뜻":"너","예문":["yuma tal: 너는 달린다."]},
+      "wimas":{"품사":"대명사","뜻":"우리","예문":["wimas plu: 우리는 간다."]}
     };
+
+    let DICT = null;
 
     // DOM
     const qEl = document.getElementById('q');
@@ -128,12 +93,7 @@
     const fileInput = document.getElementById('fileInput');
 
     function normalize(s){return String(s||'').toLowerCase();}
-
-    function detectMode(input){
-      if(modeEl.value !== 'auto') return modeEl.value;
-      // 한글이 들어있으면 k2c, 아니면 c2k
-      return /[\u3131-\u318e\uac00-\ud7a3]/.test(input) ? 'k2c' : 'c2k';
-    }
+    function detectMode(input){ if(modeEl.value !== 'auto') return modeEl.value; return /[\\u3131-\\u318e\\uac00-\\ud7a3]/.test(input) ? 'k2c' : 'c2k'; }
 
     function search(query){
       const q = query.trim();
@@ -141,20 +101,17 @@
       const mode = detectMode(q);
       const out = [];
       if(mode === 'c2k'){
-        // conlang -> 한국어: 키로 바로 찾고, 부분일치 검색
         const keys = Object.keys(DICT);
         const qn = normalize(q);
-        // 정확매치 우선
         if(DICT[qn]) out.push({key: qn, val: DICT[qn]});
         for(const k of keys){ if(k.includes(qn) && !out.find(x=>x.key===k)) out.push({key:k, val: DICT[k]}); }
       } else {
-        // Korean -> conlang: 뜻, 예문, 품사 등에서 부분일치
         const qn = normalize(q);
         for(const [k,v] of Object.entries(DICT)){
           const fields = [];
           if(v['뜻']) fields.push(v['뜻']);
           if(v['품사']) fields.push(v['품사']);
-          if(v['예문']) fields.push(v['예문'].join('\n'));
+          if(v['예문']) fields.push(v['예문'].join('\\n'));
           if(v['복수형']) fields.push(v['복수형']);
           const hay = normalize(fields.join(' '));
           if(hay.includes(qn) || k.includes(qn)) out.push({key:k, val:v});
@@ -163,7 +120,7 @@
       return out;
     }
 
-    function render(results, query){
+    function render(results){
       resultsEl.innerHTML = '';
       if(results.length===0){
         resultsEl.innerHTML = '<div class="entry small">결과 없음 — 입력을 바꿔보거나 JSON 파일을 업로드해보세요.</div>';
@@ -187,7 +144,7 @@
         }
         const act = document.createElement('div'); act.className='actions';
         const copyBtn = document.createElement('button'); copyBtn.textContent='예문 복사';
-        copyBtn.onclick = ()=>{ navigator.clipboard.writeText( (v['예문']||[]).join('\n') ).then(()=>{ copyBtn.textContent='복사됨!'; setTimeout(()=>copyBtn.textContent='예문 복사',900); }) }
+        copyBtn.onclick = ()=>{ navigator.clipboard.writeText( (v['예문']||[]).join('\\n') ).then(()=>{ copyBtn.textContent='복사됨!'; setTimeout(()=>copyBtn.textContent='예문 복사',900); }) }
         const detailsBtn = document.createElement('button'); detailsBtn.textContent='JSON 보기';
         detailsBtn.onclick = ()=>{ alert(JSON.stringify({[r.key]:v}, null, 2)); }
         act.appendChild(copyBtn); act.appendChild(detailsBtn);
@@ -198,7 +155,7 @@
 
     function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
-    btn.addEventListener('click', ()=>{ const q = qEl.value; const res = search(q); render(res,q); });
+    btn.addEventListener('click', ()=>{ const q = qEl.value; const res = search(q); render(res); });
     qEl.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ btn.click(); } });
 
     // 파일 업로드로 DICT 교체
@@ -209,7 +166,6 @@
       reader.onload = (e)=>{
         try{
           const data = JSON.parse(e.target.result);
-          // 간단한 validation
           if(typeof data !== 'object') throw new Error('올바른 JSON 오브젝트가 아닙니다.');
           DICT = data;
           statusEl.textContent = `로컬 파일로 로드됨: ${f.name} (항목 ${Object.keys(DICT).length}개)`;
@@ -221,10 +177,34 @@
       reader.readAsText(f,'utf-8');
     });
 
-    // 페이지 로드 시 초깃값 검색 예시
-    document.addEventListener('DOMContentLoaded', ()=>{
-      render([{key:'golo', val:DICT['golo']}]);
-    });
+    // 자동 로드: 같은 폴더의 yuchan_dict_re.json 먼저 시도, 실패하면 raw.githubusercontent URL 시도, 둘다 실패하면 FALLBACK 사용
+    (async function init(){
+      const localPath = 'yuchan_dict_re.json';
+      statusEl.textContent = '로컬 JSON 로드 시도 중...';
+      try{
+        const resp = await fetch(localPath, {cache:'no-cache'});
+        if(!resp.ok) throw new Error('로컬 파일 응답 오류: '+resp.status);
+        const data = await resp.json();
+        DICT = data;
+        statusEl.textContent = `로컬 JSON 로드됨 — ${localPath} (항목 ${Object.keys(DICT).length}개)`;
+      }catch(err){
+        // raw.githubusercontent 대안 예시: 사용자가 repo를 raw로 서빙할 경우 이 URL을 사용 가능 (아래는 예시; 실제 URL은 사용자 수정 필요)
+        const rawExample = 'https://raw.githubusercontent.com/<username>/<repo>/main/yuchan_dict_re.json';
+        statusEl.textContent = '로컬 JSON 없음 — raw.githubusercontent로 시도 중...';
+        try{
+          const resp2 = await fetch(rawExample, {cache:'no-cache'});
+          if(!resp2.ok) throw new Error('raw 요청 실패');
+          const data2 = await resp2.json();
+          DICT = data2;
+          statusEl.textContent = `raw.githubusercontent에서 JSON 로드됨 (항목 ${Object.keys(DICT).length}개)`;
+        }catch(err2){
+          DICT = FALLBACK;
+          statusEl.textContent = '폴백 데이터 사용 중 (내장 샘플)';
+        }
+      }
+      // 초깃값 렌더
+      render([{key:Object.keys(DICT)[0], val:DICT[Object.keys(DICT)[0]]}]);
+    })();
   </script>
 </body>
 </html>
