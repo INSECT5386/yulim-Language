@@ -181,7 +181,6 @@ class CrossBlock(layers.Layer):
         super().__init__(**kwargs)
         self.dim = dim
         self.dense1 = layers.Dense(dim) # 최종 projection
-        self.dense2 = layers.Dense(dim, activation='silu') # Context gate projection
         self.norm1 = layers.LayerNormalization()
         self.norm2 = layers.LayerNormalization()
         self.dropout = layers.Dropout(dropout_rate)
@@ -199,14 +198,8 @@ class CrossBlock(layers.Layer):
 
         # ===== Reverse Block (GLU Style) =====
         A2 = self.dense1(z_repeated)  # Context gate: [B, T, D]
-
         z_th = tf.nn.sigmoid(x * A2) * A2
-
-        z_th = self.norm1(z_th)
-        x = z_th # x는 이제 컨텍스트와 융합된 시퀀스 [B, T, D]
-        
-        x = self.dense2(x) # [B, T, D] -> [B, T, D]
-        x = self.norm2(x)
+        x = self.norm1(z_th)
         return x
 
 d_model = 256
