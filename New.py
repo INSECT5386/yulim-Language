@@ -155,18 +155,23 @@ styleExplanation = styles["Normal"]
 styleExplanation.fontName = KOREAN_FONT
 styleExplanation.fontSize = 9
 styleExplanation.alignment = TA_CENTER
-styleExplanation.leading = 12
+styleExplanation.leading = 10 # 줄 간격을 좁혀 한 페이지에 더 잘 맞도록 조정
 
 # --- 제목 및 설명 텍스트 준비 ---
 total_words = len(sorted_data)
 title_text = "YuLimo (유리모) 단어장"
+
+# ⭐⭐ 압축된 설명 텍스트 적용 (페이지 넘김 방지) ⭐⭐
 explanation_text = (
     f"--- 조합식 ---<br/>"
-    f"fo' + 동사= 미래형. pa' + 동사= 과거형. 동사 + utu= 피동형. 동사 + io= 명사형. 동사 + a= 형용사형. 동사 + ia= 부사형. 동사 + nus= 진행형. 동사 + pus= 완료. 동사 + wen/hen/cen= ~하고싶고/ ~해야하고/ ~할 수 있고. 형용사 + vus= ~해지다/된 상태가 되다. 명사 + us= 동사(조건부 가능, 예) hato(행복) + us = hatus(행복하다), 명사 + vus= ~해지다/된 상태가 되다.(조건부 가능, 예) hato(행복) + vus= hatovus(행복해지다)"
+    f"&lt;시제&gt; fo'(미래), pa'(과거) | -nus(진행), -pus(완료)<br/>"
+    f"&lt;파생&gt; 동사+-utu(피동), -io(명사), -a(형용사), -ia(부사)<br/>"
+    f"&lt;기타&gt; 동사+-wen/hen/cen(의도/의무/가능) | 명사/형용사+-vus(~해지다)<br/>"
+    f"<br/>"
     f"--- 데이터 요약 ---<br/>"
-    f"총 {total_words}개의 단어가 포함됨."
-    f"품사별로 묶은 후 뜻의 초성 순으로 정렬됨"
+    f"총 {total_words}개 단어. [품사] → [뜻의 가나다순] 정렬."
 )
+# ⭐⭐⭐⭐
 
 # Flowables 리스트 (문서에 들어갈 요소들)
 flowables = []
