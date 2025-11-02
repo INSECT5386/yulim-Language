@@ -8,7 +8,7 @@ import sentencepiece as spm
 import numpy as np
 import tensorflow as tf
 from tensorflow.keras import layers, Model, Input
-
+import requests
 # -----------------------------
 # 설정
 # -----------------------------
@@ -25,6 +25,18 @@ AUTOTUNE = tf.data.AUTOTUNE
 random.seed(SEED)
 np.random.seed(SEED)
 tf.random.set_seed(SEED)
+
+def download_file(url, save_path):
+    response = requests.get(url, stream=True)
+    response.raise_for_status()
+    with open(save_path, 'wb') as f:
+        for chunk in response.iter_content(chunk_size=8192):
+            f.write(chunk)
+    print(f"✅ 파일 저장됨: {save_path}")
+
+# ⬇️ 데이터와 토크나이저 다운로드
+download_file('https://huggingface.co/datasets/Yuchan5386/TinyInst/resolve/refs%2Fconvert%2Fparquet/default/partial-train/0000.parquet?download=true', DATA_PATH)
+download_file('https://huggingface.co/datasets/Yuchan5386/TinyInst/resolve/main/ko_unigram.model?download=true', SP_MODEL)
 
 # -----------------------------
 # JSONL -> (human,gpt) pair 추출
