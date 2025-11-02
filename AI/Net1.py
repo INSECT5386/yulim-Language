@@ -35,7 +35,7 @@ def download_file(url, save_path):
     print(f"✅ 파일 저장됨: {save_path}")
 
 # ⬇️ 데이터와 토크나이저 다운로드
-download_file('https://huggingface.co/datasets/Yuchan5386/TinyInst/resolve/refs%2Fconvert%2Fparquet/default/partial-train/0000.parquet?download=true', DATA_PATH)
+download_file('https://huggingface.co/datasets/Yuchan5386/TinyInst/resolve/main/output.jsonl?download=true', DATA_PATH)
 download_file('https://huggingface.co/datasets/Yuchan5386/TinyInst/resolve/main/ko_unigram.model?download=true', SP_MODEL)
 
 # -----------------------------
