@@ -20,7 +20,7 @@ def download_file(url, save_path):
     print(f"✅ 파일 저장됨: {save_path}")
 
 # ⬇️ 데이터와 토크나이저 다운로드
-download_file('https://huggingface.co/datasets/Yuchan5386/SFT/resolve/refs%2Fconvert%2Fparquet/default/partial-train/0000.parquet?download=true', 'dataset.parquet')
+download_file('https://huggingface.co/datasets/Yuchan5386/TinyInst/resolve/refs%2Fconvert%2Fparquet/default/train/0000.parquet?download=true', 'dataset.parquet')
 download_file('https://huggingface.co/datasets/Yuchan5386/TinyInst/resolve/main/ko_unigram.model?download=true', 'ko_unigram.model')
 
 # ⬇️ Parquet 데이터 불러오기  
@@ -55,9 +55,9 @@ vocab_size = sp.get_piece_size()
 print(f"✅ Vocabulary size: {vocab_size}")
 
 # ⬇️ 전처리 하이퍼파라미터
-max_enc_len = 128 # 인코더 최대 길이 (질문 부분)
-max_dec_len = 128 # 디코더 최대 길이 (답변 부분)
-batch_size = 64
+max_enc_len = 100 # 인코더 최대 길이 (질문 부분)
+max_dec_len = 100 # 디코더 최대 길이 (답변 부분)
+batch_size = 128
 
 # ⬇️ 전처리 결과 저장할 리스트
 encoder_inputs = []
