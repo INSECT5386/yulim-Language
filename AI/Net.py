@@ -59,7 +59,7 @@ def ids_to_text(ids):
 
 # ⬇️ 전처리 하이퍼파라미터
 max_len = 100
-batch_size = 80
+batch_size = 128
 
 # ⬇️ 인풋과 타겟 마스킹 포함된 전처리
 encoded_inputs = []
