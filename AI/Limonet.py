@@ -159,7 +159,7 @@ class Block(layers.Layer):
         x = self.norm(x)
         x = self.conv(x)
         x = self.gap(x)
-        x = self.W(x)
+        x = self.W(x) * x
         x = self.norm1(x)
         return x
 
