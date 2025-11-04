@@ -137,7 +137,7 @@ class Lo(layers.Layer):
         # cast back to model dtype for consistency
         return tf.cast(x, self._out_dtype)
 
-class SwiRUCell(tf.keras.layers.Layer):
+class SwiRUCell(keras.layers.Layer):
     def __init__(self, units, **kwargs):
         self.units = units
         super(SwiRUCell, self).__init__(**kwargs)
@@ -145,7 +145,7 @@ class SwiRUCell(tf.keras.layers.Layer):
     def build(self, input_shape):
         input_dim = input_shape[-1]
 
-        # 가중치: 입력 → 은닉 (W_ih), 은닉 → 은닉 (W_hh), 편향 (b_h)
+        # 🔸 기본 가중치: 입력 → 게이트
         self.W_ih = self.add_weight(
             shape=(input_dim, self.units),
             initializer='glorot_uniform',
@@ -158,16 +158,31 @@ class SwiRUCell(tf.keras.layers.Layer):
             name='b_h',
             trainable=True
         )
-        self.W1 = layers.Dense(units, activation='silu')
-        self.W2 = layers.Dense(units)
-        self.ln = layers.LayerNormalization(epsilon=1e-5, dtype="float32")
+
+        # 🔸 Dense 레이어는 __init__에서 생성해야 하지만, build 시점에 input_dim 알 수 있으므로 여기서 생성 가능
+        # 그러나 Keras 호환성을 위해 __init__에서 생성하는 것이 더 안전 → 이를 위해 get_config도 구현 필요
+        # 간단히 하기 위해 여기서 생성하되, build 호출 보장 전제
+        self.W1 = layers.Dense(self.units, activation='silu', name='W1')
+        self.W2 = layers.Dense(self.units, name='W2')  # no activation
+        self.ln = layers.LayerNormalization(epsilon=1e-5, dtype="float32", name='ln')
+
+        # 🔸 서브 레이어의 가중치를 build
+        self.W1.build(input_shape)
+        self.W2.build(input_shape)
+        self.ln.build((None, self.units))
+
         self.built = True
 
     def call(self, inputs, states):
         h_prev = states[0]
+        # 게이트 f ∈ [0,1]
         f = tf.sigmoid(tf.matmul(inputs, self.W_ih) + self.b_h)
+        # SwiGLU 스타일: Swish(x) ⊙ x
         x = self.W1(inputs) * self.W2(inputs)
-        h = self.ln(f * h_prev + (1-f) * x) + h_prev   
+        # RRU 스타일 업데이트 + LayerNorm + residual
+        h_raw = f * h_prev + (1.0 - f) * x
+        h_norm = self.ln(h_raw)
+        h = h_norm + h_prev  # residual connection
         return h, [h]
 
     @property
@@ -177,6 +192,11 @@ class SwiRUCell(tf.keras.layers.Layer):
     @property
     def output_size(self):
         return self.units
+
+    def get_config(self):
+        config = super().get_config()
+        config.update({"units": self.units})
+        return config
 
 class Block(layers.Layer):
     def __init__(self, d_model, r, hyper_n, num_heads, num_groups):
