@@ -198,33 +198,31 @@ class SwiRUCell(keras.layers.Layer):
         config.update({"units": self.units})
         return config
 
-class Block(layers.Layer):
-    def __init__(self, d_model, r, hyper_n, num_heads, num_groups):
-        super().__init__()
-        self.losou = [LoSoU(d_model) for _ in range(hyper_n)]
-
-    def call(self, x):
-        for losou in self.losou:
-            x = losou(x)
-        return x
-
 class Respiso(tf.keras.Model):
     def __init__(self, vocab_size, max_seq_len, d_model, n_layers, dropout_rate=0.1):
         super().__init__()
         self.token_embedding = layers.Embedding(vocab_size, d_model)
-        self.pos_embedding = layers.Embedding(max_seq_len, d_model)
-        self.blocks = [Block(d_model, r=204, hyper_n=3, num_heads=8, num_groups=2) for _ in range(n_layers)]
-
+        self.rnn_cell = SwiRUCell(units=d_model)
+        self.rnn_layer = tf.keras.layers.RNN(
+            self.rnn_cell,
+            return_sequences=True,
+            return_state=False
+        )
+        self.initial_state_trainable = self.add_weight(
+            shape=(1, rnn_units),
+            initializer='zeros',
+            trainable=True,
+            name='initial_hidden_state'
+        )
         # LayerNormalization은 float32로 해서 정밀도 문제 방지
         self.ln_f = layers.LayerNormalization(epsilon=1e-5, dtype="float32")
 
     def call(self, x, training=False):
-        batch_size, seq_len = tf.shape(x)[0], tf.shape(x)[1]
-        positions = tf.range(seq_len)[tf.newaxis, :]
-
-        x = self.token_embedding(x) + self.pos_embedding(positions)
-        for block in self.blocks:
-            x = block(x)
+        batch_size = tf.shape(x)[0]
+        x = self.token_embedding(x)
+        # 배치 크기만큼 initial_state 복제
+        initial_state = tf.tile(self.initial_state_trainable, [batch_size, 1])
+        x = self.rnn_layer(x, initial_state=initial_state)
 
         x = self.ln_f(x)
 
@@ -253,7 +251,6 @@ def create_lr_schedule(initial_lr=5e-5, decay_steps=10000, decay_rate=0.9):
         decay_rate=decay_rate,
         staircase=False
     )
-
 
 # 모델 생성
 model = Respiso(
