@@ -152,23 +152,22 @@ class SwiRUCell(tf.keras.layers.Layer):
             name='W_ih',
             trainable=True
         )
-        self.W_hh = self.add_weight(
-            shape=(self.units, self.units),
-            initializer='orthogonal',  # RNN에서는 orthogonal 초기화가 좋음
-            name='W_hh',
-            trainable=True
-        )
         self.b_h = self.add_weight(
             shape=(self.units,),
             initializer='zeros',
             name='b_h',
             trainable=True
         )
+        self.W1 = layers.Dense(units, activation='silu')
+        self.W2 = layers.Dense(units)
+        self.ln = layers.LayerNormalization(epsilon=1e-5, dtype="float32")
         self.built = True
 
     def call(self, inputs, states):
         h_prev = states[0]
-        h = tf.matmul(inputs, w_ih)
+        f = tf.sigmoid(tf.matmul(inputs, self.W_ih) + self.b_h)
+        x = self.W1(inputs) * self.W2(inputs)
+        h = self.ln(f * h_prev + (1-f) * x) + h_prev   
         return h, [h]
 
     @property
