@@ -178,9 +178,9 @@ class D(layers.Layer):
         self.attn = tf.keras.layers.Attention()
         self.norm1 = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
         self.norm2 = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
-    def call(self, x, z):
+    def call(self, x):
         x = self.norm1(x)
-        x = self.attn([x, x, z], use_causal_mask=True)
+        x = self.attn([x, x], use_causal_mask=True)
         return self.norm2(x)
       
 # ===== 3. 교차 융합 Block (수정) =====
@@ -225,8 +225,7 @@ context_vector = Block(d_model)(x_pos) # [B, D]
 decoder_input = Input(shape=(max_dec_len,), name='decoder_input')
 y_emb = layers.Embedding(input_dim=vocab_size, output_dim=d_model)(decoder_input)
 y_pos = LearnablePositionalEmbedding(max_dec_len, d_model)(y_emb) # [B, T_dec, D]
-z = Adapter(d_model)(y_pos)
-y_pos = D(d_model)(y_pos, z)
+y_pos = D(d_model)(y_pos)
 
 # 수정: decoder_output = Block(d_model)(y_pos, training=True) 부분을 제거하고, 
 # 시퀀스 텐서 y_pos를 CrossBlock의 입력으로 직접 사용합니다.
