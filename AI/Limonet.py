@@ -175,12 +175,17 @@ class D(layers.Layer):
     def __init__(self, d_model, clip_value=5.0, eps=1e-6):
         super().__init__()
         self.d_model = d_model
-        self.attn = tf.keras.layers.Attention()
+        self.conv = layers.Conv1D(
+    filters=d_model,          # 출력 채널 수
+    kernel_size=3,       # 필터(커널) 크기
+    padding='causal',    # ⭐ 인과적 컨볼루션을 위한 설정
+    activation='relu'
+                )
         self.norm1 = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
         self.norm2 = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
     def call(self, x):
         x = self.norm1(x)
-        x = self.attn([x, x], use_causal_mask=True)
+        x = self.conv(x)
         return self.norm2(x)
       
 # ===== 3. 교차 융합 Block (수정) =====
