@@ -230,13 +230,13 @@ context_vector = Block(d_model)(x_pos) # [B, D]
 decoder_input = Input(shape=(max_dec_len,), name='decoder_input')
 y_emb = layers.Embedding(input_dim=vocab_size, output_dim=d_model)(decoder_input)
 y_pos = LearnablePositionalEmbedding(max_dec_len, d_model)(y_emb) # [B, T_dec, D]
-y_pos = D(d_model)(y_pos)
+y_pos = CrossBlock(d_model)(y_pos, context_vector)
+
+output = D(d_model)(y_pos)
 
 # 수정: decoder_output = Block(d_model)(y_pos, training=True) 부분을 제거하고, 
 # 시퀀스 텐서 y_pos를 CrossBlock의 입력으로 직접 사용합니다.
 # CrossBlock(y_pos, context_vector) -> [B, T_dec, D/2]
-output = CrossBlock(d_model)(y_pos, context_vector)
-
 # 최종 출력: [B, T_dec, D/2] -> [B, T_dec, Vocab]
 logits = layers.Dense(vocab_size)(output)
 
