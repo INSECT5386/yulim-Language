@@ -151,25 +151,14 @@ class Block(layers.Layer):
     activation='relu'
         )
         self.gap = layers.GlobalAveragePooling1D()
-        self.W = layers.Dense(d_model, activation='silu')
-
         self.norm = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
         self.norm1 = layers.LayerNormalization(epsilon=1e-5, dtype='float32')
     def call(self, x):
         x = self.norm(x)
         x = self.conv(x)
         x = self.gap(x)
-        x = self.W(x) * x
         x = self.norm1(x)
         return x
-
-class Adapter(layers.Layer):
-    def __init__(self, d_model, clip_value=5.0, eps=1e-6):
-        super().__init__()
-        self.d_model = d_model
-        self.W = layers.Dense(d_model)
-    def call(self, x):
-        x = tf.nn.silu(self.W(x)) * x
 
 class D(layers.Layer):
     def __init__(self, d_model, clip_value=5.0, eps=1e-6):
