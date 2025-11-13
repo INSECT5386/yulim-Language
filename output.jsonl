@@ -1,14 +1,12 @@
-{"k":"안녕하세요?","y":"Hello."}
-{"k":"네, 안녕하세요?","y":"Hello."}
-{"k":"저는 유양이에요.","y":"I'm Yooyang."}
-{"k":"저는 김우빈이에요.","y":"I'm Kim, Woobin."}
-{"k":"유양 씨는 중국 사람이에요?","y":"Ms. Yooyang, are you Chinese?"}
-{"k":"네, 저는 중국 사람이에요.","y":"Yes, I am Chinese."}
-{"k":"학생이에요?","y":"Are you a student?"}
-{"k":"네, 학생이에요.","y":"Yes, I am a student."}
-{"k":"우빈 씨는 학생이에요?","y":"Mr. Woobin, are you a student?"}
-{"k":"아니요, 저는 학생이 아니에요.","y":"No, I'm not a student."}
-{"k":"그럼 회사원이에요?","y":"Then, are you an office worker?"}
+{"k":"안녕하세요?","y":"kolaun?"}
+{"k":"네, 안녕하세요?","y":"lon, kolaun."}
+{"k":"저는 유양이에요.","y":"muk'e Yooyang lus."}
+{"k":"저는 김우빈이에요.","y":"muk'e Kim Woobin lus."}
+{"k":"학생이에요?","y":"yuk'e leuk?"}
+{"k":"네, 학생이에요.","y":"lon, muk'e leuk lus."}
+{"k":"우빈 씨는 학생이에요?","y":"Woobin, yuk'e leuk lus?"}
+{"k":"저는 학생이 아니에요.","y":"muk'e leuk'a lus'n"}
+{"k":"그럼 회사원이에요?","y":"yuk'e are you an office lus?"}
 {"k":"네, 회사원이에요.","y":"Yes, I'm an office worker."}
 {"k":"저 사람은 누구예요?","y":"Who is that person?"}
 {"k":"저 사람은 흐엉 씨예요.","y":"That person is Ms. Huong."}
