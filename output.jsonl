@@ -6,16 +6,13 @@
 {"k":"네, 학생이에요.","y":"lon, muk'e leuk lus."}
 {"k":"우빈 씨는 학생이에요?","y":"Woobin, yuk'e leuk lus?"}
 {"k":"저는 학생이 아니에요.","y":"muk'e leuk'a lus'n"}
-{"k":"그럼 회사원이에요?","y":"yuk'e are you an office lus?"}
-{"k":"네, 회사원이에요.","y":"Yes, I'm an office worker."}
-{"k":"저 사람은 누구예요?","y":"Who is that person?"}
-{"k":"저 사람은 흐엉 씨예요.","y":"That person is Ms. Huong."}
-{"k":"베트남 사람이에요?","y":"Is she Vietnamese?"}
-{"k":"네, 베트남 사람이에요.","y":"Yes, she is Vietnamese."}
-{"k":"다니엘 씨는 누구예요?","y":"Who is Mr. Daniel?"}
-{"k":"다니엘 씨는 스티브 씨의 남동생이에요.","y":"Mr. Daniel is Steve's younger brother."}
-{"k":"다니엘 씨는 우빈 씨의 친구예요?","y":"Mr. Woobin, is Mr. Daniel your friend?"}
-{"k":"네, 다니엘 씨는 제 친구예요.","y":"Yes, Mr. Daniel is my friend."}
+{"k":"그럼 회사원이에요?","y":"yuk'e welalkuk lus?"}
+{"k":"네, 회사원이에요.","y":"lon, muk'e welalkuk lus."}
+{"k":"저 사람은 누구예요?","y":"taoj ma'e whima lus?"}
+{"k":"저 사람은 흐엉 씨예요.","y":"taoj ma'e Huong."}
+{"k":"다니엘 씨는 누구예요?","y":"Daniel'e whima lus?"}
+{"k":"다니엘 씨는 우빈 씨의 친구예요?","y":"Woobin'e Mr. Daniel'va finuk lus?"}
+{"k":"네, 다니엘 씨는 제 친구예요.","y":"lon, Daniel'e muk'va finuk."}
 {"k":"스티브 씨는 회사원이에요?","y":"Is Mr. Steve an office worker?"}
 {"k":"아니요, 회사원이 아니에요. 의사예요.","y":"No, he isn't an office worker. He is a doctor."}
 {"k":"그럼 누가 회사원이에요?","y":"Then, who is an office worker?"}
